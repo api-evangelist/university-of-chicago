@@ -1,0 +1,54 @@
+---
+name: University of Chicago
+description: University of Chicago public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-chicago/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      Verified live: the University of Chicago Center for Translational Data
+      Science maintains the open-source Gen3 data platform (uc-cdis), which
+      auto-generates FAIR APIs and has public docs that resolve 200; the
+      official uchicago GitHub org publishes Shibboleth/OIDC identity
+      integrations (200); and the Library exposes IIIF endpoints (200) with
+      public code in uchicago-library. No central, self-service public developer
+      portal was found. The AI API developer portal (ai-api-portal-dev.uchicago.edu)
+      is gated/faculty-staff only and did not resolve externally (cert mismatch /
+      no response). No endpoints were fabricated; only confirmed, resolving URLs
+      are listed.
+    endpoints:
+      - url: https://uc-cdis.github.io/gen3-user-doc/
+        status: 200
+        note: Gen3 user docs (CTDS) live.
+      - url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+        status: 200
+        note: Gen3 API documentation page live.
+      - url: https://github.com/uc-cdis
+        status: 200
+        note: Center for Translational Data Science GitHub org (Gen3, Apache 2.0).
+      - url: https://github.com/uchicago
+        status: 200
+        note: Official UChicago GitHub org; Shibboleth/OIDC identity repos.
+      - url: https://github.com/uchicago-library
+        status: 200
+        note: Library GitHub org; IIIF and VuFind code.
+      - url: https://github.com/uchicago-library/iiif
+        status: 200
+        note: Library IIIF repository.
+      - url: https://iiif-manifest.lib.uchicago.edu/
+        status: 200
+        note: Library IIIF manifest host responds.
+      - url: https://catalog.lib.uchicago.edu/vufind/
+        status: 200
+        note: VuFind library catalog discovery interface.
+      - url: https://www.lib.uchicago.edu/
+        status: 200
+        note: Library website live.
+      - url: https://www.uchicago.edu/
+        status: 403
+        note: Official site reachable but blocks unauthenticated bot HEAD/GET (403).
+      - url: https://ai-api-portal-dev.uchicago.edu/
+        status: 0
+        note: Gated AI API portal; cert mismatch / no external response.

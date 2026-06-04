@@ -1,0 +1,101 @@
+---
+aid: university-of-chicago
+name: University of Chicago
+description: >-
+  The University of Chicago is a private research university in Chicago,
+  Illinois, founded in 1890 and ranked #14 in the QS World University Rankings
+  2025. Its public developer and API footprint is anchored in research data
+  infrastructure rather than a single central developer portal: the Center for
+  Translational Data Science (CTDS) maintains the open-source Gen3 data platform
+  (uc-cdis on GitHub), which auto-generates FAIR APIs for accessing biomedical
+  data commons. The University also publishes Shibboleth/OpenID Connect identity
+  integrations for CNetID authentication, and the University of Chicago Library
+  operates IIIF image and presentation endpoints plus a VuFind-based catalog. A
+  faculty/staff-facing AI API portal (Azure OpenAI via API Management) exists but
+  is gated and not publicly accessible.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/university-of-chicago/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research Data
+  - Open Source
+  - IIIF
+  - Identity
+  - United States
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: university-of-chicago:gen3
+    name: Gen3 Data Commons APIs (CTDS)
+    description: >-
+      Open-source data platform maintained by the University of Chicago Center
+      for Translational Data Science. Gen3 auto-generates FAIR APIs (data
+      submission, GraphQL/Peregrine query, indexing/Indexd, Fence auth) for
+      building and accessing biomedical data commons. Code is fully public under
+      Apache 2.0 across the uc-cdis GitHub organization.
+    humanURL: https://uc-cdis.github.io/gen3-user-doc/
+    tags: [ Research Data, Data Commons, FAIR, GraphQL, Open Source, Healthcare ]
+    properties:
+      - type: Documentation
+        url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+      - type: GitHub
+        url: https://github.com/uc-cdis
+  - aid: university-of-chicago:cnetid-oidc
+    name: CNetID OpenID Connect / Shibboleth Identity
+    description: >-
+      University of Chicago identity and authentication integrations published
+      on the official uchicago GitHub organization, including Shibboleth
+      Identity Provider extensions and OpenID Connect (OIDC) examples for
+      authenticating CNetID-backed applications.
+    humanURL: https://github.com/uchicago
+    tags: [ Identity, Authentication, OpenID Connect, Shibboleth, SSO ]
+    properties:
+      - type: Documentation
+        url: https://github.com/uchicago
+      - type: GitHub
+        url: https://github.com/uchicago
+  - aid: university-of-chicago:library-iiif
+    name: University of Chicago Library IIIF
+    description: >-
+      The University of Chicago Library exposes International Image
+      Interoperability Framework (IIIF) image and presentation endpoints for its
+      digital collections, with related code published in the uchicago-library
+      GitHub organization.
+    humanURL: https://github.com/uchicago-library/iiif
+    baseURL: https://iiif-manifest.lib.uchicago.edu/
+    tags: [ IIIF, Library, Digital Collections, Images, Open Source ]
+    properties:
+      - type: Documentation
+        url: https://github.com/uchicago-library/iiif
+      - type: GitHub
+        url: https://github.com/uchicago-library
+common:
+  - type: Website
+    url: https://www.uchicago.edu/
+  - type: GitHub
+    url: https://github.com/uchicago
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/uchicago/
+  - type: Twitter
+    url: https://twitter.com/UChicago
+  - type: SourceCode
+    url: https://github.com/uc-cdis
+  - type: Authentication
+    url: https://github.com/uchicago
+  - type: Plans
+    url: plans/university-of-chicago-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/university-of-chicago-rate-limits.yml
+  - type: FinOps
+    url: finops/university-of-chicago-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
