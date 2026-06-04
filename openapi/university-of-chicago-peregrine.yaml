@@ -1,0 +1,250 @@
+openapi: 3.0.0
+servers:
+  - url: 'https://example.domain/'
+info:
+  title: Peregrine OpenAPI Specification
+  version: 0.1.0
+  description: >-
+    GraphQL search microservice for CDIS Gen 3 data commons. Code is available
+    on [GitHub](https://github.com/uc-cdis/peregrine).
+  termsOfService: 'http://cdis.uchicago.edu/terms/'
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: graphql
+    description: GraphQL Queries
+  - name: core metadata
+  - name: datasets
+  - name: system
+    description: System endpoints
+paths:
+  /datasets:
+    get:
+      tags:
+        - datasets
+      summary: Get counts for nodes for each project
+      parameters:
+        - in: query
+          name: nodes
+          description: comma delimited nodes to get counts for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: node counts for each project
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {project__A: {case: 0, aliquot: 1}, project_B: {case: 2, aliquot: 3}}
+        '401':
+          description: unauthorized request
+        '400':
+          description: invalid request
+  /datasets/projects:
+    get:
+      tags:
+        - datasets
+      summary: Get high level information for all projects
+      responses:
+        '200':
+          description: high level information for all projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+                example: {projects: [{name: project_A, code: A_code, dbgap_accession_number: 123}]}
+        '401':
+          description: unauthorized request
+        '400':
+          description: invalid request
+  /graphql:
+    post:
+      tags:
+        - graphql
+      summary: Perform a GraphQL Query
+      description: >-
+        Perform a graphql query over the data commons given a query, variables,
+        and name.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryOutputRef'
+        '400':
+          description: Invalid input
+        '403':
+          description: Invalid authorization token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryInputInfo'
+        description: The GraphQL query and parameters
+        required: true
+  /{object_id}:
+    get:
+      summary: Get core metadata for an object_id
+      tags:
+      - core metadata
+      parameters:
+      - name: object_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Accept
+        in: header
+        schema:
+          type: string
+          enum:
+          - application/json (default)
+          - x-bibtex
+          - application/vnd.schemaorg.ld+json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                object_id: 123
+                file_name: "my-file.txt"
+                data_format: TXT
+                file_size: 10
+            application/vnd.schemaorg.ld+json:
+              schema:
+                type: object
+              example:
+                '@context': http://schema.org
+                '@type': Dataset
+                '@id': https://dataguids.org/index/123
+                identifier: [{"@type": "PropertyValue", "propertyID": "dataguid", "value": "123"}, {"@type": "PropertyValue", "propertyID": "md5", "value": "bc575394b5565a1d3fa20abe2b132896"}]
+                publisher: {"@type": "Organization", "name": "my-org"}
+                author: {"name": "my-author"}
+                description: my-description
+                additionalType: submitted_aligned_reads
+                name: my-file.txt
+                datePublished: 2019-01-24T19:40:02.537991+00:00
+            x-bibtex:
+              schema:
+                type: string
+              example: '@misc {123, file_name = "my-file.txt", data_format = "TXT", file_size = "10", object_id = "123"}'
+        '401':
+          description: Authentication error
+        '404':
+          description: No core metadata was found for this object_id
+  /getschema:
+    get:
+      tags:
+        - graphql
+      summary: Returns the data dictionary schema json
+      description: >-
+        The data dictionary for the data commons is internally converted from
+        yaml files to json. This endpoint returns the json schema for the
+        dictionary for use in generating queries.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaOutputRef'
+  /_version:
+    get:
+      tags:
+        - system
+      summary: Returns the version of Peregrine
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionOutputRef'
+  /_status:
+    get:
+      tags:
+        - system
+      summary: Returns if Peregrine is healthy or not
+      description: >-
+        Health check endpoint which checks if Peregrine can connect to its
+        backing PostgreSQL datastore or not.
+      responses:
+        '200':
+          description: Healthy
+        default:
+          description: Unhealthy
+components:
+  schemas:
+    Project:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+        dbgap_accession_number:
+          type: string
+        description:
+          type: string
+        image_url:
+          type: string
+    QueryInputInfo:
+      type: object
+      properties:
+        query:
+          type: string
+          description: the text of the GraphQL query
+        variables:
+          type: string
+          description: variables for the GraphQL query
+        operationName:
+          type: string
+          description: the name of the operation
+      example:
+        query: '{ project {project_id} }'
+        operationName: null
+        variables: null
+    QueryOutputRef:
+      type: object
+      properties:
+        data:
+          type: object
+          description: the results of the GraphQL query
+    SchemaOutputRef:
+      type: object
+      properties:
+        data:
+          type: object
+          description: the json schema for the data dictionary
+    VersionOutputRef:
+      type: object
+      properties:
+        commit:
+          type: string
+          description: the current git commit hash for this version
+        version:
+          type: string
+          description: the current git tag version
+        dictionary:
+          type: object
+          description: the version information for the data dictionary
+          properties:
+            commit:
+              type: string
+              description: the current git commit hash for the dictionary
+            version:
+              type: string
+              description: the current git tag version for the dictionary

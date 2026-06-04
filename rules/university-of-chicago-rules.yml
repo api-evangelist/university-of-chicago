@@ -1,0 +1,54 @@
+---
+# Spectral ruleset encoding patterns observed across the University of Chicago
+# Center for Translational Data Science (CTDS) Gen3 microservice OpenAPI specs
+# (Fence, Indexd, Sheepdog, Peregrine) published under the uc-cdis GitHub org.
+formats:
+  - oas3
+rules:
+  uchicago-info-contact-cdis:
+    description: Gen3 service specs declare the CTDS/CDIS contact (cdis@uchicago.edu).
+    message: "info.contact.email should be present (Gen3 specs use cdis@uchicago.edu)."
+    severity: warn
+    given: "$.info.contact"
+    then:
+      field: email
+      function: truthy
+
+  uchicago-license-apache:
+    description: Gen3 services are open source under Apache 2.0.
+    message: "info.license.name should be 'Apache 2.0'."
+    severity: warn
+    given: "$.info.license"
+    then:
+      field: name
+      function: pattern
+      functionOptions:
+        match: "Apache 2.0"
+
+  uchicago-info-title-spec-suffix:
+    description: Gen3 microservice titles follow the '<Service> OpenAPI Specification' pattern.
+    message: "info.title should end with 'OpenAPI Specification'."
+    severity: info
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "OpenAPI Specification$"
+
+  uchicago-operation-has-responses:
+    description: Every operation must define at least one response.
+    message: "Operation is missing a responses object."
+    severity: error
+    given: "$.paths[*][get,put,post,delete,patch]"
+    then:
+      field: responses
+      function: truthy
+
+  uchicago-status-endpoint-present:
+    description: Gen3 microservices expose a /_status health-check endpoint.
+    message: "Gen3 service specs typically expose a /_status endpoint."
+    severity: info
+    given: "$.paths"
+    then:
+      field: "/_status"
+      function: defined

@@ -1,0 +1,81 @@
+---
+vocabulary:
+  name: University of Chicago Gen3 Data Commons Vocabulary
+  description: >-
+    Controlled vocabulary of the core terms used across the University of
+    Chicago Center for Translational Data Science (CTDS) Gen3 data platform
+    APIs (uc-cdis), derived from the Fence, Indexd, Sheepdog and Peregrine
+    OpenAPI specifications.
+  version: '1.0.0'
+  terms:
+    - term: Gen3
+      definition: >-
+        Open-source data platform maintained by the University of Chicago CTDS
+        for building and operating FAIR biomedical data commons.
+      tags: [platform, data-commons, open-source]
+    - term: Data Commons
+      definition: >-
+        A cloud-hosted environment that co-locates data with computing
+        infrastructure and applications, exposing FAIR APIs over the data.
+      tags: [concept, data]
+    - term: Fence
+      definition: >-
+        Gen3 authentication and authorization microservice handling OAuth2/OIDC
+        flows, signed download/upload URLs, and API keys.
+      tags: [service, authentication, oauth2]
+    - term: Indexd
+      definition: >-
+        Gen3 data indexing and tracking service that maps GUIDs to physical
+        file locations and hashes.
+      tags: [service, indexing]
+    - term: Sheepdog
+      definition: >-
+        Gen3 data submission service that validates and ingests graph entities
+        (programs, projects, and node records) against a data dictionary.
+      tags: [service, submission]
+    - term: Peregrine
+      definition: >-
+        Gen3 GraphQL query microservice for searching metadata in a data
+        commons.
+      tags: [service, graphql, query]
+    - term: GUID
+      definition: >-
+        Globally Unique Identifier (a DID) assigned to a data object and
+        resolved by Indexd to one or more storage URLs.
+      tags: [identifier, indexd]
+    - term: DID
+      definition: Digital Identifier for a record tracked in Indexd.
+      tags: [identifier, indexd]
+    - term: baseid
+      definition: >-
+        Stable UUID grouping all versions of a single logical record in Indexd.
+      tags: [identifier, versioning]
+    - term: authz
+      definition: >-
+        Authorization resource paths (e.g. /programs/{p}/projects/{j}) that
+        govern access to an indexed data object via Arborist policies.
+      tags: [authorization, access-control]
+    - term: acl
+      definition: >-
+        Access control list of program/project codes historically used to gate
+        access to a data object.
+      tags: [authorization, access-control]
+    - term: Program
+      definition: >-
+        Top-level administrative node in Sheepdog, identified by name and a
+        dbGaP accession number.
+      tags: [node, submission]
+    - term: Project
+      definition: >-
+        Node under a program in Sheepdog, identified by code and name.
+      tags: [node, submission]
+    - term: API Key
+      definition: >-
+        A JWT issued by Fence representing long-lived credentials that can be
+        exchanged for short-lived access tokens.
+      tags: [credential, fence, jwt]
+    - term: CNetID
+      definition: >-
+        University of Chicago network identity used for Shibboleth/OIDC
+        authentication of institutional applications.
+      tags: [identity, authentication]

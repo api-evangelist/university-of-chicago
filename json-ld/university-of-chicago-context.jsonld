@@ -1,0 +1,49 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "uchicago": "https://www.uchicago.edu/ns/gen3#",
+    "@vocab": "https://www.uchicago.edu/ns/gen3#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "identifier": "schema:identifier",
+    "dateCreated": "schema:dateCreated",
+    "dateModified": "schema:dateModified",
+    "contentSize": "schema:contentSize",
+    "encodingFormat": "schema:encodingFormat",
+
+    "Institution": "schema:CollegeOrUniversity",
+    "Dataset": "schema:Dataset",
+    "DataDownload": "schema:DataDownload",
+
+    "Record": "uchicago:IndexdRecord",
+    "did": "uchicago:did",
+    "baseid": "uchicago:baseid",
+    "rev": "uchicago:rev",
+    "form": "uchicago:form",
+    "size": "schema:contentSize",
+    "file_name": "schema:name",
+    "version": "schema:version",
+    "uploader": "uchicago:uploader",
+    "urls": "schema:contentUrl",
+    "acl": "uchicago:acl",
+    "authz": "uchicago:authz",
+    "hashes": "uchicago:hashes",
+    "md5": "uchicago:md5",
+    "sha256": "uchicago:sha256",
+
+    "Program": "uchicago:Program",
+    "Project": "uchicago:Project",
+    "code": "uchicago:code",
+    "dbgap_accession_number": "uchicago:dbgapAccessionNumber",
+    "investigator_name": "uchicago:investigatorName",
+
+    "ApiKey": "uchicago:ApiKey",
+    "api_key": "uchicago:apiKey",
+    "key_id": "uchicago:keyId"
+  },
+  "@type": "Institution",
+  "name": "University of Chicago",
+  "url": "https://www.uchicago.edu/",
+  "description": "Private research university operating the Gen3 open-source data commons platform via the Center for Translational Data Science (CTDS / uc-cdis)."
+}

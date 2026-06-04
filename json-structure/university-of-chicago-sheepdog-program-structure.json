@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.com/university-of-chicago/json-structure/sheepdog-program-structure.json",
+  "name": "Gen3 Sheepdog Program",
+  "description": "JSON Structure for the Gen3 Sheepdog program node (uc-cdis).",
+  "type": "object",
+  "properties": {
+    "dbgap_accession_number": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "dbgap_accession_number"
+  ]
+}

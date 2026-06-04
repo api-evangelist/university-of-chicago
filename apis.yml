@@ -46,6 +46,18 @@ apis:
         url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
       - type: GitHub
         url: https://github.com/uc-cdis
+      - type: OpenAPI
+        url: openapi/university-of-chicago-fence.yaml
+      - type: OpenAPI
+        url: openapi/university-of-chicago-indexd.yaml
+      - type: OpenAPI
+        url: openapi/university-of-chicago-sheepdog.yaml
+      - type: OpenAPI
+        url: openapi/university-of-chicago-peregrine.yaml
+      - type: Vocabulary
+        url: vocabulary/university-of-chicago-vocabulary.yml
+      - type: x-json-ld
+        url: json-ld/university-of-chicago-context.jsonld
   - aid: university-of-chicago:cnetid-oidc
     name: CNetID OpenID Connect / Shibboleth Identity
     description: >-

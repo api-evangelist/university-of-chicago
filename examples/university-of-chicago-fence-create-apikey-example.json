@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/credentials/api/",
+    "body": {
+      "scope": [
+        "data",
+        "user"
+      ]
+    }
+  },
+  "response": {
+    "key_id": "00000000-0000-0000-0000-000000000004",
+    "api_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.<payload>.<signature>"
+  }
+}

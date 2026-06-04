@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/university-of-chicago/json-schema/sheepdog-project-schema.json",
+  "title": "Gen3 Sheepdog Project",
+  "description": "A project node under a program in the Gen3 Sheepdog data submission service (uc-cdis).",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "dbgap_accession_number": {
+      "type": "string"
+    },
+    "investigator_name": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "code"
+  ],
+  "type": "object"
+}

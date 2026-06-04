@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/index/{GUID}"
+  },
+  "response": {
+    "did": "dg.4503/00000000-0000-0000-0000-000000000001",
+    "baseid": "00000000-0000-0000-0000-000000000002",
+    "rev": "abcd1234",
+    "form": "object",
+    "size": 1024,
+    "file_name": "sample.bam",
+    "version": "1",
+    "uploader": "cnetid_user",
+    "urls": [
+      "s3://example-commons-bucket/sample.bam"
+    ],
+    "acl": [
+      "program1",
+      "project1"
+    ],
+    "authz": [
+      "/programs/program1/projects/project1"
+    ],
+    "hashes": {
+      "md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "created_date": "2026-06-03T00:00:00Z",
+    "updated_date": "2026-06-03T00:00:00Z"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "PUT",
+    "path": "/{program}/",
+    "body": {
+      "type": "program",
+      "name": "cancer-research",
+      "dbgap_accession_number": "phs000000"
+    }
+  },
+  "response": {
+    "code": 200,
+    "entities": [
+      {
+        "type": "program",
+        "id": "00000000-0000-0000-0000-000000000003",
+        "action": "create"
+      }
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/university-of-chicago/json-schema/indexd-record-schema.json",
+  "title": "Gen3 Indexd Record",
+  "description": "A data object record tracked by the Gen3 Indexd indexing service (uc-cdis), derived from the Indexd OpenAPI OutputInfo object.",
+  "type": "object",
+  "properties": {
+    "did": {
+      "type": "string",
+      "pattern": "^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+    },
+    "baseid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+    },
+    "rev": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}$"
+    },
+    "form": {
+      "type": "string",
+      "description": "how the entry was submitted to storage",
+      "enum": [
+        "object",
+        "container",
+        "multipart"
+      ]
+    },
+    "size": {
+      "type": "integer",
+      "format": "int64",
+      "description": "size in bytes"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "uploader": {
+      "type": "string"
+    },
+    "urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acl": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authz": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "properties": {
+        "md5": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sha512": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{128}$"
+        },
+        "crc": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}$"
+        },
+        "etag": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}(-\\d+)?$"
+        }
+      }
+    },
+    "updated_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "last updated time"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "time created"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "user defined optional metadata"
+    },
+    "urls_metadata": {
+      "type": "object",
+      "description": "url level optional metadata"
+    }
+  }
+}
