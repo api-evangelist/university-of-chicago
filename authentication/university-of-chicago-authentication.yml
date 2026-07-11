@@ -1,0 +1,33 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/university-of-chicago-fence.yaml, openapi/university-of-chicago-indexd.yaml
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /oauth/authorize
+    tokenUrl: /oauth/token
+    scopes: 1
+  sources:
+  - openapi/university-of-chicago-fence.yaml
+- name: basic_auth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/university-of-chicago-indexd.yaml
+- name: authToken
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/university-of-chicago-indexd.yaml
