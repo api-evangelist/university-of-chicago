@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/university-of-chicago-fence.yaml
+schemes:
+- name: OAuth2
+  source: openapi/university-of-chicago-fence.yaml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /oauth/authorize
+    tokenUrl: /oauth/token
+scopes:
+- scope: admin
+  sources:
+  - openapi/university-of-chicago-fence.yaml
+- scope: data
+  sources:
+  - openapi/university-of-chicago-fence.yaml
+- scope: user
+  description: generic user access
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/university-of-chicago-fence.yaml
