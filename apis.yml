@@ -89,6 +89,8 @@ apis:
   - type: GitHub
     url: https://github.com/uchicago-library
 common:
+- type: AgenticAccess
+  url: agentic-access/university-of-chicago-agentic-access.yml
 - type: DomainSecurity
   url: security/university-of-chicago-domain-security.yml
 - type: Authentication
