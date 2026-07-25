@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user program API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: program
+paths:
+  /v0/submission/:
+    get:
+      description: Return the available resources at the top level above programs i.e. registered programs.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_links'
+        '403':
+          description: Unauthorized request.
+      summary: Get the programs
+      tags:
+      - program
+    patch:
+      description: Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users.
+      responses:
+        '200':
+          description: Registered successfully.
+        '403':
+          description: Unauthorized request.
+      summary: Create a program
+      tags:
+      - program
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_program'
+        description: input body
+    post:
+      description: Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users.
+      responses:
+        '200':
+          description: Registered successfully.
+        '403':
+          description: Unauthorized request.
+      summary: Create a program
+      tags:
+      - program
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_program'
+        description: input body
+    put:
+      description: Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users.
+      responses:
+        '200':
+          description: Registered successfully.
+        '403':
+          description: Unauthorized request.
+      summary: Create a program
+      tags:
+      - program
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_program'
+        description: input body
+  /v0/submission/<program>:
+    delete:
+      description: Delete a program given program name. If the program is not empty raise an appropriate exception
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success.
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Program not found.
+      summary: Delete a program
+      tags:
+      - program
+components:
+  schemas:
+    schema_program:
+      properties:
+        dbgap_accession_number:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      required:
+      - name
+      - dbgap_accession_number
+      type: object
+    schema_links:
+      properties:
+        links:
+          items:
+            type: string
+          type: array
+      required:
+      - links
+      type: object
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

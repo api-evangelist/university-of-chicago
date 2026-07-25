@@ -1,0 +1,986 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user index API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: index
+  description: Associate a file (object) with a unique id, and store some basic metadata.
+  externalDocs:
+    description: Find out more
+    url: https://github.com/uc-cdis/indexd
+paths:
+  /index:
+    post:
+      tags:
+      - index
+      summary: Add a new entry to the index
+      description: ''
+      operationId: addEntry
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputRef'
+        '400':
+          description: Invalid input
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputInfo'
+        description: Metadata object that needs to be added to the store. Providing at least one hash is necessary and sufficient.
+        required: true
+    get:
+      tags:
+      - index
+      summary: List all records
+      description: ''
+      operationId: listEntries
+      parameters:
+      - name: form
+        in: query
+        description: specify whether you want to list bundle, objects or both Defaults to object.
+        required: false
+        schema:
+          type: string
+          enum:
+          - bundle
+          - object
+          - all
+      - name: urls_metadata
+        in: query
+        description: 'urls_metadata in JSON string format "{url_key: {key: value, ...}, ...}". Will get records whose url_metadata have at least one key containing the substring "url_key" AND whose url_metadata have all the "key: value" properties
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: metadata
+        in: query
+        description: metadata in format key:value. Multiple metadata values can be specified, for example "?metadata=a:xxx&metadata=b:yyy"
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: object size
+        required: false
+        schema:
+          type: integer
+      - name: hash
+        in: query
+        description: hash in format hash_type:hash_value. Multiple hashes can be specified, for example "?hash=a:xxx&hash=b:yyy"
+        required: false
+        schema:
+          type: string
+      - name: uploader
+        in: query
+        description: uploader id
+        required: false
+        schema:
+          type: string
+      - name: ids
+        in: query
+        description: 'comma delimited ids, when provided,
+
+          pagination params(start, limit) are not supported
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: url
+        in: query
+        description: URL to query. Multiple URLs can be specified, for example "?url=url1&url=url2" - in that case, returned records will have ALL URLs
+        required: false
+        schema:
+          type: string
+      - name: acl
+        in: query
+        description: comma delimited ACE - if multiple ACE are specified, returned records will have ALL ACEs
+        required: false
+        schema:
+          type: string
+      - name: authz
+        in: query
+        description: comma delimited resources - if multiple resources are specified, returned records will have ALL resources
+        required: false
+        schema:
+          type: string
+      - name: negate_params
+        in: query
+        description: 'The negate params in JSON string format.
+
+          For string params (version, file_name): filters value != param value
+
+          For list params (urls, acl): filters records that don''t include the param value
+
+          For dict params (metadata, urls_metadata), for each (key,value) pair:
+
+          - if param value is None or empty: filters with key doesn''t exist
+
+          - if param value is provided: filters with value != param value OR key doesn''t exist
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: start did
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: number of records to return for this page, default to 100
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        description: pagination support without relying on dids. offsets results by limit*page
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRecords'
+      security: []
+  /index/blank:
+    post:
+      tags:
+      - index
+      summary: Create a blank record
+      description: An authz can optionally be specified.
+      operationId: createBlankEntry
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputRef'
+        '400':
+          description: Invalid status value
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputBlankInfo'
+        description: Metadata object that needs to be added to the store
+        required: true
+  /index/blank/{GUID}:
+    post:
+      tags:
+      - index
+      summary: Create a new, blank version for the document associated to the provided uuid.
+      description: Creates a new blank version of a record with the provided GUID. Returns the GUID of the new version of the record and the baseid common to all versions of the record. Authorization (acl/authz fields) carry over from the original record to the new blank version, unless an authz is provided. No other metadata (md5sum, etc) carries over from the original record to the new blank version.
+      operationId: addNewBlankVersion
+      parameters:
+      - name: GUID
+        in: path
+        description: the uuid associated to the record needed to have new version
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputRef'
+        '400':
+          description: Invalid status value
+        '404':
+          description: GUID does not exist
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputBlankVersionInfo'
+        description: Metadata object that needs to be added to the store
+        required: true
+    put:
+      tags:
+      - index
+      summary: Update only hashes, size and optionally urls and authz for blank index
+      description: ''
+      operationId: updateBlankEntry
+      parameters:
+      - name: GUID
+        in: path
+        description: entry id
+        required: true
+        schema:
+          type: string
+      - name: rev
+        in: query
+        description: data revision - simple consistency mechanism
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputRef'
+        '400':
+          description: Invalid input
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBlankInputInfo'
+        description: index record that needs to be updated
+        required: true
+  /index/{GUID}:
+    get:
+      tags:
+      - index
+      summary: Get the metadata associated with the given id. Resolves bundle id.
+      operationId: getIndexEntry
+      parameters:
+      - name: GUID
+        in: path
+        description: entry id
+        required: true
+        schema:
+          type: string
+      - name: expand
+        in: query
+        description: Only shows first layer of contents when expand=false. Recursively unbundles contents when expand=true. false by default
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputInfo'
+        '400':
+          description: Invalid status value
+      security: []
+    post:
+      tags:
+      - index
+      summary: Add new version for the document associated to the provided uuid.
+      description: Since data content is immutable, when you want to change the size or hash, a new index document with new uuid need to be created as its new version. That uuid is returned in the did field of the response. The old index document is not deleted.
+      operationId: addNewVersion
+      parameters:
+      - name: GUID
+        in: path
+        description: the uuid associated to the record needed to have new version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputRef'
+        '400':
+          description: Invalid status value
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VersionInputInfo'
+        description: index record metadata for the new version
+        required: true
+    put:
+      tags:
+      - index
+      summary: Update an existing entry in the index
+      description: ''
+      operationId: updateEntry
+      parameters:
+      - name: GUID
+        in: path
+        description: entry id
+        required: true
+        schema:
+          type: string
+      - name: rev
+        in: query
+        description: data revision - simple consistency mechanism
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputRef'
+        '400':
+          description: Invalid input
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInputInfo'
+        description: index record that needs to be updated
+        required: true
+    delete:
+      tags:
+      - index
+      summary: Delete an entry from the index
+      description: ''
+      operationId: deleteEntry
+      parameters:
+      - name: GUID
+        in: path
+        description: entry id
+        required: true
+        schema:
+          type: string
+      - name: rev
+        in: query
+        description: data revision - simple consistency mechanism
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '200':
+          description: Record is deleted successfully
+      security:
+      - basic_auth: []
+  /index/{GUID}/aliases:
+    get:
+      tags:
+      - index
+      summary: Get all aliases associated with this GUID
+      operationId: getAliases
+      parameters:
+      - name: GUID
+        in: path
+        description: The GUID to query.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation. Returns 0 or more aliases associated with this GUID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasInfo'
+        '404':
+          description: GUID not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security: []
+    post:
+      tags:
+      - index
+      summary: Append new aliases to this GUID
+      description: Adds new aliases to the aliases already associated with this GUID. The new aliases must be globally unique.
+      operationId: addNewAliases
+      parameters:
+      - name: GUID
+        in: path
+        description: The GUID to associate the new aliases with.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasInfo'
+        '400':
+          description: 'Invalid request: One or more aliases are non-unique: one or more of the aliases are already associated with this or another GUID.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: GUID not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AliasInfo'
+        description: The new aliases to associate with this GUID. The new aliases must be globally unique.
+        required: true
+    put:
+      tags:
+      - index
+      summary: Replace all aliases for this GUID
+      description: Replaces all aliases associated with this GUID with new aliases. The new aliases can be the same as the aliases already associated with this GUID, but must otherwise be globally unique.
+      operationId: updateAliases
+      parameters:
+      - name: GUID
+        in: path
+        description: The GUID to associate the new aliases with.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasInfo'
+        '400':
+          description: 'Invalid request: One or more aliases are non-unique: one or more of the aliases are already associated with another GUID.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: GUID not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AliasInfo'
+        description: The new aliases to associate with this GUID. The new aliases can be the same as the aliases already associated with this GUID, but must otherwise be globally unique.
+        required: true
+    delete:
+      tags:
+      - index
+      summary: Delete all aliases for this GUID
+      description: ''
+      operationId: deleteAllAliases
+      parameters:
+      - name: GUID
+        in: path
+        description: The GUID to delete these aliases from.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Aliases were deleted successfully.
+        '404':
+          description: GUID not found. No aliases were deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - basic_auth: []
+  /index/{GUID}/aliases/{ALIAS}:
+    delete:
+      tags:
+      - index
+      summary: Delete one alias for this GUID
+      description: ''
+      operationId: deleteOneAlias
+      parameters:
+      - name: GUID
+        in: path
+        description: The GUID to delete this alias from.
+        required: true
+        schema:
+          type: string
+      - name: ALIAS
+        in: path
+        description: The alias to delete from this GUID. The alias should be URL-encoded.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Alias was deleted successfully.
+        '404':
+          description: GUID not found. No aliases were deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - basic_auth: []
+  /index/{GUID}/latest:
+    get:
+      tags:
+      - index
+      summary: Get the metadata of the latest index record version associated with the given id
+      operationId: getLatestVersion
+      parameters:
+      - name: GUID
+        in: path
+        description: entry id
+        required: true
+        schema:
+          type: string
+      - name: has_version
+        in: query
+        description: filter by latest doc that has version value populated
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputInfo'
+        '400':
+          description: Invalid status value
+      security: []
+  /index/{GUID}/versions:
+    get:
+      tags:
+      - index
+      summary: Get the metadata of index record versions associated with the given id, in the order the versions were created
+      operationId: getAllVersions
+      parameters:
+      - name: GUID
+        in: path
+        description: GUID of any record version, or the baseid common to all versions
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkOutputInfo'
+        '400':
+          description: Invalid status value
+      security: []
+    put:
+      tags:
+      - index
+      summary: Update metadata for all versions of this record. Only some metadata fields can be updated in this way.
+      operationId: updateAllVersions
+      parameters:
+      - name: GUID
+        in: path
+        description: GUID of any record version, or the baseid common to all versions
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation. Returns the GUIDs of the records that were updated.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OutputRef'
+        '400':
+          description: The metadata to update is invalid.
+        '403':
+          description: The requester is not authorized to perform this action. The requester must have the Update permission on all versions of the record.
+        '404':
+          description: GUID not found.
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAllVersionsInputInfo'
+        description: The metadata to update for all versions of the record. Only some fields can be updated in this way.
+        required: true
+components:
+  schemas:
+    HashInfo:
+      type: object
+      properties:
+        md5:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
+    UpdateInputInfo:
+      type: object
+      properties:
+        file_name:
+          type: string
+        metadata:
+          type: object
+        urls_metadata:
+          type: object
+        version:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+    ListRecords:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/DID'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputInfo'
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        start:
+          type: integer
+          format: int64
+          description: start index for the pagination
+        limit:
+          type: integer
+          format: int64
+          description: number of dids to return
+        file_name:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        metadata:
+          type: object
+        version:
+          type: string
+    ErrorResponse:
+      description: An object that can optionally include information about the error.
+      type: object
+      properties:
+        msg:
+          type: string
+          description: A detailed error message.
+        status_code:
+          type: integer
+          description: The integer representing the HTTP status code (e.g. 200, 404).
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    BulkOutputInfo:
+      type: array
+      items:
+        $ref: '#/components/schemas/OutputInfo'
+    VersionInputInfo:
+      type: object
+      required:
+      - size
+      - hashes
+      - urls
+      - form
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        file_name:
+          type: string
+        metadata:
+          type: object
+        urls_metadata:
+          type: object
+        version:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        description:
+          type: string
+          description: optional description of the object
+        content_created_date:
+          type: string
+          format: date-time
+          description: optional creation date and time of the content being indexed
+        content_updated_date:
+          type: string
+          format: date-time
+          description: optional creation date and time of the content being indexed
+    AliasInfo:
+      type: object
+      properties:
+        aliases:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The identifier that acts as an alias for this GUID.
+    UpdateBlankInputInfo:
+      type: object
+      properties:
+        size:
+          type: integer
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        urls:
+          type: array
+          items:
+            type: string
+        authz:
+          description: optional
+          type: array
+          items:
+            type: string
+    OutputRef:
+      type: object
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        baseid:
+          $ref: '#/components/schemas/UUID'
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+    UpdateAllVersionsInputInfo:
+      type: object
+      properties:
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+    UUID:
+      type: string
+      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    InputBlankVersionInfo:
+      type: object
+      properties:
+        did:
+          type: string
+          description: optional; specify the GUID of the new blank version that is created.
+        uploader:
+          type: string
+          description: optional; user who uploaded this file
+        file_name:
+          type: string
+          description: optional; name of the uploaded file
+        authz:
+          description: optional
+          type: array
+          items:
+            type: string
+    InputInfo:
+      type: object
+      required:
+      - size
+      - hashes
+      - urls
+      - form
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        baseid:
+          $ref: '#/components/schemas/UUID'
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        file_name:
+          type: string
+        metadata:
+          type: object
+        urls_metadata:
+          type: object
+        version:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+    InputBlankInfo:
+      type: object
+      properties:
+        uploader:
+          type: string
+          description: optional; user who uploaded this file
+        file_name:
+          type: string
+          description: name of the uploaded file
+        authz:
+          description: optional
+          type: array
+          items:
+            type: string
+    OutputInfo:
+      type: object
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        baseid:
+          $ref: '#/components/schemas/UUID'
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        file_name:
+          type: string
+        version:
+          type: string
+        uploader:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        updated_date:
+          type: string
+          format: date-time
+          description: last updated time
+        created_date:
+          type: string
+          format: date-time
+          description: time created
+        metadata:
+          type: object
+          description: user defined optional metadata
+        urls_metadata:
+          type: object
+          description: url level optional metadata
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

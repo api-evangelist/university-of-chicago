@@ -1,0 +1,307 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user file API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: file
+paths:
+  /v0/submission/<program>/<project>/files/<file_uuid>:
+    delete:
+      description: Delete molecular data from object storage.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: The id of the file to upload.
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: to abort a multipart upload
+        in: query
+        name: uploadId
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+        '400':
+          description: Bad Request
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: File not found.
+        '405':
+          description: Method Not Allowed.
+      summary: Delete a data file
+      tags:
+      - file
+    get:
+      description: Get a data file from object storage
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: The id of the file to upload.
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: to list parts
+        in: query
+        name: uploadId
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+        '400':
+          description: Bad Request
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: File not found.
+        '405':
+          description: Method Not Allowed.
+      summary: Get a data file
+      tags:
+      - file
+    post:
+      description: Upload data by multipart upload
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: The id of the file to upload.
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: to initiate multipart upload
+        in: query
+        name: uploads
+        schema:
+          type: string
+      - description: to complete multipart upload
+        in: query
+        name: uploadId
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+        '400':
+          description: Bad Request
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: File not found.
+        '405':
+          description: Method Not Allowed.
+      summary: Upload data by multipart upload
+      tags:
+      - file
+    put:
+      description: Upload data using single PUT. The request body should contain binary data of the file.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: The id of the file to upload.
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: to upload part (use with uploadId)
+        in: query
+        name: partNumber
+        schema:
+          type: string
+      - description: to upload part (use with partNumber)
+        in: query
+        name: uploadId
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+        '400':
+          description: Bad Request
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: File not found.
+        '405':
+          description: Method Not Allowed.
+      summary: Upload a data file
+      tags:
+      - file
+  /v0/submission/<program>/<project>/manifest:
+    get:
+      description: Create a json manifest of the files.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Get a manifest of data files
+      tags:
+      - file
+  /v0/submission/<program>/<project>/upload_manifest:
+    get:
+      description: Create a json manifest of the files.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Get a manifest of data files
+      tags:
+      - file
+  /v0/submission/admin/<program>/<project>/files/<file_uuid>/reassign:
+    put:
+      description: Manually (re)assign the S3 url for a given node.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: The id of the file to upload.
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+        '400':
+          description: Bad Request
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: File not found.
+        '405':
+          description: Method Not Allowed.
+      summary: Reassign the S3 URL of a data file
+      tags:
+      - file
+  /v0/submission/validation/upload_manifest:
+    post:
+      description: Generate a list of errors found in JSON Schema validation.
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_error_list'
+      summary: Validate a manifest of data files
+      tags:
+      - file
+components:
+  schemas:
+    schema_error_list:
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

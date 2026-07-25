@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user dictionary API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: dictionary
+paths:
+  /v0/submission/<program>/<project>/_dictionary:
+    get:
+      description: Return links to the project level JSON schema definitions.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_links'
+        '403':
+          description: Unauthorized request.
+      summary: Get the dictionary schema for entities of a project
+      tags:
+      - dictionary
+  /v0/submission/<program>/<project>/_dictionary/<entry>:
+    get:
+      description: Get the dictionary entry for a specific project.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: entity type to retrieve the schema for (e.g. ``aliquot``)
+        in: path
+        name: entry
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_entity'
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Get the dictionary schema for an entity of a project
+      tags:
+      - dictionary
+  /v0/submission/<program>/<project>/template:
+    get:
+      description: Get templates for all entity types. In the template, Links are represented as {link_type}.{link_unique_key} for one_to_one  and many_to_one relationships. For many_to_many relationships, they are represented as {link_type}.{link_unique_key}#1 to infer user the multiplicity
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: output format, ``csv`` or ``tsv``, default is tsv
+        in: query
+        name: format
+        schema:
+          type: string
+      - description: list of entities' categories to include in the template
+        in: query
+        name: categories
+        schema:
+          type: string
+      - description: list of entities' categories to exclude from the template
+        in: query
+        name: exclude
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Resource not found.
+      summary: Get templates for all entity types of a project
+      tags:
+      - dictionary
+  /v0/submission/<program>/<project>/template/<entity>:
+    get:
+      description: Return TSV template of an entity type. In the template, links are represented as {link_type}.{link_unique_key} for one_to_one and many_to_one relationships. For many_to_many relationships, they are represented as {link_type}.{link_unique_key}#1 to infer user the multiplicity.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: type of the entity
+        in: path
+        name: entity
+        required: true
+        schema:
+          type: string
+      - description: output format, ``csv`` or ``tsv``, default is tsv
+        in: query
+        name: format
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Entity type is not found
+      summary: Get a template for an entity type of a project
+      tags:
+      - dictionary
+  /v0/submission/_dictionary:
+    get:
+      description: Return links to the JSON schema definitions.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_links'
+        '403':
+          description: Unauthorized request.
+      summary: Get the dictionary schema
+      tags:
+      - dictionary
+  /v0/submission/_dictionary/<entry>:
+    get:
+      description: Return the project level JSON schema definition for a given entity type.
+      parameters:
+      - description: entity type to retrieve the schema for (e.g. ``aliquot``)
+        in: path
+        name: entry
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_entity'
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Get the dictionary schema for an entity
+      tags:
+      - dictionary
+  /v0/submission/template:
+    get:
+      description: Get templates for all entity types.
+      parameters:
+      - description: output format, ``csv`` or ``tsv``, default is tsv
+        in: query
+        name: format
+        schema:
+          type: string
+      - description: list of entities' categories to include in the template
+        in: query
+        name: categories
+        schema:
+          type: string
+      - description: list of entities' categories to exclude from the template
+        in: query
+        name: exclude
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+      summary: Get templates for all entity types
+      tags:
+      - dictionary
+  /v0/submission/template/<entity>:
+    get:
+      description: Get a template for an entity type.
+      parameters:
+      - description: entity
+        in: path
+        name: entity
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+      summary: Get a template for an entity type
+      tags:
+      - dictionary
+components:
+  schemas:
+    schema_entity:
+      properties:
+        '...fields specific to this entity':
+          type: string
+        type:
+          type: string
+      type: object
+    schema_links:
+      properties:
+        links:
+          items:
+            type: string
+          type: array
+      required:
+      - links
+      type: object
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

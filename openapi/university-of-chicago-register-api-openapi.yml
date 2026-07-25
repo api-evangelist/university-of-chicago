@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user register API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: register
+paths:
+  /user/register:
+    get:
+      tags:
+      - register
+      summary: Register in order to get access to download data
+      description: This register functionality enables a registration page for users to provide basic information before being added to a preconfigured group. The GET request will redirect to a HTML page where users can provide their first name, last name, organization, and email, in order to gain some predefined permissions (i.e. to be automatically added to a preconfigured Arborist group).
+      responses:
+        200:
+          description: success
+          content:
+            text/markdown:
+              schema:
+                $ref: '#/components/schemas/RegisterUser'
+components:
+  schemas:
+    RegisterUser:
+      type: object
+      required:
+      - firstname
+      - lastname
+      - org
+      - email
+      properties:
+        firstname:
+          type: string
+          description: The firstname of the end-user
+        lastname:
+          type: string
+          description: The lastname of the end-user
+        org:
+          type: string
+          description: The org of the end-user
+        email:
+          type: string
+          description: The email of the end-user
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

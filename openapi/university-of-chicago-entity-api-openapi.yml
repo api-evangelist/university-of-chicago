@@ -1,0 +1,377 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user entity API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: entity
+paths:
+  /v0/submission/<program>/<project>:
+    post:
+      description: Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: application/json (default), text/tab-separated-values, text/tsv or text/csv
+        in: header
+        name: Content-Type
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Entities created successfully
+        '400':
+          description: At least one entity was invalid.
+        '404':
+          description: Resource not found.
+      summary: Create entities
+      tags:
+      - entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_entity'
+        description: input body
+    put:
+      description: Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: application/json (default), text/tab-separated-values, text/tsv or text/csv
+        in: header
+        name: Content-Type
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Entities created successfully
+        '400':
+          description: At least one entity was invalid.
+        '404':
+          description: Resource not found.
+      summary: Update entities
+      tags:
+      - entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_entity'
+        description: input body
+  /v0/submission/<program>/<project>/bulk:
+    post:
+      description: Handle bulk transaction instead of single transaction.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Entities created successfully
+        '400':
+          description: At least one entity was invalid.
+        '404':
+          description: Resource not found.
+      summary: Create entities in bulk
+      tags:
+      - entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_entity_bulk'
+        description: input body
+    put:
+      description: Handle bulk transaction instead of single transaction.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Entities created successfully
+        '400':
+          description: At least one entity was invalid.
+        '404':
+          description: Resource not found.
+      summary: Update entities in bulk
+      tags:
+      - entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_entity_bulk'
+        description: input body
+  /v0/submission/<program>/<project>/entities/<entity_id_string>:
+    get:
+      description: Retrieve existing entities by ID. The return type of a HTTP `get` on this endpoint is a JSON array containing JSON object elements, each corresponding to a provided ID. Return results are unordered. If any ID is not found in the database, a status code of 404 is returned with the missing IDs.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: A comma-separated list of ids specifying the entities to retrieve.
+        in: path
+        name: entity_id_string
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_entity_list'
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Entity not found.
+      summary: Get entities by ID
+      tags:
+      - entity
+  /v0/submission/<program>/<project>/entities/<ids>:
+    delete:
+      description: Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond with at least one entity that must be deleted prior to deleting the target entity.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: A comma separated list of ids specifying the entities to delete. These ids must be official ids.
+        in: path
+        name: ids
+        required: true
+        schema:
+          type: string
+      - description: Set the to_delete sysan as true or false. If none, then don't try to set the sysan, and instead delete the node.
+        in: query
+        name: to_delete
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Entities deleted successfully
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Entity not found.
+      summary: Delete entities
+      tags:
+      - entity
+  /v0/submission/<program>/<project>/xml/biospecimen/bcr:
+    put:
+      description: The entities stored in BRC XML are converted to JSON before being updated.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Update Biospecimen Supplement entities
+      tags:
+      - entity
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+  /v0/submission/<program>/<project>/xml/clinical/bcr:
+    put:
+      description: The entities stored in BRC XML are converted to JSON before being updated.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Update Clinical Supplement entities
+      tags:
+      - entity
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+  /v0/submission/admin/<program>/<project>/entities/<ids>/to_delete/<to_delete>:
+    delete:
+      description: Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond with at least one entity that must be deleted prior to deleting the target entity.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      - description: A comma separated list of ids specifying the entities to delete. These ids must be official ids.
+        in: path
+        name: ids
+        required: true
+        schema:
+          type: string
+      - description: Set the to_delete sysan as true or false. If none, then don't try to set the sysan, and instead delete the node.
+        in: query
+        name: to_delete
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Entities deleted successfully
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Entity not found.
+      summary: Delete entities
+      tags:
+      - entity
+components:
+  schemas:
+    schema_entity_bulk:
+      properties:
+        doc:
+          type: string
+        doc_format:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - doc_format
+      - doc
+      type: object
+    schema_entity_list:
+      items:
+        $ref: '#/components/schemas/schema_entity'
+      type: array
+    schema_entity:
+      properties:
+        '...fields specific to this entity':
+          type: string
+        type:
+          type: string
+      type: object
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

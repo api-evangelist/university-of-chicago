@@ -1,0 +1,202 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user global API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: global
+  description: Search for an alias or index, potentially even a distributed search.
+  externalDocs:
+    description: Find out more
+    url: https://github.com/uc-cdis/indexd
+paths:
+  /{GUID}:
+    get:
+      tags:
+      - global
+      summary: Get the metadata associated with the given id, alias, or distributed identifier
+      description: Only the hashes which exist will be included in the response.
+      operationId: getEntry
+      parameters:
+      - name: GUID
+        in: path
+        description: entry id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputInfo'
+        '400':
+          description: Invalid status value
+        '404':
+          description: Record not found
+      security: []
+  /urls:
+    get:
+      tags:
+      - global
+      summary: Get a list of urls that match query params
+      description: ''
+      operationId: listUrls
+      parameters:
+      - name: size
+        in: query
+        description: object size
+        required: false
+        schema:
+          type: integer
+      - name: hash
+        in: query
+        description: hashes specified as algorithm:value. Multiple hashes can be specified, for example "?hash=a:xxx&hash=b:yyy"
+        schema:
+          type: string
+      - name: ids
+        in: query
+        description: comma delimited ids
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlOutputRef'
+        '400':
+          description: Invalid input
+      security:
+      - basic_auth: []
+components:
+  schemas:
+    HashInfo:
+      type: object
+      properties:
+        md5:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
+    UrlOutputRef:
+      type: object
+      properties:
+        urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/UrlObject'
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        start:
+          type: integer
+          format: int64
+          description: start index for the pagination
+        limit:
+          type: integer
+          format: int64
+          description: number of aliases to return
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    UrlObject:
+      type: object
+      properties:
+        url:
+          type: string
+        metadata:
+          type: object
+    UUID:
+      type: string
+      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    OutputInfo:
+      type: object
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        baseid:
+          $ref: '#/components/schemas/UUID'
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        file_name:
+          type: string
+        version:
+          type: string
+        uploader:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        updated_date:
+          type: string
+          format: date-time
+          description: last updated time
+        created_date:
+          type: string
+          format: date-time
+          description: time created
+        metadata:
+          type: object
+          description: user defined optional metadata
+        urls_metadata:
+          type: object
+          description: url level optional metadata
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

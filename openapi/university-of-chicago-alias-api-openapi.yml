@@ -1,0 +1,284 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user alias API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: alias
+  description: create an alias for an entity stored in an external system managed by some other authority
+  externalDocs:
+    description: Find out more
+    url: https://github.com/uc-cdis/indexd
+paths:
+  /alias/:
+    get:
+      deprecated: true
+      tags:
+      - alias
+      summary: list aliases with pagination
+      operationId: listAlistEntries
+      parameters:
+      - name: size
+        in: query
+        required: false
+        description: size in bytes
+        schema:
+          type: integer
+          format: int64
+      - name: start
+        in: query
+        required: false
+        description: start index for the pagination
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        required: false
+        description: number of aliases to return
+        schema:
+          type: integer
+      - name: hash
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aliases:
+                    type: array
+                    items:
+                      type: string
+                  size:
+                    type: integer
+                    format: int64
+                    description: size in bytes
+                  start:
+                    type: integer
+                    format: int64
+                    description: start index for the pagination
+                  limit:
+                    type: integer
+                    format: int64
+                    description: number of aliases to return
+                  hashes:
+                    $ref: '#/components/schemas/HashInfo'
+  /alias/{ALIASSTRING}:
+    put:
+      deprecated: true
+      tags:
+      - alias
+      summary: Create or update an alias
+      description: ''
+      operationId: upsertEntry
+      parameters:
+      - name: ALIASSTRING
+        in: path
+        required: true
+        description: alias like ark:/31807/DC1-TESTARK
+        schema:
+          type: string
+      - name: rev
+        in: query
+        required: false
+        description: Revision of the current alias to be updated. If you do not specify this then the last update wins in races.
+        schema:
+          type: string
+          pattern: ^[a-z,0-9]{8}$
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasRef'
+        '400':
+          description: Invalid input
+      security:
+      - basic_auth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AliasInputInfo'
+        description: Metadata object that needs to be added to the store
+        required: true
+    get:
+      deprecated: true
+      tags:
+      - alias
+      summary: Fetch an alias
+      description: ''
+      operationId: getAliasEntry
+      parameters:
+      - name: ALIASSTRING
+        in: path
+        required: true
+        description: alias like ark:/31807/DC1-TESTARK
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasOutputInfo'
+        '400':
+          description: Invalid input
+      security: []
+    delete:
+      deprecated: true
+      tags:
+      - alias
+      summary: Delete an alias
+      description: ''
+      operationId: deleteAliasEntry
+      parameters:
+      - name: ALIASSTRING
+        in: path
+        required: true
+        description: alias like ark:/31807/DC1-TESTARK
+        schema:
+          type: string
+      - name: rev
+        in: query
+        required: false
+        description: Revision of the current alias to be deleted.
+        schema:
+          type: string
+          pattern: ^[a-z,0-9]{8}$
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid input
+      security:
+      - basic_auth: []
+components:
+  schemas:
+    AliasOutputInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        release:
+          type: string
+          description: has the entity been released?
+          enum:
+          - public
+          - private
+          - controlled
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        keeper_authority:
+          description: who is keeping this entry up to date?
+          type: string
+        host_authorities:
+          description: who is hosting this entity?
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        metadata:
+          type: string
+        limit:
+          type: integer
+          format: int64
+          description: number of aliases to return
+        start:
+          type: integer
+          format: int64
+          description: start index for the pagination
+        urls:
+          type: array
+          items:
+            type: string
+    AliasRef:
+      type: object
+      properties:
+        name:
+          type: string
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+    AliasInputInfo:
+      type: object
+      required:
+      - size
+      - hashes
+      - release
+      properties:
+        release:
+          type: string
+          description: has the entity been released?
+          enum:
+          - public
+          - private
+          - controlled
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        keeper_authority:
+          description: who is keeping this entry up to date?
+          type: string
+        host_authority:
+          description: who is hosting this entity?
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        metadata:
+          type: string
+    HashInfo:
+      type: object
+      properties:
+        md5:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

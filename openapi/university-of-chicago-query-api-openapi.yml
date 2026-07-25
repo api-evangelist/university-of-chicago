@@ -1,0 +1,143 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user query API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: query
+  description: query endpoints
+paths:
+  /_query/urls/q:
+    get:
+      tags:
+      - query
+      summary: search index records by urls
+      operationId: queryUrls
+      parameters:
+      - in: query
+        name: exclude
+        description: search for documents without a single URL that match this pattern
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: include
+        description: search for documents with at least one URL that match this pattern
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: versioned
+        description: if true search for documents with a version set, else search documents without version
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: limit
+        description: maximum rows to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - in: query
+        name: offset
+        description: pointer position to start search
+        required: false
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/URLsOutput'
+        '400':
+          description: invalid request parameters
+  /_query/urls/metadata/q:
+    get:
+      tags:
+      - query
+      summary: search index records by urls metadata key and value
+      operationId: queryUrlsMetadata
+      parameters:
+      - in: query
+        name: key
+        description: metadata key to search by
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: value
+        description: metadata value for provided key
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: url
+        description: URL patter to filter by
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: versioned
+        description: if true search for documents with a version set, else search documents without version
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: limit
+        description: maximum rows to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - in: query
+        name: offset
+        description: pointer position to start search
+        required: false
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/URLsOutput'
+        '400':
+          description: invalid request parameters
+components:
+  schemas:
+    URLsOutput:
+      type: array
+      items:
+        type: object
+        properties:
+          did:
+            type: string
+          urls:
+            type: array
+            items:
+              type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

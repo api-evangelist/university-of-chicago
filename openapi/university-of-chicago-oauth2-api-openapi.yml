@@ -1,0 +1,240 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user oauth2 API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: oauth2
+  description: Authorization and token management
+paths:
+  /oauth2/authorize:
+    get:
+      tags:
+      - oauth2
+      summary: Perform OAuth2 authorization
+      description: '**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
+
+        simply because of its length and complexity.
+
+
+        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+
+
+        Obtain an authorization grant through the OAuth2 protocol. To handle
+
+        this request, render a page for the user to confirm the OAuth2 grant
+
+        (through e.g. Google). Redirect user to `redirect_uri` with an added
+
+        `code` parameter obtained from the authorization provider.
+
+        '
+      operationId: authorize
+      parameters:
+      - name: client_id
+        required: true
+        in: query
+        description: The client's ID, issued by authorization server
+        schema:
+          type: string
+      - name: response_type
+        required: true
+        in: query
+        description: For an authorization request using the access code flow, the response type must be "code". If this is missing from the request then the authorization server must return an error.
+        schema:
+          type: string
+      - name: redirect_uri
+        required: true
+        in: query
+        description: Page to redirect to after access has been granted
+        schema:
+          type: string
+      - name: idp
+        required: false
+        in: query
+        description: Upstream identity provider to use. Specifying `idp=fence` lets us specify a `fence_idp`. Specifying `idp=shibboleth` lets us specify a `shib_idp`. If no `idp` is specified, defaults to the configured default login.
+        schema:
+          type: string
+        example: google
+      - name: fence_idp
+        required: false
+        in: query
+        description: Upstream identity provider to use. Specifying `idp=fence` and `fence_idp=shibboleth` lets us specify a `shib_idp`. If no `fence_idp` is specified, defaults to NIH login.
+        schema:
+          type: string
+        example: shibboleth
+      - name: shib_idp
+        required: false
+        in: query
+        description: Identifier for the shibboleth IDP. Available identifiers are what is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed` endpoint. If no `shib_idp` is specified, defaults to NIH login.
+        schema:
+          type: string
+        example: urn:mace:incommon:uchicago.edu
+      - name: scope
+        required: false
+        in: query
+        description: 'Requested authorization scope. Must include `openid`. `user` allows getting a user''s access information.
+
+          > NOTE: This is required for [OIDC](http://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
+
+          '
+        schema:
+          type: string
+      - name: upstream_expires_in
+        required: false
+        in: query
+        description: 'the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less
+
+          than the configured maximum. If it''s greater,
+
+          the configured maximum will be used.
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+    post:
+      tags:
+      - oauth2
+      summary: Perform OAuth2 authorization
+      description: '**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
+
+        simply because of its length and complexity.
+
+
+        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+
+
+        Obtain an authorization grant through the OAuth2 protocol. To handle
+
+        this request, render a page for the user to confirm the OAuth2 grant
+
+        (through e.g. Google). Redirect user to `redirect_uri` with an added
+
+        `code` parameter obtained from the authorization provider. A POST will
+
+        not render a page for the user; this implementation checks the `confirm`
+
+        value in the request.
+
+        '
+      operationId: authorize_post
+      responses:
+        '200':
+          description: successful operation
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  description: The client's ID, issued by authorization server
+                  type: string
+                response_type:
+                  description: For an authorization request using the access code flow, the response type must be "code". If this is missing from the request then the authorization server must return an error.
+                  type: string
+                  enum:
+                  - code
+                  - token
+                redirect_uri:
+                  description: Page to redirect to after access has been granted
+                  type: string
+                confirm:
+                  description: whether to confirm the OAuth2 grant (should be 'yes')
+                  type: string
+                scope:
+                  description: Requested authorization scope. Must include `openid`. `user` allows getting a user's access information.
+                  type: string
+                upstream_expires_in:
+                  description: the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less than the configured maximum. If it's greater, the configured maximum will be used.
+                  type: string
+              required:
+              - client_id
+              - response_type
+              - redirect_uri
+  /oauth2/token:
+    post:
+      tags:
+      - oauth2
+      summary: Exchange code for or refresh the access token.
+      description: '**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
+
+        simply because of its length and complexity.
+
+
+        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+
+
+        Exchange the `code` obtained from OAuth2 for an access token, or refresh
+
+        the access token using a refresh token.
+
+        '
+      operationId: token
+      responses:
+        '200':
+          description: successful operation
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  description: 'Value MUST be one of the supported grant types: `"authorization_code"` or `"client_credentials"`'
+                  type: string
+                code:
+                  description: (Required if `grant_type` is `"authorization_code"`; unused otherwise) The authorization code returned from the OAuth2 authorization request
+                  type: string
+                redirect_uri:
+                  description: (Required if `grant_type` is `"authorization_code"`; unused otherwise) Must be identical to the `"redirect_uri"` included in the original authorization request
+                  type: string
+                scope:
+                  description: (Optional if `grant_type` is `"client_credentials"`; unused otherwise) Requested authorization scope. If provided, must include `openid`. `user` allows getting a user's access information.
+                  type: string
+                client_id:
+                  type: string
+              required:
+              - grant_type
+  /oauth2/revoke:
+    post:
+      tags:
+      - oauth2
+      summary: Revoke a refresh token per RFC 7009
+      description: Revoke a refresh (not access) token granted to a user.
+      operationId: revoke
+      responses:
+        '200':
+          description: successful operation, OR invalid token submitted
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  description: Refresh token that the user wants to revoke
+                  type: string
+              required:
+              - token
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

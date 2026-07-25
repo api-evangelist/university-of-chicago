@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user OIDC API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: OIDC
+paths:
+  /.well-known/openid-configuration:
+    get:
+      tags:
+      - OIDC
+      summary: Get the OpenID Provider Configuration Document
+      description: See [OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) for detailed specification and an [example response](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationResponse).
+      responses:
+        '200':
+          description: OpenID Configuration
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OpenIDConfiguration'
+components:
+  schemas:
+    OpenIDConfiguration:
+      type: object
+      required:
+      - issuer
+      - authorization_endpoint
+      - jwks_uri
+      - response_types_supported
+      properties:
+        authorization_endpoint:
+          type: string
+        claim_types_supported:
+          type: array
+          items:
+            type: string
+        claims_locales_supported:
+          type: array
+          items:
+            type: string
+        claims_parameter_supported:
+          type: boolean
+        claims_supported:
+          type: array
+          items:
+            type: string
+        display_values_supported:
+          type: array
+          items:
+            type: string
+        grant_types_supported:
+          type: array
+          items:
+            type: string
+        id_token_encryption_alg_values_supported:
+          type: array
+          items:
+            type: string
+        id_token_encryption_enc_values_supported:
+          type: array
+          items:
+            type: string
+        id_token_signing_alg_values_supported:
+          type: array
+          items:
+            type: string
+        issuer:
+          type: string
+        jwks_uri:
+          type: string
+        op_policy_url:
+          type: string
+        op_tos_uri:
+          type: string
+        registration_endpoint:
+          type: string
+        request_object_encryption_alg_values_supported:
+          type: array
+          items:
+            type: string
+        request_object_encryption_enc_values_supported:
+          type: array
+          items:
+            type: string
+        request_object_signing_alg_values_supported:
+          type: array
+          items:
+            type: string
+        request_parameter_supported:
+          type: boolean
+        request_uri_parameter_supported:
+          type: boolean
+        require_request_uri_registration:
+          type: boolean
+        response_modes_supported:
+          type: array
+          items:
+            type: string
+        response_types_supported:
+          type: array
+          items:
+            type: string
+        scopes_supported:
+          type: array
+          items:
+            type: string
+        service_documentation:
+          type: string
+        subject_types_supported:
+          type: array
+          items:
+            type: string
+        token_endpoint:
+          type: string
+        token_endpoint_auth_methods_supported:
+          type: array
+          items:
+            type: string
+        ui_locales_supported:
+          type: array
+          items:
+            type: string
+        userinfo_endpoint:
+          type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

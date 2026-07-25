@@ -1,0 +1,571 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user google API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: google
+  description: Google functionality
+paths:
+  /google/billing_projects/:
+    get:
+      tags:
+      - google
+      summary: Get the configured default Google project for billing
+      description: Get the configured default Google project identifiers that will be used for billing access to requester pays Google buckets. This effectively bills all access to the specified Project and *not* the end-user (may be a different project for different data access methods). If there is no configured default billing project, requests to Data Access Method endpoints will rely on a query parameter `userProject` for the end-user to specify a valid Google project that Fence has the necessary roles in to provide relevant service accounts the necessary access. Please see the README for more details.
+      operationId: getGoogleBillingProjects
+      responses:
+        '200':
+          description: billing projects in response.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleBillingProjects'
+  /google/service_accounts/:
+    post:
+      tags:
+      - google
+      summary: Register a Google Service Account
+      description: Register a Google Cloud Project's service account to allow access to controlled data. If there are issues, will provide details for what went wrong.
+      parameters:
+      - name: expires_in
+        required: false
+        in: query
+        description: the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+        schema:
+          type: integer
+      operationId: registerGoogleServiceAccount
+      responses:
+        '200':
+          description: success, registered service account.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccount'
+        '400':
+          description: failure, trying to register service account resulted in errors
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccount'
+        description: ServiceAccount object to register
+        required: true
+    get:
+      tags:
+      - google
+      summary: Get a list of Google Service Accounts
+      description: 'Get a list of service accounts for the given Google Cloud Project IDs.
+
+        > **NOTE: This will only provide service account information for
+
+        Google Cloud Projects if the current user is a member of those
+
+        projects**
+
+
+        The endpoint lists the `project_access` that was previously granted
+
+        (whether or not the SA currently has access). The `project_access_exp`
+
+        will be `0` when the SA isn''t currently given access
+
+        (but can be provided access again with a `PATCH`).
+
+        '
+      parameters:
+      - name: google_project_ids
+        required: true
+        in: query
+        description: 'Google Cloud Project IDs to get service accounts for.
+
+          Use a comma-separated list: `project_a,project_b,project_c`
+
+          '
+        schema:
+          type: string
+      operationId: listGoogleServiceAccount
+      responses:
+        '200':
+          description: List of service accounts for specified projects
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccounts'
+        '403':
+          description: User is not a member on all the provided project ids
+  /google/service_accounts/_dry_run:
+    post:
+      tags:
+      - google
+      summary: Dry run to attempt to register a Google Service Account
+      description: Attempt to register a service account WITHOUT actually doing so. Will provide detailed errors for what went wrong.
+      parameters:
+      - name: expires_in
+        required: false
+        in: query
+        description: the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+        schema:
+          type: integer
+      operationId: registerGoogleServiceAccountDryRun
+      responses:
+        '200':
+          description: success, registering service account is possible
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '400':
+          description: failure, registering service account would result in errors
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccount'
+        description: ServiceAccount object to register
+  /google/service_accounts/monitor:
+    get:
+      tags:
+      - google
+      summary: Return the service account used for monitoring user's Google Cloud Projects
+      description: 'This account is used to monitor and validate access to data
+
+        for registered service accounts for the project.
+
+
+        >NOTE: This service account must be given editor role on a Google
+
+        Project for service account registration to succeed. If it is ever
+
+        removed, all access to data will be removed.
+
+        '
+      operationId: adminGoogleServiceAccount
+      responses:
+        '404':
+          description: No monitoring service account is configured. In other words, fence does not currently support user-registered service accounts.
+        '200':
+          description: Monitoring service account information
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AdminGoogleServiceAccount'
+  /google/service_accounts/_dry_run/{id}:
+    patch:
+      tags:
+      - google
+      summary: Dry run to attempt to update a Google Service Account
+      description: 'Try to update a Google Cloud Project''s service account to change access to
+
+        controlled data and/or extend access to data WITHOUT actually doing so.
+
+        This would extend the service account''s access to data if using the non _dry_run
+
+        endpoint. It would also modify access if a patch document is provided with new access.
+
+
+        > *NOTE*: If you do not provide a patch document (e.g. no payload),
+
+        this will extend access to ALL PREVIOUS DATA. If you want to REMOVE
+
+        access, either use the DELETE endpoint or provide a patch document
+
+        with an empty list for "project_access". It''s important to note that
+
+        providing {"project_access": []} is different than not including a
+
+        payload at all.
+
+
+        > **WARNING**: Provided patch document will *fully replace* previous data.
+
+        It will NOT extend previous data by provided values, it will FULLY
+
+        REPLACE the data with what''s provided.
+
+        '
+      operationId: updateGoogleServiceAccountDryRun
+      parameters:
+      - in: path
+        name: id
+        description: ServiceAccount idenitifer
+        required: true
+        schema:
+          type: string
+      - name: expires_in
+        required: false
+        in: query
+        description: the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success, updating service account access is possible
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '400':
+          description: failure, trying to update service account access resulted in errors
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '403':
+          description: forbidden, cannot modify the provided fields
+        '401':
+          description: unauthorized, can modify provided fields but user does not have permission to update this service account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccountProjectAccess'
+        description: ServiceAccount fields to update
+  /google/service_accounts/{id}:
+    delete:
+      tags:
+      - google
+      summary: Delete a specific Google Service Account
+      description: Delete a service account and remove from access
+      operationId: deleteSpecficGoogleServiceAccount
+      parameters:
+      - in: path
+        name: id
+        description: ServiceAccount idenitifer
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success, deleted service account
+        '400':
+          description: failure, could not service account
+        '403':
+          description: unauthorized, user cannot delete this service account
+    patch:
+      tags:
+      - google
+      summary: Update a Google Service Account
+      description: 'Update a Google Cloud Project''s service account to change access to
+
+        controlled data and/or extend access to data. This will extend the
+
+        service account''s access to data. It will also modify access if a
+
+        patch document is provided with new access.
+
+
+        > *NOTE*: If you do not provide a patch document (e.g. no payload),
+
+        this will extend access to ALL PREVIOUS DATA. If you want to REMOVE
+
+        access, either use the DELETE endpoint or provide a patch document
+
+        with an empty list for "project_access". It''s important to note that
+
+        providing {"project_access": []} is different than not including a
+
+        payload at all.
+
+
+        > **WARNING**: Provided patch document will *fully replace* previous data.
+
+        It will NOT extend previous data by provided values, it will FULLY
+
+        REPLACE the data with what''s provided.
+
+        '
+      operationId: updateGoogleServiceAccount
+      parameters:
+      - in: path
+        name: id
+        description: ServiceAccount idenitifer
+        required: true
+        schema:
+          type: string
+      - name: expires_in
+        required: false
+        in: query
+        description: the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: success, updated service account access
+        '400':
+          description: failure, trying to update service account access resulted in errors
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '403':
+          description: forbidden, cannot modify the provided fields
+        '401':
+          description: unauthorized, can modify provided fields but user does not have permission to update this service account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccountProjectAccess'
+        description: ServiceAccount fields to update
+  /google/primary_google_service_account:
+    post:
+      tags:
+      - google
+      description: 'Force the creation of the User''s Primary Google Service Account instead of
+
+        relying on lazy creation at first time of Google Data Access.
+
+        '
+      responses:
+        '200':
+          description: 'success, created User''s Primary Google Service Account or already exists
+
+            '
+        '401':
+          description: invalid token provided (or none provided)
+components:
+  schemas:
+    GoogleServiceAccountErrors:
+      type: object
+      required:
+      - success
+      - errors
+      properties:
+        success:
+          type: boolean
+          description: whether or not register/update was successful
+        errors:
+          type: object
+          properties:
+            service_account_email:
+              type: object
+              properties:
+                status:
+                  type: integer
+                  description: HTTP Status code representing the validity/success for this field
+                error:
+                  type: string
+                  description: Specific error name
+                error_description:
+                  type: string
+                  description: More details about the error
+                service_account_validity:
+                  type: object
+                  properties:
+                    service_account_id:
+                      type: object
+                      properties:
+                        no_external_access:
+                          type: boolean
+                        owned_by_project:
+                          type: boolean
+                        valid_type:
+                          type: boolean
+                        policy_accessible:
+                          type: boolean
+            google_project_id:
+              type: object
+              properties:
+                status:
+                  type: integer
+                  description: HTTP Status code representing the validity/success for this field
+                error:
+                  type: string
+                  description: Specific error name
+                error_description:
+                  type: string
+                  description: More details about the error
+                membership_validity:
+                  type: object
+                  properties:
+                    valid_member_types:
+                      type: boolean
+                    members_exist_in_fence:
+                      type: boolean
+                service_account_validity:
+                  type: object
+                  properties:
+                    service_account_id:
+                      type: object
+                      properties:
+                        no_external_access:
+                          type: boolean
+                        owned_by_project:
+                          type: boolean
+                        valid_type:
+                          type: boolean
+                        policy_accessible:
+                          type: boolean
+            project_access:
+              type: object
+              properties:
+                status:
+                  type: integer
+                  description: HTTP Status code representing the validity/success for this field
+                error:
+                  type: string
+                  description: Specific error name
+                error_description:
+                  type: string
+                  description: More details about the error
+                project_validity:
+                  type: object
+                  properties:
+                    project_id:
+                      type: object
+                      properties:
+                        all_users_have_access:
+                          type: boolean
+                        exists:
+                          type: boolean
+      example:
+        success: false
+        errors:
+          service_account_email:
+            status: 200
+            error: null
+            error_description: ''
+            service_account_validity:
+              some-service-account@project-id.iam.gserviceaccount.com:
+                no_external_access: true
+                owned_by_project: true
+                valid_type: true
+                policy_accessible: true
+          google_project_id:
+            status: 200
+            error: null
+            error_description: ''
+            membership_validity:
+              valid_member_types: true
+              members_exist_in_fence: true
+            service_account_validity:
+              another-service-account@project-id.iam.gserviceaccount.com:
+                no_external_access: true
+                owned_by_project: true
+                valid_type: true
+                policy_accessible: true
+          project_access:
+            status: 403
+            error: Unauthorized
+            error_description: Not all users have access requested
+            project_validity:
+              ProjectA:
+                all_users_have_access: false
+                exists: true
+              ProjectB:
+                all_users_have_access: true
+                exists: true
+    GoogleServiceAccounts:
+      type: object
+      properties:
+        service_accounts:
+          type: array
+          description: List of GoogleServiceAccounts
+          items:
+            $ref: '#/components/schemas/GoogleServiceAccountInfo'
+    GoogleServiceAccountInfo:
+      type: object
+      required:
+      - service_account_email
+      - google_project_id
+      - project_access
+      - project_access_exp
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
+        google_project_id:
+          type: string
+          description: Google Cloud Project ID of service account
+        project_access:
+          type: array
+          items:
+            type: string
+          description: List of projects/datasets for which service account should be registered for
+        project_access_exp:
+          type: integer
+          description: Project/dataset access expiration in unix time
+    GoogleBillingProjects:
+      type: object
+      required:
+      - signed_urls
+      - temporary_service_account_credentials
+      properties:
+        signed_urls:
+          type: object
+          required:
+          - project_id
+          properties:
+            project_id:
+              type: string
+              description: Google Project identifier that serves as the default billing project for all requester pays access
+        temporary_service_account_credentials:
+          type: object
+          required:
+          - project_id
+          properties:
+            project_id:
+              type: string
+              description: Google Project identifier that serves as the default billing project for all requester pays access
+    GoogleServiceAccount:
+      type: object
+      required:
+      - service_account_email
+      - google_project_id
+      - project_access
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
+        google_project_id:
+          type: string
+          description: Google Cloud Project ID of service account
+        project_access:
+          type: array
+          items:
+            type: string
+          description: List of projects/datasets for which service account should be registered for
+    AdminGoogleServiceAccount:
+      type: object
+      required:
+      - service_account_email
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
+    GoogleServiceAccountProjectAccess:
+      type: object
+      required:
+      - project_access
+      properties:
+        project_access:
+          type: array
+          items:
+            type: string
+          description: List of projects/datasets for which service account should be registered for
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

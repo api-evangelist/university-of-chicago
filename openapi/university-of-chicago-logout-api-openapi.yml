@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user logout API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: logout
+  description: Log out the current user
+paths:
+  /logout:
+    get:
+      tags:
+      - logout
+      summary: Log out the current user
+      description: Log out the current user and redirect to the provided url. The logout will propogate, depending on the identity provider.
+      parameters:
+      - in: query
+        name: next
+        schema:
+          type: string
+        description: The url to redirect the user to after logout
+        required: false
+      - in: query
+        name: force_era_global_logout
+        schema:
+          type: boolean
+        description: Use era commons itrust to logout
+        required: false
+      responses:
+        '302':
+          description: redirect to root or url in parameter if provided
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

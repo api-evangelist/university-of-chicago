@@ -1,0 +1,44 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user privacy-policy API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: privacy-policy
+paths:
+  /privacy-policy:
+    get:
+      tags:
+      - privacy-policy
+      summary: Return the full text of the privacy policy for Gen3
+      description: The privacy policy should contain details about what information our technology collects from users and how it is used. According to the `Accept` header in the request it returns either markdown or raw HTML.
+      responses:
+        200:
+          description: success
+          content:
+            text/markdown:
+              schema:
+                type: string
+                example: '# Gen3 Privacy Policy ...'
+            text/html:
+              schema:
+                type: string
+                example: <h1>Gen3 Privacy Policy</h1> ...
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

@@ -1,0 +1,287 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: admin/user
+paths:
+  /admin/user/{username}:
+    get:
+      tags:
+      - admin/user
+      summary: Return info about a given user
+      description: Admin method to retrieve info about any given user
+      parameters:
+      - name: username
+        required: true
+        in: path
+        description: Username of user to find
+        schema:
+          type: string
+      security:
+      - OAuth2:
+        - user
+      operationId: getUserInfo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '404':
+          description: Couldn't find user
+  /admin/user/{username}/soft:
+    delete:
+      tags:
+      - admin/user
+      summary: Soft-delete user
+      description: Admin method to soft-delete a user, setting the user to inactive
+      security:
+      - OAuth2:
+        - admin
+      operationId: softDeleteUser
+      parameters:
+      - name: username
+        required: true
+        in: path
+        description: Username of user to deactivate
+        schema:
+          type: string
+      responses:
+        '204':
+          description: successful deletion
+        '404':
+          description: Couldn't find user
+  /admin/user/{username}/reactivate:
+    post:
+      tags:
+      - admin/user
+      summary: Reactivate a soft-deleted user
+      description: Admin method to reactivate a soft-deleted user, setting the user back to active
+      security:
+      - OAuth2:
+        - admin
+      operationId: reactivateUser
+      parameters:
+      - name: username
+        required: true
+        in: path
+        description: Username of user to reactivate
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful operation
+        400:
+          description: User is already active
+  /admin/user:
+    post:
+      tags:
+      - admin/user
+      summary: Add a new user
+      description: Admin method to add a new user
+      security:
+      - OAuth2:
+        - admin
+      operationId: createUser
+      responses:
+        '200':
+          description: New user
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+      requestBody:
+        $ref: '#/components/requestBodies/NewUser'
+components:
+  schemas:
+    NewUser:
+      type: object
+      required:
+      - username
+      - email
+      properties:
+        username:
+          type: string
+          description: This value is deprecated in favor of name.
+        email:
+          type: string
+          description: The email of the end-user
+        display_name:
+          type: string
+          description: The display name of the end-user.
+        phone_number:
+          type: string
+          description: The phone number of the end-user.
+        idp_name:
+          type: string
+          description: 'Name of the preferred Identity Provider used to autheticate the user. Given instances of Fence
+
+            may or may not have all of these available (the set of IDPs available is a configuration).
+
+            * *google* - Google/GSuite
+
+            * *ras* - NIH''s Researcher Auth Service (RAS)
+
+            * *itrust* - NIH Login / iTrust / eRA Commons
+
+            * *fence* - Upstream Fence (the idp used depends on the specific configuration, consult the Gen3 Operators)
+
+            * *orcid* - ORCHID
+
+            * *microsoft* - Microsoft
+
+            * *elixir* - Elixir
+
+            * *synapse* - Synapse
+
+            * *cognito* - AWS Cognito
+
+            * More may be added in the future...
+
+            '
+        tags:
+          type: object
+          description: User's tags
+    UserInfo:
+      type: object
+      required:
+      - user_id
+      - idp
+      - sub
+      - username
+      - name
+      - display_name
+      - preferred_username
+      - phone_number
+      - email
+      - is_admin
+      - role
+      - project_access
+      - certificates_uploaded
+      - resources_granted
+      - groups
+      - message
+      properties:
+        user_id:
+          type: number
+          description: This value is deprecated in favor of sub.
+        idp:
+          type: string
+          description: 'The Identity Provider used to autheticate the user. Given instances of Fence
+
+            may or may not have all of these available (the set of IDPs available is a configuration).
+
+
+            * *google* - Google/GSuite
+
+            * *ras* - NIH''s Researcher Auth Service (RAS)
+
+            * *itrust* - NIH Login / iTrust / eRA Commons
+
+            * *fence* - Upstream Fence (the idp used depends on the specific configuration, consult the Gen3 Operators)
+
+            * *orcid* - ORCHID
+
+            * *microsoft* - Microsoft
+
+            * *elixir* - Elixir
+
+            * *synapse* - Synapse
+
+            * *cognito* - AWS Cognito
+
+            * More may be added in the future...
+
+            '
+        sub:
+          type: string
+          description: Subject Identifier. A locally unique and never reassigned identifier within the Issuer for the end-user.
+        username:
+          type: string
+          description: This value is deprecated in favor of name.
+        name:
+          type: string
+          description: The full name of the end-user.
+        display_name:
+          type: string
+          description: The display name of the end-user.
+        preferred_username:
+          type: string
+          description: The preferred username of the end-user.
+        phone_number:
+          type: string
+          description: The phone number of the end-user.
+        email:
+          type: string
+          description: The email of the end-user
+        is_admin:
+          type: boolean
+          description: Boolean value stating if end-user is an admin or not
+        active:
+          type: boolean
+          description: Boolean value stating if user is active or not
+        role:
+          type: string
+          description: ''
+        project_access:
+          type: object
+          description: This value is deprecated in favor of authz and resources.
+        certificates_uploaded:
+          type: array
+          items:
+            type: string
+        resources_granted:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            type: string
+        message:
+          type: string
+        primary_google_service_account:
+          type: string
+          description: email address of the users primary service account used for signing URLs
+        authz:
+          type: object
+          description: end user authorization information, mapping of resource name to list of permission, service roles
+        resources:
+          type: array
+          items:
+            type: string
+          description: list of resource paths the user has access to
+        tags:
+          type: object
+          description: User's tags
+        azp:
+          type: string
+          description: authorized party - the party to which the ID token was issued.
+  requestBodies:
+    NewUser:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewUser'
+      description: New User
+      required: true
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

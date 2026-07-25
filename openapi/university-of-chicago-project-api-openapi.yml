@@ -1,0 +1,389 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user project API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: project
+paths:
+  /v0/submission/<program>:
+    get:
+      description: Return the available resources at the top level of program ``program``, i.e. registered projects.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/schema_links'
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Program not found.
+      summary: Get the projects
+      tags:
+      - project
+    patch:
+      description: Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Registered successfully.
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Program not found.
+      summary: Create a project
+      tags:
+      - project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_project'
+        description: input body
+    post:
+      description: Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Registered successfully.
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Program not found.
+      summary: Create a project
+      tags:
+      - project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_project'
+        description: input body
+    put:
+      description: Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Registered successfully.
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Program not found.
+      summary: Create a project
+      tags:
+      - project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/schema_project'
+        description: input body
+  /v0/submission/<program>/<project>:
+    delete:
+      description: Delete project under a specific program
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success.
+        '400':
+          description: User error.
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Delete a project
+      tags:
+      - project
+  /v0/submission/<program>/<project>/open:
+    post:
+      description: Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Open a project
+      tags:
+      - project
+    put:
+      description: Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Open a project
+      tags:
+      - project
+  /v0/submission/<program>/<project>/release:
+    post:
+      description: Release a project.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Release a project
+      tags:
+      - project
+    put:
+      description: Release a project.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Release a project
+      tags:
+      - project
+  /v0/submission/<program>/<project>/review:
+    post:
+      description: Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Review a project
+      tags:
+      - project
+    put:
+      description: Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Review a project
+      tags:
+      - project
+  /v0/submission/<program>/<project>/submit:
+    post:
+      description: Submit a project.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Project submitted successfully
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Submit a project
+      tags:
+      - project
+    put:
+      description: Submit a project.
+      parameters:
+      - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
+        in: path
+        name: program
+        required: true
+        schema:
+          type: string
+      - description: The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA.
+        in: path
+        name: project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Project submitted successfully
+        '403':
+          description: Unauthorized request.
+        '404':
+          description: Resource not found.
+      summary: Submit a project
+      tags:
+      - project
+components:
+  schemas:
+    schema_project:
+      properties:
+        code:
+          type: string
+        dbgap_accession_number:
+          type: string
+        investigator_name:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      required:
+      - name
+      - code
+      type: object
+    schema_links:
+      properties:
+        links:
+          items:
+            type: string
+          type: array
+      required:
+      - links
+      type: object
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

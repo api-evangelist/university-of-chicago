@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user system API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: system
+  description: System endpoints
+paths:
+  /_status:
+    get:
+      tags:
+      - system
+      summary: Returns if Fence is healthy or not
+      description: Health check endpoint
+      produces:
+      - application/text
+      responses:
+        '200':
+          description: Healthy
+        default:
+          description: Unhealthy
+  /_version:
+    get:
+      tags:
+      - system
+      summary: Returns the version of Fence
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SystemVersionOutputRef'
+  /metrics:
+    get:
+      tags:
+      - system
+      summary: Get Prometheus metrics
+      description: Returns Prometheus metrics if the `ENABLE_PROMETHEUS_METRICS` setting is `True`. By default, this endpoint is public. Authorization controls can be setup externally; in cloud-automation setups, access to this endpoint is blocked at the revproxy level.
+      responses:
+        '200':
+          description: successful operation
+  /_dist:
+    get:
+      tags:
+      - system
+      summary: Returns the IndexD dist configuration
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Commons name
+                    host:
+                      type: string
+                      description: Resolver URL
+                    hints:
+                      type: array
+                      items:
+                        type: string
+                        description: Regex for prefix matching
+                    type:
+                      type: string
+                      description: Type of resolver (one of [indexd, doi, dos, hs])
+  /_stats:
+    get:
+      tags:
+      - system
+      summary: Returns basic information about the records in IndexD
+      parameters:
+      - in: query
+        name: month
+        description: Month for which data is to be returned. (Either both month and year or neither must be provided)
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: year
+        description: year for which data is to be returned. (Either both month and year or neither must be provided)
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatsOutputRef'
+components:
+  schemas:
+    SystemStatsOutputRef:
+      type: object
+      properties:
+        fileCount:
+          type: integer
+          description: the number of records stored in IndexD
+        totalFileSize:
+          type: integer
+          description: the accumulated size of the object files recorded in IndexD
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access

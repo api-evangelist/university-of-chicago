@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: Fence OpenAPI Specification admin/user GUID API
+  version: 0.1.0
+  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: http://cdis.uchicago.edu/terms/
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://example.domain/
+tags:
+- name: GUID
+  description: Endpoints for generation of Gen3 GUIDs
+paths:
+  /guid/mint:
+    get:
+      tags:
+      - GUID
+      summary: Get a list of valid GUIDs without actually indexing records
+      operationId: getGUIDs
+      parameters:
+      - in: query
+        name: count
+        description: Number of GUIDs to return, default is 1 (note that there is a max of 10k)
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetGUIDsOutput'
+  /guid/prefix:
+    get:
+      tags:
+      - GUID
+      summary: Provide prefix used for this instance (if any)
+      operationId: getPrefix
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPrefixOutput'
+components:
+  schemas:
+    GetPrefixOutput:
+      type: object
+      properties:
+        prefix:
+          type: string
+          description: Prefix
+    GetGUIDsOutput:
+      type: object
+      properties:
+        guids:
+          type: array
+          items:
+            type: string
+            description: GUIDs
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access
