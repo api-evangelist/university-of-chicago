@@ -13,9 +13,22 @@ description: >-
   faculty/staff-facing AI API portal (Azure OpenAI via API Management) exists but
   is gated and not publicly accessible.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-chicago.png
 url: https://raw.githubusercontent.com/api-evangelist/university-of-chicago/refs/heads/main/apis.yml
 tags:
 - Education
@@ -30,44 +43,19 @@ created: '2026-06-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-- aid: university-of-chicago:gen3
-  name: Gen3 Data Commons APIs (CTDS)
-  description: >-
-    Open-source data platform maintained by the University of Chicago Center
-    for Translational Data Science. Gen3 auto-generates FAIR APIs (data
-    submission, GraphQL/Peregrine query, indexing/Indexd, Fence auth) for
-    building and accessing biomedical data commons. Code is fully public under
-    Apache 2.0 across the uc-cdis GitHub organization.
-  humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  tags: [Research Data, Data Commons, FAIR, GraphQL, Open Source, Healthcare]
-  properties:
-  - type: Documentation
-    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
-  - type: GitHub
-    url: https://github.com/uc-cdis
-  - type: OpenAPI
-    url: openapi/university-of-chicago-fence.yaml
-  - type: OpenAPI
-    url: openapi/university-of-chicago-indexd.yaml
-  - type: OpenAPI
-    url: openapi/university-of-chicago-sheepdog.yaml
-  - type: OpenAPI
-    url: openapi/university-of-chicago-peregrine.yaml
-  - type: Vocabulary
-    url: vocabulary/university-of-chicago-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/university-of-chicago-context.jsonld
-  - url: graphql/university-of-chicago-graphql.md
-    type: GraphQL
 - aid: university-of-chicago:cnetid-oidc
   name: CNetID OpenID Connect / Shibboleth Identity
   description: >-
-    University of Chicago identity and authentication integrations published
-    on the official uchicago GitHub organization, including Shibboleth
-    Identity Provider extensions and OpenID Connect (OIDC) examples for
-    authenticating CNetID-backed applications.
+    University of Chicago identity and authentication integrations published on the official uchicago
+    GitHub organization, including Shibboleth Identity Provider extensions and OpenID Connect (OIDC) examples
+    for authenticating CNetID-backed applications.
   humanURL: https://github.com/uchicago
-  tags: [Identity, Authentication, OpenID Connect, Shibboleth, SSO]
+  tags:
+  - Identity
+  - Authentication
+  - OpenID Connect
+  - Shibboleth
+  - SSO
   properties:
   - type: Documentation
     url: https://github.com/uchicago
@@ -76,18 +64,763 @@ apis:
 - aid: university-of-chicago:library-iiif
   name: University of Chicago Library IIIF
   description: >-
-    The University of Chicago Library exposes International Image
-    Interoperability Framework (IIIF) image and presentation endpoints for its
-    digital collections, with related code published in the uchicago-library
+    The University of Chicago Library exposes International Image Interoperability Framework (IIIF) image
+    and presentation endpoints for its digital collections, with related code published in the uchicago-library
     GitHub organization.
   humanURL: https://github.com/uchicago-library/iiif
   baseURL: https://iiif-manifest.lib.uchicago.edu/
-  tags: [IIIF, Library, Digital Collections, Images, Open Source]
+  tags:
+  - IIIF
+  - Library
+  - Digital Collections
+  - Images
+  - Open Source
   properties:
   - type: Documentation
     url: https://github.com/uchicago-library/iiif
   - type: GitHub
     url: https://github.com/uchicago-library
+- aid: university-of-chicago:university-of-chicago-admin-user-api
+  name: University of Chicago admin/user API
+  description: The admin/user API from University of Chicago — 4 operation(s) for admin/user.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - admin/user
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-admin-user-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-alias-api
+  name: University of Chicago alias API
+  description: >-
+    create an alias for an entity stored in an external system managed by some other authority
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - alias
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-alias-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-bulk-api
+  name: University of Chicago bulk API
+  description: bulk endpoints
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - bulk
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-bulk-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-bundle-api
+  name: University of Chicago bundle API
+  description: Bundle endpoints.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - bundle
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-bundle-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-core-metadata-api
+  name: University of Chicago core metadata API
+  description: The core metadata API from University of Chicago — 1 operation(s) for core metadata.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - core metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-core-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-credentials-api-api
+  name: University of Chicago credentials/api API
+  description: API Credentials
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - credentials/api
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-credentials-api-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-credentials-api
+  name: University of Chicago credentials API
+  description: Access credentials
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-credentials-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-credentials-cdis-api
+  name: University of Chicago credentials/cdis API
+  description: Deprecated! Use credentials/api
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - credentials/cdis
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-credentials-cdis-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-credentials-google-api
+  name: University of Chicago credentials/google API
+  description: Google Credentials
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - credentials/google
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-credentials-google-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-credentials-provider-api
+  name: University of Chicago credentials/{provider} API
+  description: Other provider credentials
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - credentials/{provider}
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-credentials-provider-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-data-api
+  name: University of Chicago data API
+  description: Generate signed URLs
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - data
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-data-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-datasets-api
+  name: University of Chicago datasets API
+  description: The datasets API from University of Chicago — 2 operation(s) for datasets.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-datasets-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-dictionary-api
+  name: University of Chicago dictionary API
+  description: The dictionary API from University of Chicago — 8 operation(s) for dictionary.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - dictionary
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-dictionary-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-dos-api
+  name: University of Chicago DOS API
+  description: Data Object Service Retrieval Endpoints
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - DOS
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-dos-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-drs-api
+  name: University of Chicago DRS API
+  description: Data Repository Service Retrieval Endpoints
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - DRS
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-drs-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-dry-run-api
+  name: University of Chicago dry run API
+  description: The dry run API from University of Chicago — 12 operation(s) for dry run.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - dry run
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-dry-run-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-entity-api
+  name: University of Chicago entity API
+  description: The entity API from University of Chicago — 7 operation(s) for entity.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - entity
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-entity-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-export-api
+  name: University of Chicago export API
+  description: The export API from University of Chicago — 1 operation(s) for export.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - export
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-export-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-file-api
+  name: University of Chicago file API
+  description: The file API from University of Chicago — 5 operation(s) for file.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - file
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-file-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-global-api
+  name: University of Chicago global API
+  description: Search for an alias or index, potentially even a distributed search.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - global
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-global-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-google-api
+  name: University of Chicago google API
+  description: Google functionality
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - google
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-google-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-graphql-api
+  name: University of Chicago graphql API
+  description: GraphQL Queries
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - graphql
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-graphql-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-guid-api
+  name: University of Chicago GUID API
+  description: Endpoints for generation of Gen3 GUIDs
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - GUID
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-guid-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-index-api
+  name: University of Chicago index API
+  description: Associate a file (object) with a unique id, and store some basic metadata.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - index
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-index-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-keys-api
+  name: University of Chicago keys API
+  description: Get public keys used to validate JWTs issued by fence
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - keys
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-keys-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-link-api
+  name: University of Chicago link API
+  description: Link access identities
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - link
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-link-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-login-api
+  name: University of Chicago login API
+  description: The login API from University of Chicago — 2 operation(s) for login.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - login
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-login-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-logout-api
+  name: University of Chicago logout API
+  description: Log out the current user
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - logout
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-logout-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-oauth2-api
+  name: University of Chicago oauth2 API
+  description: Authorization and token management
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - oauth2
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-oauth2-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-oidc-api
+  name: University of Chicago OIDC API
+  description: The OIDC API from University of Chicago — 1 operation(s) for oidc.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - OIDC
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-oidc-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-privacy-policy-api
+  name: University of Chicago privacy-policy API
+  description: The privacy-policy API from University of Chicago — 1 operation(s) for privacy-policy.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - privacy-policy
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-privacy-policy-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-program-api
+  name: University of Chicago program API
+  description: The program API from University of Chicago — 2 operation(s) for program.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - program
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-program-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-project-api
+  name: University of Chicago project API
+  description: The project API from University of Chicago — 6 operation(s) for project.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - project
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-project-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-query-api
+  name: University of Chicago query API
+  description: query endpoints
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - query
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-query-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-register-api
+  name: University of Chicago register API
+  description: The register API from University of Chicago — 1 operation(s) for register.
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - register
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-register-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-system-api
+  name: University of Chicago system API
+  description: System endpoints
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - system
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-system-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-user-api
+  name: University of Chicago user API
+  description: User information
+  humanURL: https://uc-cdis.github.io/gen3-user-doc/
+  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-user-api-openapi.yml
+  - type: Documentation
+    url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+  - type: GitHub
+    url: https://github.com/uc-cdis
+  - type: Vocabulary
+    url: vocabulary/university-of-chicago-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/university-of-chicago-context.jsonld
+  - type: GraphQL
+    url: graphql/university-of-chicago-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/university-of-chicago-agentic-access.yml
