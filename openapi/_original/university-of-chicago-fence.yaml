@@ -1,0 +1,2740 @@
+---
+openapi: 3.0.0
+servers:
+  - url: 'https://example.domain/'
+info:
+  title: Fence OpenAPI Specification
+  version: 0.1.0
+  description: >-
+    Access management for Gen3 data commons. Code is available on
+    [GitHub](https://github.com/uc-cdis/fence).
+  termsOfService: 'http://cdis.uchicago.edu/terms/'
+  contact:
+    email: cdis@uchicago.edu
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: oauth2
+    description: Authorization and token management
+  - name: user
+    description: User information
+  - name: logout
+    description: Log out the current user
+  - name: data
+    description: Generate signed URLs
+  - name: credentials
+    description: Access credentials
+  - name: credentials/google
+    description: Google Credentials
+  - name: credentials/cdis
+    description: Deprecated! Use credentials/api
+  - name: credentials/api
+    description: API Credentials
+  - name: 'credentials/{provider}'
+    description: Other provider credentials
+  - name: link
+    description: Link access identities
+  - name: google
+    description: Google functionality
+  - name: keys
+    description: Get public keys used to validate JWTs issued by fence
+  - name: system
+    description: System endpoints
+paths:
+  /_status:
+    get:
+      tags:
+        - system
+      summary: Returns if Fence is healthy or not
+      description: >-
+        Health check endpoint
+      produces:
+        - application/text
+      responses:
+        '200':
+          description: Healthy
+        default:
+          description: Unhealthy
+  /_version:
+    get:
+      tags:
+        - system
+      summary: Returns the version of Fence
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SystemVersionOutputRef'
+  /metrics:
+    get:
+      tags:
+        - system
+      summary: Get Prometheus metrics
+      description: >-
+        Returns Prometheus metrics if the `ENABLE_PROMETHEUS_METRICS` setting is `True`.
+        By default, this endpoint is public. Authorization controls can be setup externally;
+        in cloud-automation setups, access to this endpoint is blocked at the revproxy level.
+      responses:
+        '200':
+          description: successful operation
+  /oauth2/authorize:
+    get:
+      tags:
+        - oauth2
+      summary: Perform OAuth2 authorization
+      description: |
+        **IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
+        simply because of its length and complexity.
+
+        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+
+        Obtain an authorization grant through the OAuth2 protocol. To handle
+        this request, render a page for the user to confirm the OAuth2 grant
+        (through e.g. Google). Redirect user to `redirect_uri` with an added
+        `code` parameter obtained from the authorization provider.
+      operationId: authorize
+      parameters:
+        - name: client_id
+          required: true
+          in: query
+          description: 'The client''s ID, issued by authorization server'
+          schema:
+            type: string
+        - name: response_type
+          required: true
+          in: query
+          description: >-
+            For an authorization request using the access code flow, the
+            response type must be "code". If this is missing from the request
+            then the authorization server must return an error.
+          schema:
+            type: string
+        - name: redirect_uri
+          required: true
+          in: query
+          description: Page to redirect to after access has been granted
+          schema:
+            type: string
+        - name: idp
+          required: false
+          in: query
+          description: >-
+            Upstream identity provider to use. Specifying `idp=fence` lets
+            us specify a `fence_idp`. Specifying `idp=shibboleth` lets
+            us specify a `shib_idp`. If no `idp` is specified, defaults to
+            the configured default login.
+          schema:
+            type: string
+          example: 'google'
+        - name: fence_idp
+          required: false
+          in: query
+          description: >-
+            Upstream identity provider to use. Specifying `idp=fence` and
+            `fence_idp=shibboleth` lets us specify a `shib_idp`. If no
+            `fence_idp` is specified, defaults to NIH login.
+          schema:
+            type: string
+          example: 'shibboleth'
+        - name: shib_idp
+          required: false
+          in: query
+          description: >-
+            Identifier for the shibboleth IDP. Available identifiers are what
+            is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed`
+            endpoint. If no `shib_idp` is specified, defaults to NIH login.
+          schema:
+            type: string
+          example: 'urn:mace:incommon:uchicago.edu'
+        - name: scope
+          required: false
+          in: query
+          description: |
+              Requested authorization scope. Must include `openid`. `user` allows getting a user's access information.
+              > NOTE: This is required for [OIDC](http://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
+          schema:
+            type: string
+        - name: upstream_expires_in
+          required: false
+          in: query
+          description: |
+              the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less
+              than the configured maximum. If it's greater,
+              the configured maximum will be used.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+    post:
+      tags:
+        - oauth2
+      summary: Perform OAuth2 authorization
+      description: |
+        **IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
+        simply because of its length and complexity.
+
+        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+
+        Obtain an authorization grant through the OAuth2 protocol. To handle
+        this request, render a page for the user to confirm the OAuth2 grant
+        (through e.g. Google). Redirect user to `redirect_uri` with an added
+        `code` parameter obtained from the authorization provider. A POST will
+        not render a page for the user; this implementation checks the `confirm`
+        value in the request.
+      operationId: authorize_post
+      responses:
+        '200':
+          description: successful operation
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  description: 'The client''s ID, issued by authorization server'
+                  type: string
+                response_type:
+                  description: >-
+                    For an authorization request using the access code flow, the
+                    response type must be "code". If this is missing from the
+                    request then the authorization server must return an error.
+                  type: string
+                  enum:
+                    - code
+                    - token
+                redirect_uri:
+                  description: Page to redirect to after access has been granted
+                  type: string
+                confirm:
+                  description: whether to confirm the OAuth2 grant (should be 'yes')
+                  type: string
+                scope:
+                  description: Requested authorization scope. Must include `openid`. `user` allows getting a user's access information.
+                  type: string
+                upstream_expires_in:
+                  description: the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less than the configured maximum. If it's greater, the configured maximum will be used.
+                  type: string
+              required:
+                - client_id
+                - response_type
+                - redirect_uri
+  /oauth2/token:
+    post:
+      tags:
+        - oauth2
+      summary: Exchange code for or refresh the access token.
+      description: |
+        **IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
+        simply because of its length and complexity.
+
+        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+
+        Exchange the `code` obtained from OAuth2 for an access token, or refresh
+        the access token using a refresh token.
+      operationId: token
+      responses:
+        '200':
+          description: successful operation
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  description: >-
+                    Value MUST be one of the supported grant types:
+                    `"authorization_code"` or `"client_credentials"`
+                  type: string
+                code:
+                  description: >-
+                    (Required if `grant_type` is `"authorization_code"`;
+                    unused otherwise) The authorization code returned from the
+                    OAuth2 authorization request
+                  type: string
+                redirect_uri:
+                  description: >-
+                    (Required if `grant_type` is `"authorization_code"`;
+                    unused otherwise) Must be identical to the
+                    `"redirect_uri"` included in the original authorization
+                    request
+                  type: string
+                scope:
+                  description: >-
+                    (Optional if `grant_type` is `"client_credentials"`;
+                    unused otherwise) Requested authorization scope. If
+                    provided, must include `openid`. `user` allows getting a
+                    user's access information.
+                  type: string
+                client_id:
+                  type: string
+              required:
+                - grant_type
+  /oauth2/revoke:
+    post:
+      tags:
+        - oauth2
+      summary: Revoke a refresh token per RFC 7009
+      description: Revoke a refresh (not access) token granted to a user.
+      operationId: revoke
+      responses:
+        '200':
+          description: 'successful operation, OR invalid token submitted'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  description: Refresh token that the user wants to revoke
+                  type: string
+              required:
+                - token
+  /login/shib:
+    get:
+      tags:
+        - login
+      summary: Initiate login via shibboleth provider
+      description: |
+        NOTE that this endpoint only exists if shibboleth is enabled as an
+        identity provider in the fence config. Currently this only happens for
+        `login.bionimbus.org`.
+      parameters:
+        - name: shib_idp
+          required: false
+          in: query
+          description: >-
+            Identifier for the shibboleth IDP. Available identifiers are what
+            is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed`
+            endpoint. If no `shib_idp` is specified, defaults to NIH login.
+          schema:
+            type: string
+          example: 'urn:mace:incommon:uchicago.edu'
+      responses:
+        302:
+          description: redirect to external identity provider
+  /login/fence:
+    get:
+      tags:
+        - login
+      summary: Initiate login via Fence provider (multi-tenant Fence)
+      description: |
+        NOTE that this endpoint only exists if fence is enabled as an
+        identity provider in the fence config.
+      parameters:
+        - name: idp
+          required: false
+          in: query
+          description: >-
+            Identifier for the IDP. Specifying `idp=shibboleth` lets us
+            specify a `shib_idp`. If no `idp` is specified, defaults to
+            NIH login.
+          schema:
+            type: string
+          example: 'shibboleth'
+        - name: shib_idp
+          required: false
+          in: query
+          description: >-
+            Identifier for the shibboleth IDP. Available identifiers are what
+            is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed`
+            endpoint. If no `shib_idp` is specified, defaults to NIH login.
+          schema:
+            type: string
+          example: 'urn:mace:incommon:uchicago.edu'
+      responses:
+        302:
+          description: redirect to external identity provider
+  /jwt/keys:
+    get:
+      tags:
+        - keys
+      summary: >-
+        Return the public keys which can be used to validate JWTs issued and
+        signed by fence
+      operationId: getKeys
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PublicKeys'
+  /user:
+    get:
+      tags:
+        - user
+      summary: Return info about the current user
+      description: >-
+        **IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
+        simply because of its length and complexity.
+
+        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+      security:
+        - OAuth2:
+            - user
+      operationId: getUserInfo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+  '/admin/user/{username}':
+    get:
+      tags:
+        - 'admin/user'
+      summary: Return info about a given user
+      description: Admin method to retrieve info about any given user
+      parameters:
+        - name: username
+          required: true
+          in: path
+          description: Username of user to find
+          schema:
+            type: string
+      security:
+        - OAuth2:
+            - user
+      operationId: getUserInfo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '404':
+          description: Couldn't find user
+  '/admin/user/{username}/soft':
+    delete:
+      tags:
+        - 'admin/user'
+      summary: Soft-delete user
+      description: Admin method to soft-delete a user, setting the user to inactive
+      security:
+        - OAuth2:
+            - admin
+      operationId: softDeleteUser
+      parameters:
+        - name: username
+          required: true
+          in: path
+          description: Username of user to deactivate
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful deletion
+        '404':
+          description: Couldn't find user
+  '/admin/user/{username}/reactivate':
+    post:
+      tags:
+        - 'admin/user'
+      summary: Reactivate a soft-deleted user
+      description: Admin method to reactivate a soft-deleted user, setting the user back to active
+      security:
+        - OAuth2:
+            - admin
+      operationId: reactivateUser
+      parameters:
+        - name: username
+          required: true
+          in: path
+          description: Username of user to reactivate
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+        400:
+          description: User is already active
+  /admin/user:
+    post:
+      tags:
+        - admin/user
+      summary: Add a new user
+      description: Admin method to add a new user
+      security:
+        - OAuth2:
+            - admin
+      operationId: createUser
+      responses:
+        '200':
+          description: New user
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+      requestBody:
+        $ref: '#/components/requestBodies/NewUser'
+  /logout:
+    get:
+      tags:
+        - logout
+      summary: Log out the current user
+      description: Log out the current user and redirect to the provided url.
+                   The logout will propogate, depending on the identity provider.
+      parameters:
+        - in: query
+          name: next
+          schema:
+            type: string
+          description: The url to redirect the user to after logout
+          required: false
+        - in: query
+          name: force_era_global_logout
+          schema:
+            type: boolean
+          description: Use era commons itrust to logout
+          required: false
+      responses:
+        '302':
+          description: redirect to root or url in parameter if provided
+  /data/{file_id}:
+    delete:
+      tags:
+        - data
+      summary: delete all locations of a stored data file and remove its record from indexd
+      description: >-
+        After a user uploads a data file and it is registered in indexd (before
+        or after it is mapped into the graph via metadata submission), this
+        endpoint will delete the file from its storage locations (saved in the
+        record in indexd) and delete the record in indexd.
+      security:
+        - OAuth2:
+          - data
+      responses:
+        204:
+          description: successful operation
+        500:
+          description: >-
+            internal server error; could not delete stored files, or not able to
+            delete indexd record
+          content-type: application/json
+  '/data/download/{file_id}':
+    get:
+      tags:
+        - data
+      summary: Create a signed URL for data download given a file_id
+      description: Allow users to get a signed URL for a data file.
+      security:
+        - OAuth2:
+            - user
+      operationId: downloadSignedURL
+      parameters:
+        - name: file_id
+          required: true
+          in: path
+          description: data UUID
+          schema:
+            type: string
+        - name: protocol
+          required: false
+          in: query
+          description: >-
+            a protocol provided by storage provider, e.g. http, ftp, s3, gs
+          schema:
+            type: string
+            enum:
+              - http
+              - s3
+              - gs
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) in which return url is valid. Must be less
+            than the configured maximum (default is 3600). If it's greater,
+            the configured maximum will be used.
+          schema:
+            type: integer
+        - name: redirect
+          required: false
+          in: query
+          description: >-
+            if set, then a redirect to the signed url will be sent.
+            Otherwise, json data with the url is returned.
+          schema:
+            type: boolean
+        - name: no_force_sign
+          required: false
+          in: query
+          description: >-
+            if `no_force_sign=True`, this will
+            request to *not* sign the resulting URL (i.e. just provide the
+            public url without using anonymous signing creds).
+          schema:
+            type: boolean
+        - name: userProject
+          required: false
+          in: query
+          description: >-
+            a Google Project to bill for accessing data in requester pays buckets in Google Storage.
+            Will override any configured default billing projects. If Fence is configured
+            to automatically attempt to provide the necessary service account(s) billing permission,
+            the provided Google Project will need to have given the Fence admin service account
+            necessary permissions to create custom roles and set Project IAM policies. Please see
+            README for more information.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SignedURL'
+        '400':
+          description: 'Invalid input: UUID not found or invalid location'
+        '404':
+          description: 'No location found for this file'
+  '/ga4gh/drs/v1/objects/{object_id}/access/{access_id}':
+    get:
+      summary: GA4GH DRS Access API to get a URL for fetching bytes.
+      description: >-
+        Returns a URL that can be used to fetch the bytes of a DrsObject.
+        This method only needs to be called when using an AccessMethod that contains an access_id
+        (e.g., for servers that use signed URLs for fetching object bytes).
+      operationId: GetAccessURL
+      responses:
+        '200':
+          description: The access URL was found successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccessURL'
+        '400':
+          description: The request is malformed.
+        '401':
+          description: The request is unauthorized.
+        '404':
+          description: The requested access URL wasn't found
+        '403':
+          description: The requester is not authorized to perform this action.
+        '500':
+          description: An unexpected error occurred.
+      parameters:
+        - name: object_id
+          schema:
+            type: string
+          in: path
+          required: true
+          description: An id of a DrsObject
+        - name: access_id
+          schema:
+            type: string
+          in: path
+          required: true
+          description: An access_id from the access_methods list of a DrsObject
+      tags:
+        - data
+    post:
+      summary: GA4GH DRS Access API to get a URL for fetching bytes.
+      description: >-
+        Returns a URL that can be used to fetch the bytes of a DrsObject.
+        This method only needs to be called when using an AccessMethod that contains an access_id
+        (e.g., for servers that use signed URLs for fetching object bytes).
+      operationId: PostAccessURL
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestUrlPassport'
+      responses:
+        '200':
+          description: The access URL was found successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccessURL'
+        '400':
+          description: The request is malformed.
+        '401':
+          description: The request is unauthorized.
+        '404':
+          description: The requested access URL wasn't found
+        '403':
+          description: The requester is not authorized to perform this action.
+        '500':
+          description: An unexpected error occurred.
+      parameters:
+        - name: object_id
+          schema:
+            type: string
+          in: path
+          required: true
+          description: An id of a DrsObject
+        - name: access_id
+          schema:
+            type: string
+          in: path
+          required: true
+          description: An access_id from the access_methods list of a DrsObject
+      tags:
+        - data
+  '/data/upload':
+    post:
+      tags:
+        - data
+      summary: >-
+        Create a new blank record in indexd to use for uploading a data file
+        less than 5GB. For files larger than 5GB, please use multipart upload presigned url
+      description: |
+        This is the first step on the API side for the data upload flow.  This
+        endpoint causes fence to make a request to indexd to create a new, blank
+        index record, and returns the GUID for this new record and a presigned
+        URL which a client can then use to upload their data file directly to a
+        storage bucket. No parameters are accepted because fence retrieves the
+        username from the current token to send to indexd for the `uploader`
+        field in the new record.
+
+        This API also supports utilizing the newer authorization within the indexing
+        service by providing an "authz" field.
+
+        If an "authz" field is provided, the authorization checks are slightly different:
+        your user must have *both* "create" and "write-storage" permission on the resources
+        you are including in the "authz" list.
+
+        In addition to a different authorization check, when "authz" is provided the
+        "uploader" field in indexd with *not* be populated.
+
+        Previous authorization check requires a more general, global upload permission:
+        "file_upload" on "/data_file" resource. When "authz" is *not* provided, this
+        endpoint will check for that permission for your user.
+
+        Accepts a "guid" field in the request body. If "guid" is provided, it checks indexd for an existing record. If not found, it raises a 404.
+      security:
+        - OAuth2:
+          - user
+          - data
+      operationId: uploadBlank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestUploadBlank'
+      responses:
+        201:
+          description: successful operation; created new record in indexd
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  guid:
+                    type: string
+                    description: >-
+                      the GUID from the newly created record in indexd
+                  url:
+                    type: string
+                    description: the presigned URL usable for data upload
+        404:
+          description: Record with <guid> not found.
+  '/data/upload/{file_id}':
+    get:
+      tags:
+        - data
+      summary: Create a signed URL for data upload specified by file_id
+      description: >-
+        Allow users to get a signed URL to upload data given the location of
+        preference.
+      security:
+        - OAuth2:
+            - user
+      operationId: uploadSignedURL
+      parameters:
+        - name: file_id
+          required: true
+          in: path
+          description: data UUID
+          schema:
+            type: string
+        - name: protocol
+          required: false
+          in: query
+          description: >-
+            a protocol provided by storage provider, e.g. http, ftp, s3, gs
+          schema:
+            type: string
+            enum:
+              - http
+              - s3
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) in which return url is valid. Must be less
+            than the configured maximum (default is 3600). If it's greater,
+            the configured maximum will be used.
+          schema:
+            type: integer
+        - name: file_name
+          required: false
+          in: query
+          description: >-
+            the requested file name in the cloud bucket you will upload to.
+            If not provided, will use the GUID/file_id
+          schema:
+            type: string
+        - name: bucket
+          required: false
+          in: query
+          description: >-
+            the requested bucket to upload to.
+            If not provided, defaults to the configured DATA_UPLOAD_BUCKET.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SignedURL'
+        '400':
+          description: 'Invalid input: UUID not found or invalid location'
+  '/multipart/init':
+    post:
+      tags:
+        - data
+      summary: >-
+        Initilize a multipart upload for AWS bucket. It returns an uploadId which
+        can be used for uploading object parts (see /multipart/upload) and completing
+        the upload (see /multipart/complete)
+      description: >-
+        For uploading the big file with the size is larger than 5GB in data upload
+        flow, Fence needs to provide a list of endpoints for supporting multipart upload presigned url
+        This is the first step on the API side for the multipart upload presigned url. This endpoint
+        causes fence to make a request to indexd to create a new, blank index record, and returns
+        the GUID for this new record and an uploadId for multipart upload presigned url.
+
+
+        Accepts a "guid" field in the request body. If "guid" is provided, it checks indexd for an existing record. If not found, it raises a 404.
+      security:
+        - OAuth2:
+          - user
+          - data
+      operationId: multipartUploadInit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitMultipartUpload'
+      responses:
+        201:
+          description: successful operation; created new blank record in indexd and uploadId for multipart upload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  guid:
+                    type: string
+                    description: >-
+                      the GUID from the newly created record in indexd
+                  uploadId:
+                    type: string
+                    description: the uploadId for multipart upload presigned URL usable for data upload
+        404:
+          description: Record with <guid> not found.
+
+  '/multipart/upload':
+    post:
+      tags:
+        - data
+      summary: >-
+        Upload an object part given uploadId
+      description: >-
+        This is the second step on the API side for the multipart upload presigned url. The object is chopped into
+        multiple parts with part number start from 1. Each part is submitted to the cloud resource with this
+        endpoint by providing the part number a long with uploadId. It is worth to mention that the minimal supported
+        part size is 5 MB as describe in https://docs.aws.amazon.com/AmazonS3/latest/dev/qfacts.html
+      security:
+        - OAuth2:
+          - user
+          - data
+      operationId: multipartUpload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestMultipartUpload'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  presigned_url:
+                    type: string
+                    description: the presigned URL for uploading part
+
+  '/multipart/complete':
+    post:
+      tags:
+        - data
+      summary: >-
+        Complete aws multipart upload
+      description: >-
+        This is the last step for the multipart upload presigned url. All the parts which were submitted
+        need to be combined together. This enpoint takes a list of the part info (partNumber, Etag)
+        and uploadId in order to finish the upload
+      security:
+        - OAuth2:
+          - user
+          - data
+      operationId: multipartUploadComplete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteMultipartUpload'
+      responses:
+        200:
+          description: successful operation
+  '/data/buckets':
+    get:
+      tags:
+        - data
+      summary: >-
+       Get list of buckets and relevant bucket info
+      description: >-
+       Returns a list of buckets and relevant bucket information provided in the fence-config under AWS_BUCKETS and GS_BUCKETS.
+       It filters out sensitive information about the bucket and only shows information like bucket region.
+      operationId: getBuckets
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BucketInfo'
+  /credentials:
+    get:
+      tags:
+        - credentials
+      summary: List credential resources
+      description: List different resources user can have credentials
+      security:
+        - OAuth2:
+            - user
+      operationId: listSources
+      responses:
+        '200':
+          description: successful operation
+  /credentials/google:
+    get:
+      tags:
+        - credentials/google
+      summary: List access keys
+      description: List all the Google access keys for the current user
+      security:
+        - OAuth2:
+            - user
+      operationId: listGoogleKeypairs
+      responses:
+        '200':
+          description: Google keys info response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleKeys'
+    post:
+      tags:
+        - credentials/google
+      summary: Receive temporary access key
+      description: >-
+        Get a new temporary Google access key for the current user. The response
+        from this represents exactly what should be placed in a JSON credentials
+        file to pass to Google's APIs.
+      security:
+        - OAuth2:
+            - user
+      operationId: getGoogleKeypair
+      parameters:
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) during which the access key is valid. Must be less
+            than the configured maximum (default is 10 days). If it's greater,
+            the configured maximum will be used.
+          schema:
+            type: integer
+        - name: userProject
+          required: false
+          in: query
+          description: >-
+            a Google Project to bill for accessing data in requester pays buckets in Google Storage.
+            Will override any configured default billing projects. If Fence is configured
+            to automatically attempt to provide the necessary service account(s) billing permission,
+            the provided Google Project will need to have given the Fence admin service account
+            necessary permissions to create custom roles and set Project IAM policies. Please see
+            README for more information.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Temporary private Google key in Google Credentials File format
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleKey'
+    delete:
+      tags:
+        - credentials/google
+      summary: Delete access keys
+      description: Delete all Google access key for the current user/client
+      security:
+        - OAuth2:
+            - user
+      operationId: deleteAllGoogleKeypair
+      parameters:
+        - name: all
+          required: true
+          in: query
+          description: Must be "true" to delete all keys
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful deletion
+        '404':
+          description: >-
+            Couldn't find key or service account for current user, unable to
+            delete given key
+        '405':
+          description: >-
+            all param not provided and is required to explicitly delete all keys
+  '/credentials/google/{access_key}':
+    delete:
+      tags:
+        - credentials/google
+      summary: Delete access key
+      description: Delete a Google access key for the current user
+      security:
+        - OAuth2:
+            - user
+      operationId: deleteGoogleKeypair
+      parameters:
+        - name: access_key
+          required: true
+          in: path
+          description: Google Key ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful deletion
+        '404':
+          description: >-
+            Couldn't find key or service account for current user, unable to
+            delete given key
+  /credentials/cdis:
+    get:
+      deprecated: true
+      tags:
+        - credentials/cdis
+      summary: List API keys for user
+      description: List all the API keys for the current user
+      security:
+        - OAuth2:
+            - user
+      operationId: listCDISKeypairs
+      responses:
+        '200':
+          description: List of API keys issued to user and their expiration
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/APIKeys'
+    post:
+      deprecated: true
+      tags:
+        - credentials/cdis
+      summary: Receive API key
+      description: >-
+        Get a new API key for the current user. API keys can be used to retrieve
+        access tokens which will allow for authed communication to our API.
+      security:
+        - OAuth2:
+            - user
+      operationId: getCDISKeypair
+      responses:
+        '200':
+          description: API key id and actual key
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NewAPIKey'
+  '/credentials/cdis/{key_id}':
+    delete:
+      deprecated: true
+      tags:
+        - credentials/cdis
+      summary: Delete user API key
+      description: Delete a API access key for the current user
+      security:
+        - OAuth2:
+            - user
+      operationId: deleteCDISKeypair
+      parameters:
+        - name: key_id
+          required: true
+          in: path
+          description: API Key key_id/jti
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful deletion
+        '404':
+          description: 'Couldn''t find key for current user, unable to delete given key'
+  /credentials/cdis/access_token:
+    post:
+      deprecated: true
+      tags:
+        - credentials/cdis
+      summary: Receive access token when given API key
+      description: >-
+        Get a new temporary access token for the current user by providing a
+        valid API key.
+      security:
+        - OAuth2:
+            - user
+      operationId: getCDISAccessToken
+      responses:
+        '200':
+          description: Access token
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+      requestBody:
+        $ref: '#/components/requestBodies/APIKey'
+  /credentials/api:
+    get:
+      tags:
+        - credentials/api
+      summary: List API keys for user
+      description: List all the API keys for the current user
+      security:
+        - OAuth2:
+            - user
+      operationId: listAPIKeypairs
+      responses:
+        '200':
+          description: List of API keys issued to user and their expiration
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/APIKeys'
+    post:
+      tags:
+        - credentials/api
+      summary: Receive API key
+      description: >-
+        Get a new API key for the current user. API keys can be used to retrieve
+        access tokens which will allow for authed communication to our API. Can
+        pass a list of requested OIDC scopes in the body. Automatically gives "openid" scope.
+        Any additional scopes (like "user" for seeing user information or "data" for hitting
+        signed url endpoint) must be explicitly requested and user must already have access.
+      security:
+        - OAuth2:
+            - user
+      operationId: getAPIKeypair
+      responses:
+        '200':
+          description: API key id and actual key
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NewAPIKey'
+      requestBody:
+        $ref: '#/components/requestBodies/APIKeyScopes'
+  '/credentials/api/{key_id}':
+    delete:
+      tags:
+        - credentials/api
+      summary: Delete user API key
+      description: Delete a API access key for the current user
+      security:
+        - OAuth2:
+            - user
+      operationId: deleteAPIKeypair
+      parameters:
+        - name: key_id
+          required: true
+          in: path
+          description: API Key key_id/jti
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful deletion
+        '404':
+          description: 'Couldn''t find key for current user, unable to delete given key'
+  /credentials/api/access_token:
+    post:
+      tags:
+        - credentials/api
+      summary: Receive access token when given API key
+      description: >-
+        Get a new temporary access token for the current user by providing a
+        valid API key.
+      security:
+        - OAuth2:
+            - user
+      operationId: getAccessToken
+      responses:
+        '200':
+          description: Access token
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+      requestBody:
+        $ref: '#/components/requestBodies/APIKey'
+  '/credentials/{provider}':
+    get:
+      tags:
+        - 'credentials/{provider}'
+      summary: List access keys
+      description: List all the access keys for the current user
+      parameters:
+        - name: provider
+          required: true
+          in: path
+          description: Storage provider to obtain creds for
+          schema:
+            type: string
+      security:
+        - OAuth2:
+            - user
+      operationId: listGenericKeypairs
+      responses:
+        '200':
+          description: Generic keys info response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericKeys'
+    post:
+      tags:
+        - 'credentials/{provider}'
+      summary: Receive access key
+      description: Get a new access key for the current user for the given provider
+      parameters:
+        - name: provider
+          required: true
+          in: path
+          description: Storage provider to obtain creds for
+          schema:
+            type: string
+      security:
+        - OAuth2:
+            - user
+      operationId: getGenericKeypair
+      responses:
+        '200':
+          description: generic keypair for provider
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericKey'
+  '/credentials/{provider}/{access_key}':
+    delete:
+      tags:
+        - 'credentials/{provider}'
+      summary: Delete access key
+      description: Delete an access key for the current user
+      security:
+        - OAuth2:
+            - user
+      operationId: deleteGenericKeypair
+      parameters:
+        - name: provider
+          required: true
+          in: path
+          description: Provider of credentials such as API, or Google
+          schema:
+            type: string
+        - name: access_key
+          required: true
+          in: path
+          description: Generic Key ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successful deletion
+        '404':
+          description: 'Couldn''t find key, unable to delete given key'
+  /link/google:
+    get:
+      tags:
+        - link
+      summary: Link Google identity to user
+      parameters:
+        - name: redirect
+          required: true
+          in: query
+          description: Page to redirect to after account linking
+          schema:
+            type: string
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) during which the Google account has bucket
+            access. Must be less than the configured maximum (default is 24
+            hours). If it's greater, the configured maximum will be used.
+          schema:
+            type: integer
+      description: >
+        Link a Google identity to a User (AuthN using Google Oauth2 flow).
+        Google identity will be associated with a user and added to a
+        proxy group for that user. The user's proxy group will be given access
+        to data via Google's IAM. `redirect` will be stored in the session
+        to follow after linking.
+
+        ---
+
+        If AuthN is successful with Google, eventually will redirect to
+        `/link/google/callback`, where the actual account linkage occur.
+
+        > *See `/link/google/callback` endpoint for details about eventual
+           redirect with descriptive query params about success/failure.*
+      operationId: linkCloudIdentityStart2
+      responses:
+        '302':
+          description: redirect to Oauth2 flow with Google to AuthN user
+    patch:
+      tags:
+        - link
+      summary: Extend Google identity's access expiration
+      parameters:
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) during which the Google account has bucket
+            access. Must be less than the configured maximum (default is 24
+            hours). If it's greater, the configured maximum will be used.
+          schema:
+            type: integer
+      description: >-
+        Extend previously linked Google identity's access expiration from the
+        user's proxy group (thus extending its access to data). This can only be
+        done if the user has ALREADY linked their Google account before.
+      operationId: extendCloudIdentityExpiration
+      responses:
+        '200':
+          description: successfully extended access
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LinkedGoogleEmailExpiration"
+        '404':
+          description: No linked Google account found for user
+    delete:
+      tags:
+        - link
+      summary: Unlink a Google identity from a user
+      description: Remove link between a user and a Google identity.
+      operationId: unlinkCloudIdentity
+      responses:
+        '200':
+          description: Google identity unlinked from user
+        '400':
+          description: >-
+            Failure with Google's API to remove account from proxy group. See
+            response for details
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleLinkingError'
+        '404':
+          description: No linked Google account found for user
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleLinkingError'
+  /link/google/callback:
+    get:
+      tags:
+        - link
+      summary: Google's callback for linking Google identity
+      description: >
+        Linking of Google identity to user after successful Oauth2
+        flow with Google. Use code to retrieve user info from Google.
+
+        Will return to session stored redirect.
+
+        Response will contain query params about the new linkage
+        (`exp` or `linked_email`) or error params (`error` and
+        `error_description`) detailing what went wrong.
+
+        ---
+        ---
+
+        Query Params on Successful Linking
+
+          * `exp`
+            * Expiration time in unix time (seconds since last epoch).
+              This represents when the newly linked account's temporary access
+              rights will be removed
+          * `linked_email`
+            * Google account email that was linked to the user and provided
+              temporary access
+
+        ---
+
+        Possible Error Types (for `error` param)
+
+          * `g_acnt_link_error`
+            * Issue with the linkage between User and their Google account
+          * `g_acnt_auth_failure`
+            * Issue with Oauth2 flow to AuthN user's Google account
+          * `g_acnt_access_error`
+            * Issue with providing access to Google account by putting in
+              user's proxy group
+
+        For details about the error, check the `error_description` param.
+
+      parameters:
+        - name: code
+          required: true
+          in: query
+          description: The authorization code returned from the OAuth2
+            authorization request
+          schema:
+            type: string
+      operationId: linkCloudIdentity
+      responses:
+        '302':
+          description: redirect to session-stored redirect value
+  /google/billing_projects/:
+    get:
+      tags:
+        - google
+      summary: Get the configured default Google project for billing
+      description: >-
+        Get the configured default Google project identifiers that will be used for
+        billing access to requester pays Google buckets. This effectively bills all
+        access to the specified Project and *not* the end-user (may be a different project
+        for different data access methods). If there is no configured default
+        billing project, requests to Data Access Method endpoints will rely on
+        a query parameter `userProject` for the end-user to specify a valid Google
+        project that Fence has the necessary roles in to provide relevant service
+        accounts the necessary access. Please see the README for more details.
+      operationId: getGoogleBillingProjects
+      responses:
+        '200':
+          description: 'billing projects in response.'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleBillingProjects'
+  /google/service_accounts/:
+    post:
+      tags:
+        - google
+      summary: Register a Google Service Account
+      description: >-
+        Register a Google Cloud Project's service account to allow access to
+        controlled data. If there are issues, will provide details for what went
+        wrong.
+      parameters:
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) during which the Google service account has
+            bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+          schema:
+            type: integer
+      operationId: registerGoogleServiceAccount
+      responses:
+        '200':
+          description: 'success, registered service account.'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccount'
+        '400':
+          description: 'failure, trying to register service account resulted in errors'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccount'
+        description: ServiceAccount object to register
+        required: true
+    get:
+      tags:
+        - google
+      summary: Get a list of Google Service Accounts
+      description: |
+        Get a list of service accounts for the given Google Cloud Project IDs.
+        > **NOTE: This will only provide service account information for
+        Google Cloud Projects if the current user is a member of those
+        projects**
+
+        The endpoint lists the `project_access` that was previously granted
+        (whether or not the SA currently has access). The `project_access_exp`
+        will be `0` when the SA isn't currently given access
+        (but can be provided access again with a `PATCH`).
+      parameters:
+        - name: google_project_ids
+          required: true
+          in: query
+          description: |
+            Google Cloud Project IDs to get service accounts for.
+            Use a comma-separated list: `project_a,project_b,project_c`
+          schema:
+            type: string
+      operationId: listGoogleServiceAccount
+      responses:
+        '200':
+          description: List of service accounts for specified projects
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccounts'
+        '403':
+          description: User is not a member on all the provided project ids
+  /google/service_accounts/_dry_run:
+    post:
+      tags:
+        - google
+      summary: Dry run to attempt to register a Google Service Account
+      description: >-
+        Attempt to register a service account WITHOUT actually doing so. Will
+        provide detailed errors for what went wrong.
+      parameters:
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) during which the Google service account has
+            bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+          schema:
+            type: integer
+      operationId: registerGoogleServiceAccountDryRun
+      responses:
+        '200':
+          description: 'success, registering service account is possible'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '400':
+          description: 'failure, registering service account would result in errors'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccount'
+        description: ServiceAccount object to register
+  /google/service_accounts/monitor:
+    get:
+      tags:
+        - google
+      summary: >-
+        Return the service account used for monitoring user's Google Cloud
+        Projects
+      description: |
+        This account is used to monitor and validate access to data
+        for registered service accounts for the project.
+
+        >NOTE: This service account must be given editor role on a Google
+        Project for service account registration to succeed. If it is ever
+        removed, all access to data will be removed.
+      operationId: adminGoogleServiceAccount
+      responses:
+        '404':
+          description: >-
+            No monitoring service account is configured. In other words,
+            fence does not currently support user-registered service accounts.
+        '200':
+          description: Monitoring service account information
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AdminGoogleServiceAccount'
+  /google/service_accounts/_dry_run/{id}:
+    patch:
+      tags:
+        - google
+      summary: Dry run to attempt to update a Google Service Account
+      description: |
+        Try to update a Google Cloud Project's service account to change access to
+        controlled data and/or extend access to data WITHOUT actually doing so.
+        This would extend the service account's access to data if using the non _dry_run
+        endpoint. It would also modify access if a patch document is provided with new access.
+
+        > *NOTE*: If you do not provide a patch document (e.g. no payload),
+        this will extend access to ALL PREVIOUS DATA. If you want to REMOVE
+        access, either use the DELETE endpoint or provide a patch document
+        with an empty list for "project_access". It's important to note that
+        providing {"project_access": []} is different than not including a
+        payload at all.
+
+        > **WARNING**: Provided patch document will *fully replace* previous data.
+        It will NOT extend previous data by provided values, it will FULLY
+        REPLACE the data with what's provided.
+      operationId: updateGoogleServiceAccountDryRun
+      parameters:
+        - in: path
+          name: id
+          description: ServiceAccount idenitifer
+          required: true
+          schema:
+            type: string
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) during which the Google service account has
+            bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'success, updating service account access is possible'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '400':
+          description: 'failure, trying to update service account access resulted in errors'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '403':
+          description: 'forbidden, cannot modify the provided fields'
+        '401':
+          description: 'unauthorized, can modify provided fields but user does not have permission to update this service account'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccountProjectAccess'
+        description: ServiceAccount fields to update
+  /google/service_accounts/{id}:
+    delete:
+      tags:
+        - google
+      summary: Delete a specific Google Service Account
+      description: Delete a service account and remove from access
+      operationId: deleteSpecficGoogleServiceAccount
+      parameters:
+        - in: path
+          name: id
+          description: ServiceAccount idenitifer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'success, deleted service account'
+        '400':
+          description: 'failure, could not service account'
+        '403':
+          description: 'unauthorized, user cannot delete this service account'
+    patch:
+      tags:
+        - google
+      summary: Update a Google Service Account
+      description: |
+        Update a Google Cloud Project's service account to change access to
+        controlled data and/or extend access to data. This will extend the
+        service account's access to data. It will also modify access if a
+        patch document is provided with new access.
+
+        > *NOTE*: If you do not provide a patch document (e.g. no payload),
+        this will extend access to ALL PREVIOUS DATA. If you want to REMOVE
+        access, either use the DELETE endpoint or provide a patch document
+        with an empty list for "project_access". It's important to note that
+        providing {"project_access": []} is different than not including a
+        payload at all.
+
+        > **WARNING**: Provided patch document will *fully replace* previous data.
+        It will NOT extend previous data by provided values, it will FULLY
+        REPLACE the data with what's provided.
+      operationId: updateGoogleServiceAccount
+      parameters:
+        - in: path
+          name: id
+          description: ServiceAccount idenitifer
+          required: true
+          schema:
+            type: string
+        - name: expires_in
+          required: false
+          in: query
+          description: >-
+            the time (in seconds) during which the Google service account has
+            bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'success, updated service account access'
+        '400':
+          description: 'failure, trying to update service account access resulted in errors'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccountErrors'
+        '403':
+          description: 'forbidden, cannot modify the provided fields'
+        '401':
+          description: 'unauthorized, can modify provided fields but user does not have permission to update this service account'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleServiceAccountProjectAccess'
+        description: ServiceAccount fields to update
+  /google/primary_google_service_account:
+    post:
+      tags:
+        - google
+      description: |
+        Force the creation of the User's Primary Google Service Account instead of
+        relying on lazy creation at first time of Google Data Access.
+      responses:
+        '200':
+          description: |
+            success, created User's Primary Google Service Account or already exists
+        '401':
+          description: 'invalid token provided (or none provided)'
+  /.well-known/jwks:
+    get:
+      tags:
+        - keys
+      summary: Get JWK Set used by the application
+      description: >-
+        See [RFC 7517](https://tools.ietf.org/html/rfc7517) for detailed
+        specification and an [example
+        response](https://tools.ietf.org/html/rfc7517#appendix-A.1).
+      responses:
+        '200':
+          description: JWKS response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/JWKS'
+  /privacy-policy:
+    get:
+      tags:
+        - privacy-policy
+      summary: Return the full text of the privacy policy for Gen3
+      description: >-
+        The privacy policy should contain details about what information our
+        technology collects from users and how it is used. According to the
+        `Accept` header in the request it returns either markdown or raw HTML.
+      responses:
+        200:
+          description: success
+          content:
+            text/markdown:
+              schema:
+                type: string
+                example: "# Gen3 Privacy Policy ..."
+            text/html:
+              schema:
+                type: string
+                example: "<h1>Gen3 Privacy Policy</h1> ..."
+  /user/register:
+    get:
+      tags:
+        - register
+      summary: Register in order to get access to download data
+      description: >-
+        This register functionality enables a registration page for users to provide basic information before being added to a preconfigured group.
+        The GET request will redirect to a HTML page where users can provide their first name, last name, organization, and email, in order to gain some predefined permissions
+        (i.e. to be automatically added to a preconfigured Arborist group).
+      responses:
+        200:
+          description: success
+          content:
+            text/markdown:
+              schema:
+                $ref: '#/components/schemas/RegisterUser'
+  /.well-known/openid-configuration:
+    get:
+      tags:
+        - OIDC
+      summary: Get the OpenID Provider Configuration Document
+      description: >-
+        See [OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) for detailed
+        specification and an [example
+        response](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationResponse).
+      responses:
+        '200':
+          description: OpenID Configuration
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OpenIDConfiguration'
+components:
+  requestBodies:
+    APIKey:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/APIKey'
+      description: API key
+      required: true
+    APIKeyScopes:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/APIKeyScopes'
+      description: API key scopes
+      required: false
+    NewUser:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewUser'
+      description: New User
+      required: true
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            user: generic user access
+  schemas:
+    NewUser:
+      type: object
+      required:
+        - username
+        - email
+      properties:
+        username:
+          type: string
+          description: 'This value is deprecated in favor of name.'
+        email:
+          type: string
+          description: 'The email of the end-user'
+        display_name:
+          type: string
+          description: 'The display name of the end-user.'
+        phone_number:
+          type: string
+          description: 'The phone number of the end-user.'
+        idp_name:
+          type: string
+          description: |
+            Name of the preferred Identity Provider used to autheticate the user. Given instances of Fence
+            may or may not have all of these available (the set of IDPs available is a configuration).
+            * *google* - Google/GSuite
+            * *ras* - NIH's Researcher Auth Service (RAS)
+            * *itrust* - NIH Login / iTrust / eRA Commons
+            * *fence* - Upstream Fence (the idp used depends on the specific configuration, consult the Gen3 Operators)
+            * *orcid* - ORCHID
+            * *microsoft* - Microsoft
+            * *elixir* - Elixir
+            * *synapse* - Synapse
+            * *cognito* - AWS Cognito
+            * More may be added in the future...
+        tags:
+          type: object
+          description: User's tags
+    RequestUrlPassport:
+      type: object
+      required: true
+      properties:
+        passports:
+          type: array
+          items:
+            type: string
+          required: true
+          description: The list of GA4GH passports containing the authorizations for a given user to access the requested file. NOTE - the key "passports" is configurable in fence via the GA4GH_DRS_POSTED_PASSPORT_FIELD field. The default of "passports" has been provided.
+    RequestUploadBlank:
+      type: object
+      required:
+      properties:
+        file_name:
+          type: string
+          required: true
+          description: the file name to use for this upload
+        bucket:
+          type: string
+          required: true
+          description: >-
+            the requested bucket to upload to.
+            If not provided, defaults to the configured DATA_UPLOAD_BUCKET.
+        guid:
+          type: string
+          required: false
+          description: GUID to be assigned to the object
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        authz:
+          type: array
+          items:
+            type: string
+          description: requested authorization resources to be set on the
+            resulting indexed record. You must have proper authorization to set this
+      example:
+        guid: "123456abcd"
+        file_name: "my_file.bam"
+        bucket: "bucket1"
+        expires_in: 1200
+        authz: ["/programs/A"]
+    InitMultipartUpload:
+      type: object
+      required:
+      properties:
+        file_name:
+          type: string
+          required: true
+          description: the file name to use for this upload
+        guid:
+          type: string
+          required: false
+          description: GUID to be assigned to the object
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        authz:
+          type: array
+          items:
+            type: string
+          description: requested authorization resources to be set on the
+            resulting indexed record. You must have proper authorization to set this
+        bucket:
+          type: string
+          required: false
+          description: bucket to upload to
+      example:
+        file_name: "my_file.bam"
+        expires_in: 1200
+        authz: ["/programs/A"]
+        bucket: "bucket-1"
+    RequestMultipartUpload:
+      type: object
+      required:
+      properties:
+        key:
+          type: string
+          description: >-
+            the key of the object in the format of GUID/filename
+        uploadId:
+          type: string
+          description: the uploadId for multipart presigned URL upload usable for data upload
+        partNumber:
+          type: integer
+          description: the part number of the part (start from 1)
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        bucket:
+          type: string
+          required: false
+          description: bucket to upload\ to
+    CompleteMultipartUpload:
+      type: object
+      required:
+      properties:
+        key:
+          type: string
+          description: >-
+            the key of the object in the format of GUID/filename
+        uploadId:
+          type: string
+          description: the uploadId for multipart presigned URL upload usable for data upload
+        parts:
+          type: array
+          items:
+            type: object
+            properties:
+              partNumber:
+                type: integer
+                description: >-
+                  The part number
+              ETag:
+                type: string
+                description: the etag that cooresponds to the the object part with the partnumber
+
+          description: >-
+            List of part numbers info needed for multipart completion
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        bucket:
+          type: string
+          required: false
+          description: bucket to upload to
+    CredentialsSource:
+      type: object
+      required:
+        - name
+        - info
+      properties:
+        name:
+          type: string
+          description: >-
+            User's Google identity email for whom service account should be
+            associated with
+        info:
+          type: string
+          description: Service account's email
+    GoogleServiceAccount:
+      type: object
+      required:
+        - service_account_email
+        - google_project_id
+        - project_access
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
+        google_project_id:
+          type: string
+          description: Google Cloud Project ID of service account
+        project_access:
+          type: array
+          items:
+            type: string
+          description: >-
+            List of projects/datasets for which service account should be
+            registered for
+    GoogleServiceAccountInfo:
+      type: object
+      required:
+        - service_account_email
+        - google_project_id
+        - project_access
+        - project_access_exp
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
+        google_project_id:
+          type: string
+          description: Google Cloud Project ID of service account
+        project_access:
+          type: array
+          items:
+            type: string
+          description: >-
+            List of projects/datasets for which service account should be
+            registered for
+        project_access_exp:
+          type: integer
+          description: Project/dataset access expiration in unix time
+    AdminGoogleServiceAccount:
+      type: object
+      required:
+        - service_account_email
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
+    GoogleBillingProjects:
+      type: object
+      required:
+        - signed_urls
+        - temporary_service_account_credentials
+      properties:
+        signed_urls:
+          type: object
+          required:
+            - project_id
+          properties:
+            project_id:
+              type: string
+              description: >-
+                Google Project identifier that serves as the default billing project
+                for all requester pays access
+        temporary_service_account_credentials:
+          type: object
+          required:
+            - project_id
+          properties:
+            project_id:
+              type: string
+              description: >-
+                Google Project identifier that serves as the default billing project
+                for all requester pays access
+    GoogleServiceAccounts:
+      type: object
+      properties:
+        service_accounts:
+          type: array
+          description: List of GoogleServiceAccounts
+          items:
+              $ref: '#/components/schemas/GoogleServiceAccountInfo'
+    GoogleServiceAccountErrors:
+      type: object
+      required:
+        - success
+        - errors
+      properties:
+        success:
+          type: boolean
+          description: whether or not register/update was successful
+        errors:
+          type: object
+          properties:
+            service_account_email:
+              type: object
+              properties:
+                'status':
+                  type: integer
+                  description: HTTP Status code representing the validity/success for this field
+                'error':
+                  type: string
+                  description: Specific error name
+                'error_description':
+                  type: string
+                  description: More details about the error
+                'service_account_validity':
+                  type: object
+                  properties:
+                    service_account_id:
+                      type: object
+                      properties:
+                        no_external_access:
+                          type: boolean
+                        owned_by_project:
+                          type: boolean
+                        valid_type:
+                          type: boolean
+                        policy_accessible:
+                          type: boolean
+            google_project_id:
+              type: object
+              properties:
+                'status':
+                  type: integer
+                  description: HTTP Status code representing the validity/success for this field
+                'error':
+                  type: string
+                  description: Specific error name
+                'error_description':
+                  type: string
+                  description: More details about the error
+                'membership_validity':
+                  type: object
+                  properties:
+                    'valid_member_types':
+                      type: boolean
+                    'members_exist_in_fence':
+                      type: boolean
+                'service_account_validity':
+                  type: object
+                  properties:
+                    service_account_id:
+                      type: object
+                      properties:
+                        no_external_access:
+                          type: boolean
+                        owned_by_project:
+                          type: boolean
+                        valid_type:
+                          type: boolean
+                        'policy_accessible':
+                          type: boolean
+            project_access:
+              type: object
+              properties:
+                'status':
+                  type: integer
+                  description: HTTP Status code representing the validity/success for this field
+                'error':
+                  type: string
+                  description: Specific error name
+                'error_description':
+                  type: string
+                  description: More details about the error
+                'project_validity':
+                  type: object
+                  properties:
+                    project_id:
+                      type: object
+                      properties:
+                        all_users_have_access:
+                          type: boolean
+                        exists:
+                          type: boolean
+      example:
+        success: false
+        errors:
+          service_account_email:
+            'status': 200
+            'error': null
+            'error_description': ''
+            'service_account_validity':
+              'some-service-account@project-id.iam.gserviceaccount.com':
+                'no_external_access': true
+                'owned_by_project': true
+                'valid_type': true
+                'policy_accessible': true
+          google_project_id:
+            'status': 200
+            'error': null
+            'error_description': ''
+            'membership_validity':
+              valid_member_types: true
+              members_exist_in_fence: true
+            'service_account_validity':
+              'another-service-account@project-id.iam.gserviceaccount.com':
+                'no_external_access': true
+                'owned_by_project': true
+                'valid_type': true
+                'policy_accessible': true
+          project_access:
+            'status': 403
+            'error': 'Unauthorized'
+            'error_description': 'Not all users have access requested'
+            'project_validity':
+              'ProjectA':
+                'all_users_have_access': false
+                'exists': true
+              'ProjectB':
+                'all_users_have_access': true
+                'exists': true
+    GoogleServiceAccountProjectAccess:
+      type: object
+      required:
+        - project_access
+      properties:
+        project_access:
+          type: array
+          items:
+            type: string
+          description: >-
+            List of projects/datasets for which service account should be
+            registered for
+    GoogleKey:
+      type: object
+      description: >-
+        decoded Google private key data from privateKeyData field
+        https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts.keys#ServiceAccountPrivateKeyType
+      properties:
+        type:
+          type: string
+        project_id:
+          type: string
+        private_key_id:
+          type: string
+        private_key:
+          type: string
+        client_email:
+          type: string
+        client_id:
+          type: string
+        auth_uri:
+          type: string
+        token_uri:
+          type: string
+        auth_provider_x509_cert_url:
+          type: string
+        client_x509_cert_url:
+          type: string
+      example:
+        type: service_account
+        project_id: project-id
+        private_key_id: some_number
+        private_key: '-----"BEGIN PRIVATE KEY-----\n..." =\n-----END "PRIVATE KEY-----\n"'
+        client_email: api@project-id.iam.gserviceaccount.com
+        client_id: ...
+        auth_uri: 'https://accounts.google.com/o/oauth2/auth'
+        token_uri: 'https://accounts.google.com/o/oauth2/token'
+        auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs'
+        client_x509_cert_url: >-
+          https://www.googleapis.com/...api%40project-id.iam.gserviceaccount.com
+    GoogleKeys:
+      type: object
+      properties:
+        access_keys:
+          type: array
+          description: List of Google keys info
+          items:
+            type: object
+            properties:
+              keyAlgorithm:
+                type: string
+                description: Specifies the algorithm (and possibly key size) for the key.
+              validBeforeTime:
+                type: string
+                description: The key can be used before this timestamp.
+              name:
+                type: string
+                description: >-
+                  The resource name of the service account key in the following
+                  format
+                  projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}.
+              validAfterTime:
+                type: string
+                description: The key can be used after this timestamp.
+      example:
+        access_keys:
+          - keyAlgorithm: KEY_ALG_RSA_2048
+            validBeforeTime: '2028-03-11T18:27:41Z'
+            name: >-
+              projects/example/serviceAccounts/example@example.iam.gserviceaccount.com/keys/1234567890abcdefghijklmnop
+            validAfterTime: '2018-03-14T18:27:41Z'
+    APIKeys:
+      type: object
+      properties:
+        jtis:
+          type: array
+          description: List of API keys issued to the user
+          items:
+            type: object
+            properties:
+              jti:
+                type: string
+                description: JWT ID / key id
+              exp:
+                type: integer
+                description: >-
+                  Key expiration (JSON number representing the number of seconds
+                  from 1970-01-01T0:0:0Z as measured in UTC until the date/time)
+      example:
+        jtis:
+          - jti: e9d58890-99b0-44f0-88bd-3ebc370b1329
+            exp: 12345678
+    APIKey:
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: JWT representing API key
+      example:
+        api_key: >-
+          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o
+    NewAPIKey:
+      type: object
+      properties:
+        key_id:
+          type: string
+          description: Key identifier
+        api_key:
+          type: string
+          description: JWT representing API key
+      example:
+        key_id: e9d58890-99b0-44f0-88bd-3ebc370b1329
+        api_key: >-
+          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o
+    APIKeyScopes:
+      type: object
+      properties:
+        scope:
+          type: array
+          description: list of OIDC scopes for the API Key
+          items:
+            type: string
+      example:
+        scope:
+          - user
+          - data
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT access token
+      example:
+        access_token: >-
+          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o
+    GenericKey:
+      type: object
+      properties:
+        access_key:
+          type: string
+          description: generic key
+        secret_key:
+          type: string
+          description: generic secret key
+      example:
+        access_key: 8DGW9LyC0D4nByoWo6pp
+        secret_key: 1lnkGScEH8Vr4EC6QnoqLK1PqRWPNqIBJkH6Vpgx
+    GenericKeys:
+      type: object
+      properties:
+        access_keys:
+          type: array
+          description: List of Generic keys
+          items:
+            type: object
+            properties:
+              access_key:
+                type: string
+                description: access key value
+      example:
+        access_keys:
+          - access_key: 8DGW9LyC0D4nByoWo6pp
+    JWKS:
+      type: object
+      properties:
+        keys:
+          type: array
+          description: array of dictionaries of key information
+          items:
+            type: object
+            properties:
+              kty:
+                type: string
+                description: key type ("RSA" in our implementation)
+              alg:
+                type: string
+                description: algorithm ("RS256" in our implementation)
+              'n':
+                type: string
+                description: base64-encoded public key modulus
+              e:
+                type: string
+                description: base64-encoded public key exponent
+              kid:
+                type: string
+                description: key ID
+      example:
+        keys:
+          - kty: RSA
+            'n': >-
+              0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw
+            e: AQAB
+            alg: RS256
+            kid: '2011-04-29'
+    RegisterUser:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - org
+        - email
+      properties:
+        firstname:
+          type: string
+          description: 'The firstname of the end-user'
+        lastname:
+          type: string
+          description: 'The lastname of the end-user'
+        org:
+          type: string
+          description: 'The org of the end-user'
+        email:
+          type: string
+          description: 'The email of the end-user'
+    AccessURL:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          description: 'A fully resolvable URL that can be used to fetch the actual object bytes.'
+    UserInfo:
+      type: object
+      required:
+        - user_id
+        - idp
+        - sub
+        - username
+        - name
+        - display_name
+        - preferred_username
+        - phone_number
+        - email
+        - is_admin
+        - role
+        - project_access
+        - certificates_uploaded
+        - resources_granted
+        - groups
+        - message
+      properties:
+        user_id:
+          type: number
+          description: 'This value is deprecated in favor of sub.'
+        idp:
+          type: string
+          description: |
+            The Identity Provider used to autheticate the user. Given instances of Fence
+            may or may not have all of these available (the set of IDPs available is a configuration).
+
+            * *google* - Google/GSuite
+            * *ras* - NIH's Researcher Auth Service (RAS)
+            * *itrust* - NIH Login / iTrust / eRA Commons
+            * *fence* - Upstream Fence (the idp used depends on the specific configuration, consult the Gen3 Operators)
+            * *orcid* - ORCHID
+            * *microsoft* - Microsoft
+            * *elixir* - Elixir
+            * *synapse* - Synapse
+            * *cognito* - AWS Cognito
+            * More may be added in the future...
+        sub:
+          type: string
+          description: 'Subject Identifier. A locally unique and never reassigned identifier within the Issuer for the end-user.'
+        username:
+          type: string
+          description: 'This value is deprecated in favor of name.'
+        name:
+          type: string
+          description: 'The full name of the end-user.'
+        display_name:
+          type: string
+          description: 'The display name of the end-user.'
+        preferred_username:
+          type: string
+          description: 'The preferred username of the end-user.'
+        phone_number:
+          type: string
+          description: 'The phone number of the end-user.'
+        email:
+          type: string
+          description: 'The email of the end-user'
+        is_admin:
+          type: boolean
+          description: 'Boolean value stating if end-user is an admin or not'
+        active:
+          type: boolean
+          description: 'Boolean value stating if user is active or not'
+        role:
+          type: string
+          description: ''
+        project_access:
+          type: object
+          description: 'This value is deprecated in favor of authz and resources.'
+        certificates_uploaded:
+          type: array
+          items:
+            type: string
+        resources_granted:
+          type: array
+          items:
+            type: string
+        groups:
+          type: array
+          items:
+            type: string
+        message:
+          type: string
+        primary_google_service_account:
+          type: string
+          description: 'email address of the users primary service account used for signing URLs'
+        authz:
+          type: object
+          description: 'end user authorization information, mapping of resource name to list of permission, service roles'
+        resources:
+          type: array
+          items:
+            type: string
+          description: 'list of resource paths the user has access to'
+        tags:
+          type: object
+          description: User's tags
+        azp:
+          type: string
+          description: 'authorized party - the party to which the ID token was issued.'
+    BucketInfo:
+      type: object
+      properties:
+        S3_BUCKETS:
+          type: object
+          description: list and info on S3 buckets configured in the fence config
+          properties:
+           bucket1:
+            type: object
+            properties:
+             region:
+               type: string
+           bucket2:
+            type: object
+            properties:
+              region:
+               type: string
+        GS_BUCKETS:
+          type: object
+          description: list and info on GS buckets configured in the fence config
+          properties:
+           bucket1:
+            type: object
+            properties:
+             region:
+               type: string
+           bucket2:
+            type: object
+            properties:
+              region:
+               type: string
+    SignedURL:
+      type: object
+      properties:
+        url:
+          type: string
+          description: the signed url issued to
+    LinkedGoogleEmailExpiration:
+      type: object
+      properties:
+        exp:
+          type: integer
+          description: expiration of linked email's access (e.g. expiration
+              until it is removed from the user's Google Proxy Group)
+      example:
+        exp: 1526653869
+    PublicKeys:
+      type: object
+      properties:
+        keys:
+          type: array
+          description: array of single-entry dictionaries mapping from key id to public key
+          items:
+            type: array
+            description: 'tuple of `(key_id, public_key)`'
+            items:
+              type: string
+      example:
+        keys:
+          - - public_key_01
+            - '-----BEGIN PUBLIC KEY----- ... -----END PUBLIC KEY-----'
+    OAuthHTML:
+      type: string
+    GoogleLinkingError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error name/class
+        error_description:
+          type: string
+          description: Description of what caused the error
+      example:
+        error: error_name
+        error_description: A description of what caused the error
+    OpenIDConfiguration:
+      type: object
+      required:
+        - issuer
+        - authorization_endpoint
+        - jwks_uri
+        - response_types_supported
+      properties:
+        authorization_endpoint:
+          type: string
+        claim_types_supported:
+          type: array
+          items:
+            type: string
+        claims_locales_supported:
+          type: array
+          items:
+            type: string
+        claims_parameter_supported:
+          type: boolean
+        claims_supported:
+          type: array
+          items:
+            type: string
+        display_values_supported:
+          type: array
+          items:
+            type: string
+        grant_types_supported:
+          type: array
+          items:
+            type: string
+        id_token_encryption_alg_values_supported:
+          type: array
+          items:
+            type: string
+        id_token_encryption_enc_values_supported:
+          type: array
+          items:
+            type: string
+        id_token_signing_alg_values_supported:
+          type: array
+          items:
+            type: string
+        issuer:
+          type: string
+        jwks_uri:
+          type: string
+        op_policy_url:
+          type: string
+        op_tos_uri:
+          type: string
+        registration_endpoint:
+          type: string
+        request_object_encryption_alg_values_supported:
+          type: array
+          items:
+            type: string
+        request_object_encryption_enc_values_supported:
+          type: array
+          items:
+            type: string
+        request_object_signing_alg_values_supported:
+          type: array
+          items:
+            type: string
+        request_parameter_supported:
+          type: boolean
+        request_uri_parameter_supported:
+          type: boolean
+        require_request_uri_registration:
+          type: boolean
+        response_modes_supported:
+          type: array
+          items:
+            type: string
+        response_types_supported:
+          type: array
+          items:
+            type: string
+        scopes_supported:
+          type: array
+          items:
+            type: string
+        service_documentation:
+          type: string
+        subject_types_supported:
+          type: array
+          items:
+            type: string
+        token_endpoint:
+          type: string
+        token_endpoint_auth_methods_supported:
+          type: array
+          items:
+            type: string
+        ui_locales_supported:
+          type: array
+          items:
+            type: string
+        userinfo_endpoint:
+          type: string
