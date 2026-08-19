@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user core metadata API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "core metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get core metadata for an object_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/:object_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "object_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get core metadata for an object_id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

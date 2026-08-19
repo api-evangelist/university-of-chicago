@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "admin/user",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Return info about a given user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/admin/user/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username of user to find"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "/oauth/authorize",
+              "accessTokenUrl": "/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Admin method to retrieve info about any given user"
+        },
+        {
+          "info": {
+            "name": "Soft-delete user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/admin/user/:username/soft",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username of user to deactivate"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "/oauth/authorize",
+              "accessTokenUrl": "/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Admin method to soft-delete a user, setting the user to inactive"
+        },
+        {
+          "info": {
+            "name": "Reactivate a soft-deleted user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/admin/user/:username/reactivate",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username of user to reactivate"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "/oauth/authorize",
+              "accessTokenUrl": "/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Admin method to reactivate a soft-deleted user, setting the user back to active"
+        },
+        {
+          "info": {
+            "name": "Add a new user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/admin/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "/oauth/authorize",
+              "accessTokenUrl": "/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Admin method to add a new user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

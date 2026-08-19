@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user datasets API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get counts for nodes for each project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/datasets",
+            "params": [
+              {
+                "name": "nodes",
+                "value": "",
+                "type": "query",
+                "description": "comma delimited nodes to get counts for"
+              }
+            ]
+          },
+          "docs": "Get counts for nodes for each project"
+        },
+        {
+          "info": {
+            "name": "Get high level information for all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/datasets/projects"
+          },
+          "docs": "Get high level information for all projects"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

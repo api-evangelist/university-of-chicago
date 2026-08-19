@@ -1,0 +1,160 @@
+{
+  "item": [
+    {
+      "id": "155ca53f-f820-4912-b90a-d20b6a26a68b",
+      "name": "bulk",
+      "description": {
+        "content": "bulk endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8c69d972-3799-409b-9d72-3a9e623f4826",
+          "name": "Get a list of documents given a list of dids",
+          "request": {
+            "name": "Get a list of documents given a list of dids",
+            "description": {},
+            "url": {
+              "path": [
+                "bulk",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3abc9636-4e5a-4ad5-abca-e510f9a4b761",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"did\": \"y+Jvg``5EcEdC8E-4707-f99d-deAD-Cb8EAcFcD6AE\",\n    \"baseid\": \"8dae0Fda-B8AB-b1Bc-EF7E-F6DBa6AdeBbc\",\n    \"rev\": \"8aa9365a\",\n    \"form\": \"container\",\n    \"size\": 3366,\n    \"file_name\": \"string\",\n    \"version\": \"string\",\n    \"uploader\": \"string\",\n    \"urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"acl\": [\n      \"string\",\n      \"string\"\n    ],\n    \"authz\": [\n      \"string\",\n      \"string\"\n    ],\n    \"hashes\": {\n      \"md5\": \"d2fbf55cd89dc2bc269722d03686ef20\",\n      \"sha\": \"11d3cb7428ee8a4c0d9d2311b5883df1ba3ca580\",\n      \"sha256\": \"6efe7c82f5fd644b401b9c36754e2dd82c76113e8427ffbf1b2e07cef94e5631\",\n      \"sha512\": \"5ea05631c3bdae9a9d675188f5b5bf2b70afb17a9df85c9518182a56dc74938bd3725c79ec630591a1b1fd6c9c352ec1ac51ade0d03aa609dd180ab80d75bffe\",\n      \"crc\": \"1e5582af\",\n      \"etag\": \"3bf4af6265b13b186b41c938060ce476\"\n    },\n    \"updated_date\": \"2019-11-21T05:48:37.744Z\",\n    \"created_date\": \"2012-07-14T03:46:14.296Z\",\n    \"metadata\": {},\n    \"urls_metadata\": {}\n  },\n  {\n    \"did\": \"rhF73a4CCd1-68F9-Faec-2DAa-A7D753Ef636D\",\n    \"baseid\": \"625A9CDa-17b5-E0AB-C2F8-bBA9C3A3508A\",\n    \"rev\": \"ca2f5d10\",\n    \"form\": \"multipart\",\n    \"size\": 307,\n    \"file_name\": \"string\",\n    \"version\": \"string\",\n    \"uploader\": \"string\",\n    \"urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"acl\": [\n      \"string\",\n      \"string\"\n    ],\n    \"authz\": [\n      \"string\",\n      \"string\"\n    ],\n    \"hashes\": {\n      \"md5\": \"128f3463bb5ddca1243762ca18a4dd9c\",\n      \"sha\": \"5b68743abeafab3e3a72ae4f0aed93f9b3cc2fef\",\n      \"sha256\": \"545b6734824de277d7582d88aee2523ebe538066fda1c668d180281be0098a2b\",\n      \"sha512\": \"1ce5579febb4a89152abcc32461a5e8fe606f1b3ac621d64798d79248b7c99c7f4be0056c4d009765576861a5c19cf530330b8c6ce9c812a08741ea149451594\",\n      \"crc\": \"7d935649\",\n      \"etag\": \"796a4c2c00213d6dc2f051cf38f4617f-1164813\"\n    },\n    \"updated_date\": \"2025-04-01T02:40:59.444Z\",\n    \"created_date\": \"1961-04-28T01:24:08.748Z\",\n    \"metadata\": {},\n    \"urls_metadata\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3a5f34c-05db-4936-9ccc-3ccce40bccdc",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "39d4cba8-5039-4e91-abb4-d9cd0080b79b",
+    "name": "Fence OpenAPI Specification admin/user bulk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

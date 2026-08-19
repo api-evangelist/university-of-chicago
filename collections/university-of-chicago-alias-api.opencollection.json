@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user alias API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "alias",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list aliases with pagination",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/alias/",
+            "params": [
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "size in bytes"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "start index for the pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of aliases to return"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "list aliases with pagination"
+        },
+        {
+          "info": {
+            "name": "Fetch an alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/alias/:ALIASSTRING",
+            "params": [
+              {
+                "name": "ALIASSTRING",
+                "value": "",
+                "type": "path",
+                "description": "alias like ark:/31807/DC1-TESTARK"
+              }
+            ]
+          },
+          "docs": "Fetch an alias"
+        },
+        {
+          "info": {
+            "name": "Create or update an alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/alias/:ALIASSTRING",
+            "params": [
+              {
+                "name": "ALIASSTRING",
+                "value": "",
+                "type": "path",
+                "description": "alias like ark:/31807/DC1-TESTARK"
+              },
+              {
+                "name": "rev",
+                "value": "",
+                "type": "query",
+                "description": "Revision of the current alias to be updated. If you do not specify this then the last update wins in races."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update an alias"
+        },
+        {
+          "info": {
+            "name": "Delete an alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/alias/:ALIASSTRING",
+            "params": [
+              {
+                "name": "ALIASSTRING",
+                "value": "",
+                "type": "path",
+                "description": "alias like ark:/31807/DC1-TESTARK"
+              },
+              {
+                "name": "rev",
+                "value": "",
+                "type": "query",
+                "description": "Revision of the current alias to be deleted."
+              }
+            ]
+          },
+          "docs": "Delete an alias"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

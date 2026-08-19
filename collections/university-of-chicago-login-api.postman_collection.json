@@ -1,0 +1,186 @@
+{
+  "item": [
+    {
+      "id": "cf3a4de7-0a38-4f04-b151-82dad8d78e3f",
+      "name": "login",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc759760-a0c4-41e7-a1ec-3861f9012b13",
+          "name": "Initiate login via shibboleth provider",
+          "request": {
+            "name": "Initiate login via shibboleth provider",
+            "description": {
+              "content": "NOTE that this endpoint only exists if shibboleth is enabled as an\nidentity provider in the fence config. Currently this only happens for\n`login.bionimbus.org`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "login",
+                "shib"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "shib_idp",
+                  "value": "<string>",
+                  "description": "Identifier for the shibboleth IDP. Available identifiers are what is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed` endpoint. If no `shib_idp` is specified, defaults to NIH login."
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94043984-7943-46bb-80f9-fb82e5840d0b",
+              "name": "redirect to external identity provider",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "login",
+                    "shib"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "shib_idp",
+                      "value": "urn:mace:incommon:uchicago.edu"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db36e4d9-318e-4087-ae19-8d763c7c92bf",
+          "name": "Initiate login via Fence provider (multi-tenant Fence)",
+          "request": {
+            "name": "Initiate login via Fence provider (multi-tenant Fence)",
+            "description": {
+              "content": "NOTE that this endpoint only exists if fence is enabled as an\nidentity provider in the fence config.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "login",
+                "fence"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "idp",
+                  "value": "<string>",
+                  "description": "Identifier for the IDP. Specifying `idp=shibboleth` lets us specify a `shib_idp`. If no `idp` is specified, defaults to NIH login."
+                },
+                {
+                  "disabled": false,
+                  "key": "shib_idp",
+                  "value": "<string>",
+                  "description": "Identifier for the shibboleth IDP. Available identifiers are what is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed` endpoint. If no `shib_idp` is specified, defaults to NIH login."
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63107301-459a-45ec-96ba-f4c65c3ddae4",
+              "name": "redirect to external identity provider",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "login",
+                    "fence"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "idp",
+                      "value": "shibboleth"
+                    },
+                    {
+                      "key": "shib_idp",
+                      "value": "urn:mace:incommon:uchicago.edu"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fffd8e82-3a32-44f8-82c1-60d60f472eb7",
+    "name": "Fence OpenAPI Specification admin/user login API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

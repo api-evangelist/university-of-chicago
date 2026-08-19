@@ -1,0 +1,234 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user dictionary API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "dictionary",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the dictionary schema for entities of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/_dictionary",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Return links to the project level JSON schema definitions."
+        },
+        {
+          "info": {
+            "name": "Get the dictionary schema for an entity of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/_dictionary/<entry>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "entry",
+                "value": "",
+                "type": "path",
+                "description": "entity type to retrieve the schema for (e.g. ``aliquot``)"
+              }
+            ]
+          },
+          "docs": "Get the dictionary entry for a specific project."
+        },
+        {
+          "info": {
+            "name": "Get templates for all entity types of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/template",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "output format, ``csv`` or ``tsv``, default is tsv"
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "list of entities' categories to include in the template"
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "list of entities' categories to exclude from the template"
+              }
+            ]
+          },
+          "docs": "Get templates for all entity types. In the template, Links are represented as {link_type}.{link_unique_key} for one_to_one  and many_to_one relationships. For many_to_many relationships, they are represented as {link_type}.{link_unique_key}#1 to infer user the multiplicity"
+        },
+        {
+          "info": {
+            "name": "Get a template for an entity type of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/template/<entity>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "type of the entity"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "output format, ``csv`` or ``tsv``, default is tsv"
+              }
+            ]
+          },
+          "docs": "Return TSV template of an entity type. In the template, links are represented as {link_type}.{link_unique_key} for one_to_one and many_to_one relationships. For many_to_many relationships, they are represented as {link_type}.{link_unique_key}#1 to infer user the multiplicity."
+        },
+        {
+          "info": {
+            "name": "Get the dictionary schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/_dictionary"
+          },
+          "docs": "Return links to the JSON schema definitions."
+        },
+        {
+          "info": {
+            "name": "Get the dictionary schema for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/_dictionary/<entry>",
+            "params": [
+              {
+                "name": "entry",
+                "value": "",
+                "type": "path",
+                "description": "entity type to retrieve the schema for (e.g. ``aliquot``)"
+              }
+            ]
+          },
+          "docs": "Return the project level JSON schema definition for a given entity type."
+        },
+        {
+          "info": {
+            "name": "Get templates for all entity types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/template",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "output format, ``csv`` or ``tsv``, default is tsv"
+              },
+              {
+                "name": "categories",
+                "value": "",
+                "type": "query",
+                "description": "list of entities' categories to include in the template"
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "list of entities' categories to exclude from the template"
+              }
+            ]
+          },
+          "docs": "Get templates for all entity types."
+        },
+        {
+          "info": {
+            "name": "Get a template for an entity type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/template/<entity>",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "entity"
+              }
+            ]
+          },
+          "docs": "Get a template for an entity type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

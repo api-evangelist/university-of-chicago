@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user link API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Link Google identity to user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/link/google",
+            "params": [
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query",
+                "description": "Page to redirect to after account linking"
+              },
+              {
+                "name": "expires_in",
+                "value": "",
+                "type": "query",
+                "description": "the time (in seconds) during which the Google account has bucket access. Must be less than the configured maximum (default is 24 hours). If it's greater, the configured maximum will be used."
+              }
+            ]
+          },
+          "docs": "Link a Google identity to a User (AuthN using Google Oauth2 flow). Google identity will be associated with a user and added to a proxy group for that user. The user's proxy group will be given access to data via Google's IAM. `redirect` will be stored in the session to follow after linking.\n---\nIf AuthN is successful with Google, eventually will redirect to `/link/google/callback`, where the actual account linkage occur.\n> *See `/link/google/callback` endpoint for details about eventual\n   redir"
+        },
+        {
+          "info": {
+            "name": "Extend Google identity's access expiration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://example.domain/link/google",
+            "params": [
+              {
+                "name": "expires_in",
+                "value": "",
+                "type": "query",
+                "description": "the time (in seconds) during which the Google account has bucket access. Must be less than the configured maximum (default is 24 hours). If it's greater, the configured maximum will be used."
+              }
+            ]
+          },
+          "docs": "Extend previously linked Google identity's access expiration from the user's proxy group (thus extending its access to data). This can only be done if the user has ALREADY linked their Google account before."
+        },
+        {
+          "info": {
+            "name": "Unlink a Google identity from a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/link/google"
+          },
+          "docs": "Remove link between a user and a Google identity."
+        },
+        {
+          "info": {
+            "name": "Google's callback for linking Google identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/link/google/callback",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "The authorization code returned from the OAuth2 authorization request"
+              }
+            ]
+          },
+          "docs": "Linking of Google identity to user after successful Oauth2 flow with Google. Use code to retrieve user info from Google.\nWill return to session stored redirect.\nResponse will contain query params about the new linkage (`exp` or `linked_email`) or error params (`error` and `error_description`) detailing what went wrong.\n--- ---\nQuery Params on Successful Linking\n\n  * `exp`\n    * Expiration time in unix time (seconds since last epoch).\n      This represents when the newly linked account's temporar"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

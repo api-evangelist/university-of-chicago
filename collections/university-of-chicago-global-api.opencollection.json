@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user global API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "global",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the metadata associated with the given id, alias, or distributed identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "entry id"
+              }
+            ]
+          },
+          "docs": "Only the hashes which exist will be included in the response."
+        },
+        {
+          "info": {
+            "name": "Get a list of urls that match query params",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/urls",
+            "params": [
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "object size"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query",
+                "description": "hashes specified as algorithm:value. Multiple hashes can be specified, for example \"?hash=a:xxx&hash=b:yyy\""
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "comma delimited ids"
+              }
+            ]
+          },
+          "docs": "Get a list of urls that match query params"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,445 @@
+{
+  "item": [
+    {
+      "id": "f8201d46-5b8a-40e0-b05d-9ebc28c33800",
+      "name": "link",
+      "description": {
+        "content": "Link access identities",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff7faba9-090d-4511-9445-59b9b4d1776b",
+          "name": "Link Google identity to user",
+          "request": {
+            "name": "Link Google identity to user",
+            "description": {
+              "content": "Link a Google identity to a User (AuthN using Google Oauth2 flow). Google identity will be associated with a user and added to a proxy group for that user. The user's proxy group will be given access to data via Google's IAM. `redirect` will be stored in the session to follow after linking.\n---\nIf AuthN is successful with Google, eventually will redirect to `/link/google/callback`, where the actual account linkage occur.\n> *See `/link/google/callback` endpoint for details about eventual\n   redirect with descriptive query params about success/failure.*\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "link",
+                "google"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "redirect",
+                  "value": "<string>",
+                  "description": "(Required) Page to redirect to after account linking"
+                },
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) during which the Google account has bucket access. Must be less than the configured maximum (default is 24 hours). If it's greater, the configured maximum will be used."
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ff71649-35b2-4380-bc97-051221731462",
+              "name": "redirect to Oauth2 flow with Google to AuthN user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link",
+                    "google"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "redirect",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afd1844b-8a94-48f2-a5e3-f4e9eccedf46",
+          "name": "Extend Google identity's access expiration",
+          "request": {
+            "name": "Extend Google identity's access expiration",
+            "description": {
+              "content": "Extend previously linked Google identity's access expiration from the user's proxy group (thus extending its access to data). This can only be done if the user has ALREADY linked their Google account before.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "link",
+                "google"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) during which the Google account has bucket access. Must be less than the configured maximum (default is 24 hours). If it's greater, the configured maximum will be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d25806e-c1fe-40d9-a3cc-8dc01ad37632",
+              "name": "successfully extended access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link",
+                    "google"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"exp\": 1526653869\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1edf7d4-0110-4eb4-8e81-408cfd3954e9",
+              "name": "No linked Google account found for user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link",
+                    "google"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d779a420-6c04-4c8b-b8fe-0c9da1a528ad",
+          "name": "Unlink a Google identity from a user",
+          "request": {
+            "name": "Unlink a Google identity from a user",
+            "description": {
+              "content": "Remove link between a user and a Google identity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "link",
+                "google"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f8b19ef-5bbf-468f-9f63-0191f0f979a8",
+              "name": "Google identity unlinked from user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link",
+                    "google"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "df752607-e35c-4768-8c1b-1bbbe1b88baa",
+              "name": "Failure with Google's API to remove account from proxy group. See response for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link",
+                    "google"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"error\": \"error_name\",\n  \"error_description\": \"A description of what caused the error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae9cf7cf-7bc9-41e7-b4e2-387fb3b34d85",
+              "name": "No linked Google account found for user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link",
+                    "google"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"error\": \"error_name\",\n  \"error_description\": \"A description of what caused the error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f03db117-009b-458c-8f65-df633c27b2d5",
+          "name": "Google's callback for linking Google identity",
+          "request": {
+            "name": "Google's callback for linking Google identity",
+            "description": {
+              "content": "Linking of Google identity to user after successful Oauth2 flow with Google. Use code to retrieve user info from Google.\nWill return to session stored redirect.\nResponse will contain query params about the new linkage (`exp` or `linked_email`) or error params (`error` and `error_description`) detailing what went wrong.\n--- ---\nQuery Params on Successful Linking\n\n  * `exp`\n    * Expiration time in unix time (seconds since last epoch).\n      This represents when the newly linked account's temporary access\n      rights will be removed\n  * `linked_email`\n    * Google account email that was linked to the user and provided\n      temporary access\n\n---\nPossible Error Types (for `error` param)\n\n  * `g_acnt_link_error`\n    * Issue with the linkage between User and their Google account\n  * `g_acnt_auth_failure`\n    * Issue with Oauth2 flow to AuthN user's Google account\n  * `g_acnt_access_error`\n    * Issue with providing access to Google account by putting in\n      user's proxy group\n\nFor details about the error, check the `error_description` param.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "link",
+                "google",
+                "callback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) The authorization code returned from the OAuth2 authorization request"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e90a9429-d527-45ed-ac7c-c25af45e5860",
+              "name": "redirect to session-stored redirect value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "link",
+                    "google",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "27c13c90-7175-4e0f-9c1b-de1496390ded",
+    "name": "Fence OpenAPI Specification admin/user link API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

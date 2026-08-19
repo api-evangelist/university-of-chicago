@@ -1,0 +1,112 @@
+{
+  "item": [
+    {
+      "id": "9ddf06ad-f608-49e3-8d35-e43b1c74c52c",
+      "name": "logout",
+      "description": {
+        "content": "Log out the current user",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ec485624-384e-4c8b-9d33-c484454e6731",
+          "name": "Log out the current user",
+          "request": {
+            "name": "Log out the current user",
+            "description": {
+              "content": "Log out the current user and redirect to the provided url. The logout will propogate, depending on the identity provider.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "next",
+                  "value": "<string>",
+                  "description": "The url to redirect the user to after logout"
+                },
+                {
+                  "disabled": false,
+                  "key": "force_era_global_logout",
+                  "value": "<boolean>",
+                  "description": "Use era commons itrust to logout"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d9d8e0d-6cc5-4461-94da-afe5f853f739",
+              "name": "redirect to root or url in parameter if provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "next",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "force_era_global_logout",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c590d212-517e-4982-8fa0-5ce056a0a60d",
+    "name": "Fence OpenAPI Specification admin/user logout API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

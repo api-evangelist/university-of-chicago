@@ -1,0 +1,321 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user entity API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "entity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity."
+        },
+        {
+          "info": {
+            "name": "Update entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity."
+        },
+        {
+          "info": {
+            "name": "Create entities in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/bulk",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handle bulk transaction instead of single transaction."
+        },
+        {
+          "info": {
+            "name": "Update entities in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/bulk",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handle bulk transaction instead of single transaction."
+        },
+        {
+          "info": {
+            "name": "Get entities by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/entities/<entity_id_string>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "entity_id_string",
+                "value": "",
+                "type": "path",
+                "description": "A comma-separated list of ids specifying the entities to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieve existing entities by ID. The return type of a HTTP `get` on this endpoint is a JSON array containing JSON object elements, each corresponding to a provided ID. Return results are unordered. If any ID is not found in the database, a status code of 404 is returned with the missing IDs."
+        },
+        {
+          "info": {
+            "name": "Delete entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/v0/submission/<program>/<project>/entities/<ids>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+              },
+              {
+                "name": "to_delete",
+                "value": "",
+                "type": "query",
+                "description": "Set the to_delete sysan as true or false. If none, then don't try to set the sysan, and instead delete the node."
+              }
+            ]
+          },
+          "docs": "Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond "
+        },
+        {
+          "info": {
+            "name": "Update Biospecimen Supplement entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/xml/biospecimen/bcr",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "The entities stored in BRC XML are converted to JSON before being updated."
+        },
+        {
+          "info": {
+            "name": "Update Clinical Supplement entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/xml/clinical/bcr",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "The entities stored in BRC XML are converted to JSON before being updated."
+        },
+        {
+          "info": {
+            "name": "Delete entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/v0/submission/admin/<program>/<project>/entities/<ids>/to_delete/<to_delete>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+              },
+              {
+                "name": "to_delete",
+                "value": "",
+                "type": "query",
+                "description": "Set the to_delete sysan as true or false. If none, then don't try to set the sysan, and instead delete the node."
+              }
+            ]
+          },
+          "docs": "Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

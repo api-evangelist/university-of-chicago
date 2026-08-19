@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user keys API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Return the public keys which can be used to validate JWTs issued and signed by fence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/jwt/keys"
+          },
+          "docs": "Return the public keys which can be used to validate JWTs issued and signed by fence"
+        },
+        {
+          "info": {
+            "name": "Get JWK Set used by the application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/.well-known/jwks"
+          },
+          "docs": "See [RFC 7517](https://tools.ietf.org/html/rfc7517) for detailed specification and an [example response](https://tools.ietf.org/html/rfc7517#appendix-A.1)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

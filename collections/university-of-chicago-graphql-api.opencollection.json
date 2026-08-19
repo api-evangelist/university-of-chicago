@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user graphql API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "graphql",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Perform a GraphQL Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Perform a graphql query over the data commons given a query, variables, and name."
+        },
+        {
+          "info": {
+            "name": "Returns the data dictionary schema json",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/getschema"
+          },
+          "docs": "The data dictionary for the data commons is internally converted from yaml files to json. This endpoint returns the json schema for the dictionary for use in generating queries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

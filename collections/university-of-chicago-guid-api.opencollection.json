@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user GUID API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GUID",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of valid GUIDs without actually indexing records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/guid/mint",
+            "params": [
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of GUIDs to return, default is 1 (note that there is a max of 10k)"
+              }
+            ]
+          },
+          "docs": "Get a list of valid GUIDs without actually indexing records"
+        },
+        {
+          "info": {
+            "name": "Provide prefix used for this instance (if any)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/guid/prefix"
+          },
+          "docs": "Provide prefix used for this instance (if any)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user google API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "google",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the configured default Google project for billing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/google/billing_projects/"
+          },
+          "docs": "Get the configured default Google project identifiers that will be used for billing access to requester pays Google buckets. This effectively bills all access to the specified Project and *not* the end-user (may be a different project for different data access methods). If there is no configured default billing project, requests to Data Access Method endpoints will rely on a query parameter `userProject` for the end-user to specify a valid Google project that Fence has the necessary roles in to "
+        },
+        {
+          "info": {
+            "name": "Get a list of Google Service Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/google/service_accounts/",
+            "params": [
+              {
+                "name": "google_project_ids",
+                "value": "",
+                "type": "query",
+                "description": "Google Cloud Project IDs to get service accounts for.\nUse a comma-separated list: `project_a,project_b,project_c`\n"
+              }
+            ]
+          },
+          "docs": "Get a list of service accounts for the given Google Cloud Project IDs.\n> **NOTE: This will only provide service account information for\nGoogle Cloud Projects if the current user is a member of those\nprojects**\n\nThe endpoint lists the `project_access` that was previously granted\n(whether or not the SA currently has access). The `project_access_exp`\nwill be `0` when the SA isn't currently given access\n(but can be provided access again with a `PATCH`).\n"
+        },
+        {
+          "info": {
+            "name": "Register a Google Service Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/google/service_accounts/",
+            "params": [
+              {
+                "name": "expires_in",
+                "value": "",
+                "type": "query",
+                "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a Google Cloud Project's service account to allow access to controlled data. If there are issues, will provide details for what went wrong."
+        },
+        {
+          "info": {
+            "name": "Dry run to attempt to register a Google Service Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/google/service_accounts/_dry_run",
+            "params": [
+              {
+                "name": "expires_in",
+                "value": "",
+                "type": "query",
+                "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attempt to register a service account WITHOUT actually doing so. Will provide detailed errors for what went wrong."
+        },
+        {
+          "info": {
+            "name": "Return the service account used for monitoring user's Google Cloud Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/google/service_accounts/monitor"
+          },
+          "docs": "This account is used to monitor and validate access to data\nfor registered service accounts for the project.\n\n>NOTE: This service account must be given editor role on a Google\nProject for service account registration to succeed. If it is ever\nremoved, all access to data will be removed.\n"
+        },
+        {
+          "info": {
+            "name": "Dry run to attempt to update a Google Service Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://example.domain/google/service_accounts/_dry_run/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ServiceAccount idenitifer"
+              },
+              {
+                "name": "expires_in",
+                "value": "",
+                "type": "query",
+                "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Try to update a Google Cloud Project's service account to change access to\ncontrolled data and/or extend access to data WITHOUT actually doing so.\nThis would extend the service account's access to data if using the non _dry_run\nendpoint. It would also modify access if a patch document is provided with new access.\n\n> *NOTE*: If you do not provide a patch document (e.g. no payload),\nthis will extend access to ALL PREVIOUS DATA. If you want to REMOVE\naccess, either use the DELETE endpoint or provid"
+        },
+        {
+          "info": {
+            "name": "Update a Google Service Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://example.domain/google/service_accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ServiceAccount idenitifer"
+              },
+              {
+                "name": "expires_in",
+                "value": "",
+                "type": "query",
+                "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Google Cloud Project's service account to change access to\ncontrolled data and/or extend access to data. This will extend the\nservice account's access to data. It will also modify access if a\npatch document is provided with new access.\n\n> *NOTE*: If you do not provide a patch document (e.g. no payload),\nthis will extend access to ALL PREVIOUS DATA. If you want to REMOVE\naccess, either use the DELETE endpoint or provide a patch document\nwith an empty list for \"project_access\". It's impor"
+        },
+        {
+          "info": {
+            "name": "Delete a specific Google Service Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/google/service_accounts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ServiceAccount idenitifer"
+              }
+            ]
+          },
+          "docs": "Delete a service account and remove from access"
+        },
+        {
+          "info": {
+            "name": "POST /google/primary_google_service_account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/google/primary_google_service_account"
+          },
+          "docs": "Force the creation of the User's Primary Google Service Account instead of\nrelying on lazy creation at first time of Google Data Access.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

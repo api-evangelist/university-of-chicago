@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user bulk API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "bulk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of documents given a list of dids",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/bulk/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a list of documents given a list of dids"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

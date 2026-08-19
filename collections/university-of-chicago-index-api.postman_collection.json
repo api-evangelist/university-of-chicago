@@ -1,0 +1,2836 @@
+{
+  "item": [
+    {
+      "id": "4479ff11-216d-49ef-8b56-dac3c5ee16cd",
+      "name": "index",
+      "description": {
+        "content": "Associate a file (object) with a unique id, and store some basic metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1321ca51-1a11-46b4-b6d9-45f5fe300d71",
+          "name": "Add a new entry to the index",
+          "request": {
+            "name": "Add a new entry to the index",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"form\": \"<string>\",\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4fc80b23-ba04-4b93-b125-37ad0df5f75f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"form\": \"<string>\",\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"78c8c94e\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a193e1d4-8817-4133-9e0b-85753aaae35d",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"form\": \"<string>\",\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8178f99a-50eb-4b20-a781-bca741aeff6f",
+          "name": "List all records",
+          "request": {
+            "name": "List all records",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "form",
+                  "value": "<string>",
+                  "description": "specify whether you want to list bundle, objects or both Defaults to object."
+                },
+                {
+                  "disabled": false,
+                  "key": "urls_metadata",
+                  "value": "<string>",
+                  "description": "urls_metadata in JSON string format \"{url_key: {key: value, ...}, ...}\". Will get records whose url_metadata have at least one key containing the substring \"url_key\" AND whose url_metadata have all the \"key: value\" properties\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metadata",
+                  "value": "<string>",
+                  "description": "metadata in format key:value. Multiple metadata values can be specified, for example \"?metadata=a:xxx&metadata=b:yyy\""
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "object size"
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "hash in format hash_type:hash_value. Multiple hashes can be specified, for example \"?hash=a:xxx&hash=b:yyy\""
+                },
+                {
+                  "disabled": false,
+                  "key": "uploader",
+                  "value": "<string>",
+                  "description": "uploader id"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "comma delimited ids, when provided,\npagination params(start, limit) are not supported\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "URL to query. Multiple URLs can be specified, for example \"?url=url1&url=url2\" - in that case, returned records will have ALL URLs"
+                },
+                {
+                  "disabled": false,
+                  "key": "acl",
+                  "value": "<string>",
+                  "description": "comma delimited ACE - if multiple ACE are specified, returned records will have ALL ACEs"
+                },
+                {
+                  "disabled": false,
+                  "key": "authz",
+                  "value": "<string>",
+                  "description": "comma delimited resources - if multiple resources are specified, returned records will have ALL resources"
+                },
+                {
+                  "disabled": false,
+                  "key": "negate_params",
+                  "value": "<string>",
+                  "description": "The negate params in JSON string format.\nFor string params (version, file_name): filters value != param value\nFor list params (urls, acl): filters records that don't include the param value\nFor dict params (metadata, urls_metadata), for each (key,value) pair:\n- if param value is None or empty: filters with key doesn't exist\n- if param value is provided: filters with value != param value OR key doesn't exist\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "start did"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "number of records to return for this page, default to 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "pagination support without relying on dids. offsets results by limit*page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "781b8049-fae4-4fa3-a55d-a44d5b35c0c2",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "form",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "urls_metadata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metadata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uploader",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "acl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "authz",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "negate_params",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"records\": [\n    {\n      \"did\": \"<string>\",\n      \"baseid\": \"<string>\",\n      \"rev\": \"80bcf0d3\",\n      \"form\": \"object\",\n      \"size\": 8349,\n      \"file_name\": \"string\",\n      \"version\": \"string\",\n      \"uploader\": \"string\",\n      \"urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"acl\": [\n        \"string\",\n        \"string\"\n      ],\n      \"authz\": [\n        \"string\",\n        \"string\"\n      ],\n      \"hashes\": {\n        \"md5\": \"<string>\",\n        \"sha\": \"<string>\",\n        \"sha256\": \"<string>\",\n        \"sha512\": \"<string>\",\n        \"crc\": \"<string>\",\n        \"etag\": \"<string>\"\n      },\n      \"updated_date\": \"1974-07-03T11:37:40.888Z\",\n      \"created_date\": \"1972-08-25T07:40:15.611Z\",\n      \"metadata\": {},\n      \"urls_metadata\": {}\n    },\n    {\n      \"did\": \"<string>\",\n      \"baseid\": \"<string>\",\n      \"rev\": \"62c2ca90\",\n      \"form\": \"container\",\n      \"size\": 7686,\n      \"file_name\": \"string\",\n      \"version\": \"string\",\n      \"uploader\": \"string\",\n      \"urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"acl\": [\n        \"string\",\n        \"string\"\n      ],\n      \"authz\": [\n        \"string\",\n        \"string\"\n      ],\n      \"hashes\": {\n        \"md5\": \"<string>\",\n        \"sha\": \"<string>\",\n        \"sha256\": \"<string>\",\n        \"sha512\": \"<string>\",\n        \"crc\": \"<string>\",\n        \"etag\": \"<string>\"\n      },\n      \"updated_date\": \"1981-04-03T20:06:13.969Z\",\n      \"created_date\": \"1980-08-15T23:22:55.031Z\",\n      \"metadata\": {},\n      \"urls_metadata\": {}\n    }\n  ],\n  \"size\": 7722,\n  \"start\": 5652,\n  \"limit\": 7750,\n  \"file_name\": \"string\",\n  \"urls\": [\n    \"string\",\n    \"string\"\n  ],\n  \"acl\": [\n    \"string\",\n    \"string\"\n  ],\n  \"authz\": [\n    \"string\",\n    \"string\"\n  ],\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"metadata\": {},\n  \"version\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aaaa2ea4-90bc-49fd-9e2a-3dd717906c50",
+          "name": "Create a blank record",
+          "request": {
+            "name": "Create a blank record",
+            "description": {
+              "content": "An authz can optionally be specified.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "blank"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uploader\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8cd75e26-96c3-44c5-8529-b61fb1593f5f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "blank"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uploader\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"78c8c94e\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5b87f5e-cea2-4407-b183-4ec9792df7a3",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "blank"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uploader\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba55f20c-c3f7-4484-a5bc-3577f891ef33",
+          "name": "Create a new, blank version for the document associated to the provided uuid.",
+          "request": {
+            "name": "Create a new, blank version for the document associated to the provided uuid.",
+            "description": {
+              "content": "Creates a new blank version of a record with the provided GUID. Returns the GUID of the new version of the record and the baseid common to all versions of the record. Authorization (acl/authz fields) carry over from the original record to the new blank version, unless an authz is provided. No other metadata (md5sum, etc) carries over from the original record to the new blank version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "blank",
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) the uuid associated to the record needed to have new version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"did\": \"<string>\",\n  \"uploader\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd6f96ae-9d19-47d2-b75f-edbaf653ba2d",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "blank",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) the uuid associated to the record needed to have new version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"did\": \"<string>\",\n  \"uploader\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"78c8c94e\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "897f1acf-0a75-4f7c-aef3-f15ae33529b7",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "blank",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) the uuid associated to the record needed to have new version"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"did\": \"<string>\",\n  \"uploader\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b8a72b23-1a20-47e6-9c4b-75c4f60a7ff8",
+              "name": "GUID does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "blank",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) the uuid associated to the record needed to have new version"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"did\": \"<string>\",\n  \"uploader\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "729f65bb-5929-4a22-87ef-77e427444393",
+          "name": "Update only hashes, size and optionally urls and authz for blank index",
+          "request": {
+            "name": "Update only hashes, size and optionally urls and authz for blank index",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                "blank",
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "rev",
+                  "value": "<string>",
+                  "description": "(Required) data revision - simple consistency mechanism"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) entry id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"size\": \"<integer>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf91742d-c70d-4ed4-95dc-617228266aa2",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "blank",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<integer>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"78c8c94e\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6efe8ea-a8e8-493f-ac72-4bf8f2d3dc99",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    "blank",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<integer>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54b85dc7-aabb-4b3c-baac-ae67b48d0ee1",
+          "name": "Get the metadata associated with the given id. Resolves bundle id.",
+          "request": {
+            "name": "Get the metadata associated with the given id. Resolves bundle id.",
+            "description": {},
+            "url": {
+              "path": [
+                "index",
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<boolean>",
+                  "description": "Only shows first layer of contents when expand=false. Recursively unbundles contents when expand=true. false by default"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) entry id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f684e484-83ca-48b6-bb1d-49f0f1c28d3a",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"0c51ce12\",\n  \"form\": \"object\",\n  \"size\": 6254,\n  \"file_name\": \"string\",\n  \"version\": \"string\",\n  \"uploader\": \"string\",\n  \"urls\": [\n    \"string\",\n    \"string\"\n  ],\n  \"acl\": [\n    \"string\",\n    \"string\"\n  ],\n  \"authz\": [\n    \"string\",\n    \"string\"\n  ],\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"updated_date\": \"1956-02-25T16:35:37.931Z\",\n  \"created_date\": \"1977-10-12T17:35:06.218Z\",\n  \"metadata\": {},\n  \"urls_metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83fe403d-2ac3-4fb6-87e4-f6777bffed4b",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a1941f2-4f93-4f3f-b2b0-065b3e58c3fd",
+          "name": "Add new version for the document associated to the provided uuid.",
+          "request": {
+            "name": "Add new version for the document associated to the provided uuid.",
+            "description": {
+              "content": "Since data content is immutable, when you want to change the size or hash, a new index document with new uuid need to be created as its new version. That uuid is returned in the did field of the response. The old index document is not deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) the uuid associated to the record needed to have new version"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"form\": \"<string>\",\n  \"did\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"content_created_date\": \"<dateTime>\",\n  \"content_updated_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81e6daf1-c691-4041-9770-2d867e4584e6",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) the uuid associated to the record needed to have new version"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"form\": \"<string>\",\n  \"did\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"content_created_date\": \"<dateTime>\",\n  \"content_updated_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"78c8c94e\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a51f7db-0a30-44bb-ae1b-eb5c26d0490f",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) the uuid associated to the record needed to have new version"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"form\": \"<string>\",\n  \"did\": \"<string>\",\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"content_created_date\": \"<dateTime>\",\n  \"content_updated_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6e76a49-fc42-476f-8c89-601faa27f5c4",
+          "name": "Update an existing entry in the index",
+          "request": {
+            "name": "Update an existing entry in the index",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "rev",
+                  "value": "<string>",
+                  "description": "(Required) data revision - simple consistency mechanism"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) entry id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "02227db5-dec3-412d-8cdb-364c896b6a09",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"78c8c94e\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c178a40b-a80d-402c-b637-3190bf138ecb",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_name\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"urls_metadata\": \"<object>\",\n  \"version\": \"<string>\",\n  \"urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd8b50e9-547f-4ebe-8e90-b9f9ace5536d",
+          "name": "Delete an entry from the index",
+          "request": {
+            "name": "Delete an entry from the index",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "rev",
+                  "value": "<string>",
+                  "description": "(Required) data revision - simple consistency mechanism"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) entry id"
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "37f8c0a0-d7de-4d76-a8e2-279b9d7a84bf",
+              "name": "Record is deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1840e84-06a0-47e8-ab7c-46e410aee4cd",
+              "name": "Invalid ID supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "320d51fe-fa38-4111-8b5f-85202f01a994",
+          "name": "Get all aliases associated with this GUID",
+          "request": {
+            "name": "Get all aliases associated with this GUID",
+            "description": {},
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "aliases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) The GUID to query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3099b19b-d70f-48ee-881b-067bb1f01b16",
+              "name": "Successful operation. Returns 0 or more aliases associated with this GUID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aliases\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd46201e-ac24-4d2a-af08-78cb08cc30cc",
+              "name": "GUID not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 2951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83c5bc8d-dd5b-4dd2-af8f-40666bc2fca7",
+          "name": "Append new aliases to this GUID",
+          "request": {
+            "name": "Append new aliases to this GUID",
+            "description": {
+              "content": "Adds new aliases to the aliases already associated with this GUID. The new aliases must be globally unique.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "aliases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) The GUID to associate the new aliases with."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a4fa2aa-dd5c-4117-b897-0fe6d0452fda",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to associate the new aliases with."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af81b674-9958-46f6-a8b7-62a393a0a92e",
+              "name": "Invalid request: One or more aliases are non-unique: one or more of the aliases are already associated with this or another GUID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to associate the new aliases with."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 2951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f403295-06a3-4ce1-96a8-c34c83897916",
+              "name": "GUID not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to associate the new aliases with."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 2951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87cc96b2-d34f-40c7-bff0-a0ba1a54fd6f",
+          "name": "Replace all aliases for this GUID",
+          "request": {
+            "name": "Replace all aliases for this GUID",
+            "description": {
+              "content": "Replaces all aliases associated with this GUID with new aliases. The new aliases can be the same as the aliases already associated with this GUID, but must otherwise be globally unique.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "aliases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) The GUID to associate the new aliases with."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b9f44e0a-e16b-4a06-826d-e633e3b2ed5e",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to associate the new aliases with."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39d02f9e-13ff-487e-b264-00a3158afff0",
+              "name": "Invalid request: One or more aliases are non-unique: one or more of the aliases are already associated with another GUID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to associate the new aliases with."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 2951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bbd3919-b06c-47a9-ab50-85b3ef232bce",
+              "name": "GUID not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to associate the new aliases with."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"aliases\": [\n    {\n      \"value\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 2951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f06c4dd-1e59-4f8e-91b2-c632eea38b05",
+          "name": "Delete all aliases for this GUID",
+          "request": {
+            "name": "Delete all aliases for this GUID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "aliases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) The GUID to delete these aliases from."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "ab8dc704-df38-47af-b5cd-aa0f5b4876c9",
+              "name": "Aliases were deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to delete these aliases from."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0df1f786-18a0-425a-8734-42198eb19324",
+              "name": "GUID not found. No aliases were deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to delete these aliases from."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 2951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5930c18-fc92-4f8e-8bfd-34d2ffd7a3d4",
+          "name": "Delete one alias for this GUID",
+          "request": {
+            "name": "Delete one alias for this GUID",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "aliases",
+                ":ALIAS"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) The GUID to delete this alias from."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ALIAS",
+                  "description": "(Required) The alias to delete from this GUID. The alias should be URL-encoded."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "61cd8d2a-3497-4efb-a16d-2751816b0cdb",
+              "name": "Alias was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases",
+                    ":ALIAS"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to delete this alias from."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIAS",
+                      "description": "(Required) The alias to delete from this GUID. The alias should be URL-encoded."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61e26298-0ad6-4da3-9b12-fec2237b09cf",
+              "name": "GUID not found. No aliases were deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "aliases",
+                    ":ALIAS"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) The GUID to delete this alias from."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIAS",
+                      "description": "(Required) The alias to delete from this GUID. The alias should be URL-encoded."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 2951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f39987f-b606-40e0-8933-0b797609946d",
+          "name": "Get the metadata of the latest index record version associated with the given id",
+          "request": {
+            "name": "Get the metadata of the latest index record version associated with the given id",
+            "description": {},
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "has_version",
+                  "value": "<boolean>",
+                  "description": "filter by latest doc that has version value populated"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) entry id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4802264e-1d1a-4c70-b1f2-271b777a9490",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "has_version",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"<string>\",\n  \"baseid\": \"<string>\",\n  \"rev\": \"0c51ce12\",\n  \"form\": \"object\",\n  \"size\": 6254,\n  \"file_name\": \"string\",\n  \"version\": \"string\",\n  \"uploader\": \"string\",\n  \"urls\": [\n    \"string\",\n    \"string\"\n  ],\n  \"acl\": [\n    \"string\",\n    \"string\"\n  ],\n  \"authz\": [\n    \"string\",\n    \"string\"\n  ],\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"updated_date\": \"1956-02-25T16:35:37.931Z\",\n  \"created_date\": \"1977-10-12T17:35:06.218Z\",\n  \"metadata\": {},\n  \"urls_metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "844df406-187f-4579-98d0-534ae5fdf892",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "has_version",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bb4f0d0-ac9b-45e5-a6d3-aea077053932",
+          "name": "Get the metadata of index record versions associated with the given id, in the order the versions were created",
+          "request": {
+            "name": "Get the metadata of index record versions associated with the given id, in the order the versions were created",
+            "description": {},
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8f30c8c-b0ce-45ac-b574-67f14583b096",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"did\": \"<string>\",\n    \"baseid\": \"<string>\",\n    \"rev\": \"363309f4\",\n    \"form\": \"container\",\n    \"size\": 7795,\n    \"file_name\": \"string\",\n    \"version\": \"string\",\n    \"uploader\": \"string\",\n    \"urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"acl\": [\n      \"string\",\n      \"string\"\n    ],\n    \"authz\": [\n      \"string\",\n      \"string\"\n    ],\n    \"hashes\": {\n      \"md5\": \"<string>\",\n      \"sha\": \"<string>\",\n      \"sha256\": \"<string>\",\n      \"sha512\": \"<string>\",\n      \"crc\": \"<string>\",\n      \"etag\": \"<string>\"\n    },\n    \"updated_date\": \"2023-07-09T07:07:20.304Z\",\n    \"created_date\": \"2016-11-23T00:05:32.495Z\",\n    \"metadata\": {},\n    \"urls_metadata\": {}\n  },\n  {\n    \"did\": \"<string>\",\n    \"baseid\": \"<string>\",\n    \"rev\": \"ca951b02\",\n    \"form\": \"container\",\n    \"size\": 2232,\n    \"file_name\": \"string\",\n    \"version\": \"string\",\n    \"uploader\": \"string\",\n    \"urls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"acl\": [\n      \"string\",\n      \"string\"\n    ],\n    \"authz\": [\n      \"string\",\n      \"string\"\n    ],\n    \"hashes\": {\n      \"md5\": \"<string>\",\n      \"sha\": \"<string>\",\n      \"sha256\": \"<string>\",\n      \"sha512\": \"<string>\",\n      \"crc\": \"<string>\",\n      \"etag\": \"<string>\"\n    },\n    \"updated_date\": \"1992-12-03T05:10:45.854Z\",\n    \"created_date\": \"1987-01-11T05:35:17.462Z\",\n    \"metadata\": {},\n    \"urls_metadata\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c70f839-92bb-496d-8fc6-33e8979608fa",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "409f3322-61fe-4ce5-9a37-ff31fdea896f",
+          "name": "Update metadata for all versions of this record. Only some metadata fields can be updated in this way.",
+          "request": {
+            "name": "Update metadata for all versions of this record. Only some metadata fields can be updated in this way.",
+            "description": {},
+            "url": {
+              "path": [
+                "index",
+                ":GUID",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf44bed1-b9f8-4193-b070-2ce2d4032470",
+              "name": "Successful operation. Returns the GUIDs of the records that were updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"did\": \"<string>\",\n    \"baseid\": \"<string>\",\n    \"rev\": \"ec7e7cc2\"\n  },\n  {\n    \"did\": \"<string>\",\n    \"baseid\": \"<string>\",\n    \"rev\": \"87255754\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ef66a04-a69e-423e-aac9-ed7a3969b5b6",
+              "name": "The metadata to update is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed4d0d2d-090a-4238-900a-6344728b172e",
+              "name": "The requester is not authorized to perform this action. The requester must have the Update permission on all versions of the record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1089440b-d32c-4430-b224-750c5a3fb8c8",
+              "name": "GUID not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index",
+                    ":GUID",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) GUID of any record version, or the baseid common to all versions"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"acl\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "67d3a652-a518-475f-99e9-6f9c1b87a2c8",
+    "name": "Fence OpenAPI Specification admin/user index API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

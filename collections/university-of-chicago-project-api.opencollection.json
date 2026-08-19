@@ -1,0 +1,331 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user project API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "project",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              }
+            ]
+          },
+          "docs": "Return the available resources at the top level of program ``program``, i.e. registered projects."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://example.domain/v0/submission/<program>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/v0/submission/<program>/<project>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Delete project under a specific program"
+        },
+        {
+          "info": {
+            "name": "Open a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/open",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed."
+        },
+        {
+          "info": {
+            "name": "Open a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/open",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed."
+        },
+        {
+          "info": {
+            "name": "Release a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/release",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Release a project."
+        },
+        {
+          "info": {
+            "name": "Release a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/release",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Release a project."
+        },
+        {
+          "info": {
+            "name": "Review a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/review",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``."
+        },
+        {
+          "info": {
+            "name": "Review a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/review",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``."
+        },
+        {
+          "info": {
+            "name": "Submit a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/submit",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Submit a project."
+        },
+        {
+          "info": {
+            "name": "Submit a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/submit",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Submit a project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,574 @@
+{
+  "item": [
+    {
+      "id": "ff4732c4-c860-4d6a-b5af-3dcd771176de",
+      "name": "oauth2",
+      "description": {
+        "content": "Authorization and token management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c9096eeb-e990-4394-b8f4-e98ab973262a",
+          "name": "Perform OAuth2 authorization",
+          "request": {
+            "name": "Perform OAuth2 authorization",
+            "description": {
+              "content": "**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard\nsimply because of its length and complexity.\n\nPlease [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.\n\nObtain an authorization grant through the OAuth2 protocol. To handle\nthis request, render a page for the user to confirm the OAuth2 grant\n(through e.g. Google). Redirect user to `redirect_uri` with an added\n`code` parameter obtained from the authorization provider.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth2",
+                "authorize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) The client's ID, issued by authorization server"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_type",
+                  "value": "<string>",
+                  "description": "(Required) For an authorization request using the access code flow, the response type must be \"code\". If this is missing from the request then the authorization server must return an error."
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect_uri",
+                  "value": "<string>",
+                  "description": "(Required) Page to redirect to after access has been granted"
+                },
+                {
+                  "disabled": false,
+                  "key": "idp",
+                  "value": "<string>",
+                  "description": "Upstream identity provider to use. Specifying `idp=fence` lets us specify a `fence_idp`. Specifying `idp=shibboleth` lets us specify a `shib_idp`. If no `idp` is specified, defaults to the configured default login."
+                },
+                {
+                  "disabled": false,
+                  "key": "fence_idp",
+                  "value": "<string>",
+                  "description": "Upstream identity provider to use. Specifying `idp=fence` and `fence_idp=shibboleth` lets us specify a `shib_idp`. If no `fence_idp` is specified, defaults to NIH login."
+                },
+                {
+                  "disabled": false,
+                  "key": "shib_idp",
+                  "value": "<string>",
+                  "description": "Identifier for the shibboleth IDP. Available identifiers are what is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed` endpoint. If no `shib_idp` is specified, defaults to NIH login."
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "Requested authorization scope. Must include `openid`. `user` allows getting a user's access information.\n> NOTE: This is required for [OIDC](http://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "upstream_expires_in",
+                  "value": "<string>",
+                  "description": "the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less\nthan the configured maximum. If it's greater,\nthe configured maximum will be used.\n"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b56ac995-6c26-4868-8541-1ac0903360a4",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth2",
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "response_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp",
+                      "value": "google"
+                    },
+                    {
+                      "key": "fence_idp",
+                      "value": "shibboleth"
+                    },
+                    {
+                      "key": "shib_idp",
+                      "value": "urn:mace:incommon:uchicago.edu"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "upstream_expires_in",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11ed4c58-d143-4258-adc2-a4f9090c6dcb",
+          "name": "Perform OAuth2 authorization",
+          "request": {
+            "name": "Perform OAuth2 authorization",
+            "description": {
+              "content": "**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard\nsimply because of its length and complexity.\n\nPlease [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.\n\nObtain an authorization grant through the OAuth2 protocol. To handle\nthis request, render a page for the user to confirm the OAuth2 grant\n(through e.g. Google). Redirect user to `redirect_uri` with an added\n`code` parameter obtained from the authorization provider. A POST will\nnot render a page for the user; this implementation checks the `confirm`\nvalue in the request.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth2",
+                "authorize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) The client's ID, issued by authorization server"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_type",
+                  "value": "<string>",
+                  "description": "(Required) For an authorization request using the access code flow, the response type must be \"code\". If this is missing from the request then the authorization server must return an error."
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect_uri",
+                  "value": "<string>",
+                  "description": "(Required) Page to redirect to after access has been granted"
+                },
+                {
+                  "disabled": false,
+                  "key": "confirm",
+                  "value": "<string>",
+                  "description": "whether to confirm the OAuth2 grant (should be 'yes')"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "Requested authorization scope. Must include `openid`. `user` allows getting a user's access information."
+                },
+                {
+                  "disabled": false,
+                  "key": "upstream_expires_in",
+                  "value": "<string>",
+                  "description": "the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less than the configured maximum. If it's greater, the configured maximum will be used."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0e1df797-8ada-4b32-8d5c-e664a0f4df8b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth2",
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The client's ID, issued by authorization server",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) For an authorization request using the access code flow, the response type must be \"code\". If this is missing from the request then the authorization server must return an error.",
+                        "type": "text/plain"
+                      },
+                      "key": "response_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Page to redirect to after access has been granted",
+                        "type": "text/plain"
+                      },
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "whether to confirm the OAuth2 grant (should be 'yes')",
+                        "type": "text/plain"
+                      },
+                      "key": "confirm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Requested authorization scope. Must include `openid`. `user` allows getting a user's access information.",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less than the configured maximum. If it's greater, the configured maximum will be used.",
+                        "type": "text/plain"
+                      },
+                      "key": "upstream_expires_in",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c30ba21a-08de-417e-96fe-71e261a09822",
+          "name": "Exchange code for or refresh the access token.",
+          "request": {
+            "name": "Exchange code for or refresh the access token.",
+            "description": {
+              "content": "**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard\nsimply because of its length and complexity.\n\nPlease [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.\n\nExchange the `code` obtained from OAuth2 for an access token, or refresh\nthe access token using a refresh token.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth2",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "<string>",
+                  "description": "(Required) Value MUST be one of the supported grant types: `\"authorization_code\"` or `\"client_credentials\"`"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required if `grant_type` is `\"authorization_code\"`; unused otherwise) The authorization code returned from the OAuth2 authorization request"
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect_uri",
+                  "value": "<string>",
+                  "description": "(Required if `grant_type` is `\"authorization_code\"`; unused otherwise) Must be identical to the `\"redirect_uri\"` included in the original authorization request"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "(Optional if `grant_type` is `\"client_credentials\"`; unused otherwise) Requested authorization scope. If provided, must include `openid`. `user` allows getting a user's access information."
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8788beb3-0e7e-4952-b542-00bec287d612",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth2",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Value MUST be one of the supported grant types: `\"authorization_code\"` or `\"client_credentials\"`",
+                        "type": "text/plain"
+                      },
+                      "key": "grant_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required if `grant_type` is `\"authorization_code\"`; unused otherwise) The authorization code returned from the OAuth2 authorization request",
+                        "type": "text/plain"
+                      },
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required if `grant_type` is `\"authorization_code\"`; unused otherwise) Must be identical to the `\"redirect_uri\"` included in the original authorization request",
+                        "type": "text/plain"
+                      },
+                      "key": "redirect_uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Optional if `grant_type` is `\"client_credentials\"`; unused otherwise) Requested authorization scope. If provided, must include `openid`. `user` allows getting a user's access information.",
+                        "type": "text/plain"
+                      },
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "client_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "542bdfdd-5271-47bd-bf7c-b3c1338f5f65",
+          "name": "Revoke a refresh token per RFC 7009",
+          "request": {
+            "name": "Revoke a refresh token per RFC 7009",
+            "description": {
+              "content": "Revoke a refresh (not access) token granted to a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth2",
+                "revoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) Refresh token that the user wants to revoke"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5a91e0e1-8b56-45c4-83d0-655884cbfcbb",
+              "name": "successful operation, OR invalid token submitted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth2",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Refresh token that the user wants to revoke",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc1ab0c2-f06d-49e9-93e4-979d3c370d81",
+    "name": "Fence OpenAPI Specification admin/user oauth2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

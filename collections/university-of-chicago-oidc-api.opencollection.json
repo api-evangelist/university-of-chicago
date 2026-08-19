@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user OIDC API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OIDC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the OpenID Provider Configuration Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/.well-known/openid-configuration"
+          },
+          "docs": "See [OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) for detailed specification and an [example response](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationResponse)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

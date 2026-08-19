@@ -1,0 +1,104 @@
+{
+  "item": [
+    {
+      "id": "7ca1dffa-4f76-40ff-bcc8-d8397842c999",
+      "name": "OIDC",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f9deb495-86a0-4e38-b51e-9724a0198e61",
+          "name": "Get the OpenID Provider Configuration Document",
+          "request": {
+            "name": "Get the OpenID Provider Configuration Document",
+            "description": {
+              "content": "See [OpenID Connect Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) for detailed specification and an [example response](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationResponse).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ".well-known",
+                "openid-configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "013a5aa1-7ceb-49e9-8109-629db724bacc",
+              "name": "OpenID Configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ".well-known",
+                    "openid-configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"issuer\": \"string\",\n  \"authorization_endpoint\": \"string\",\n  \"jwks_uri\": \"string\",\n  \"response_types_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"claim_types_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"claims_locales_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"claims_parameter_supported\": true,\n  \"claims_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"display_values_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"grant_types_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id_token_encryption_alg_values_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id_token_encryption_enc_values_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id_token_signing_alg_values_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"op_policy_url\": \"string\",\n  \"op_tos_uri\": \"string\",\n  \"registration_endpoint\": \"string\",\n  \"request_object_encryption_alg_values_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"request_object_encryption_enc_values_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"request_object_signing_alg_values_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"request_parameter_supported\": false,\n  \"request_uri_parameter_supported\": false,\n  \"require_request_uri_registration\": false,\n  \"response_modes_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"scopes_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"service_documentation\": \"string\",\n  \"subject_types_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"token_endpoint\": \"string\",\n  \"token_endpoint_auth_methods_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ui_locales_supported\": [\n    \"string\",\n    \"string\"\n  ],\n  \"userinfo_endpoint\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6cafab1d-9086-4f72-8387-1deef13057dd",
+    "name": "Fence OpenAPI Specification admin/user OIDC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

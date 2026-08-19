@@ -1,0 +1,786 @@
+{
+  "item": [
+    {
+      "id": "fcba9ec3-2b77-4c4b-a58d-e8d7e2093cf3",
+      "name": "export",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fc819fbc-c637-4e7d-a858-13e35925c939",
+          "name": "Export entities",
+          "request": {
+            "name": "Export entities",
+            "description": {
+              "content": "Return a file with the requested entities as an attachment. Either ``ids`` or ``node_label`` must be provided in the parameters. When both are provided, ``node_label`` is ignored and ``ids`` is used. If ``ids`` is provided, all entities matching given ``ids`` will be exported. If there is only one entity type in the output, it will return a ``{node_type}.tsv`` or ``{node_type}.json`` file, e.g.: ``aliquot.tsv``. If there are multiple entity types, it returns ``gdc_export_{one_time_sha}.tar.gz`` for TSV format, or ``gdc_export_{one_time_sha}.json`` for JSON format. CSV is similar to TSV. If ``node_label`` is provided, it will export all entities of type with name ``node_label`` to a TSV file or JSON file. CSV is not supported yet in this case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "one or a list of node IDs seperated by commas."
+                },
+                {
+                  "disabled": false,
+                  "key": "node_label",
+                  "value": "<string>",
+                  "description": "type of nodes to look up, for example ``'case'``"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "output format, ``json`` or ``tsv`` or ``csv``; default is ``tsv``"
+                },
+                {
+                  "disabled": false,
+                  "key": "with_children",
+                  "value": "<string>",
+                  "description": "whether to recursively find children or not; default is False"
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "category of node to filter on children. Example: ``clinical``"
+                },
+                {
+                  "disabled": false,
+                  "key": "without_id",
+                  "value": "<boolean>",
+                  "description": "whether to include the ids in the export file; default is False"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e70a6aa-b770-45d8-ac41-60b0a48f8d72",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "acf7fb8f-636a-49cc-8603-4e2a7b8fb2fb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b9e23d73-a6cf-438a-843b-e89d886439aa",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e5a486e8-2770-4e03-95e8-d3ad11ec1309",
+              "name": "No id is found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8e471f7-8507-4b98-a958-a2bf4d9025f2",
+          "name": "Export entities",
+          "request": {
+            "name": "Export entities",
+            "description": {
+              "content": "Return a file with the requested entities as an attachment. Either ``ids`` or ``node_label`` must be provided in the parameters. When both are provided, ``node_label`` is ignored and ``ids`` is used. If ``ids`` is provided, all entities matching given ``ids`` will be exported. If there is only one entity type in the output, it will return a ``{node_type}.tsv`` or ``{node_type}.json`` file, e.g.: ``aliquot.tsv``. If there are multiple entity types, it returns ``gdc_export_{one_time_sha}.tar.gz`` for TSV format, or ``gdc_export_{one_time_sha}.json`` for JSON format. CSV is similar to TSV. If ``node_label`` is provided, it will export all entities of type with name ``node_label`` to a TSV file or JSON file. CSV is not supported yet in this case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "one or a list of node IDs seperated by commas."
+                },
+                {
+                  "disabled": false,
+                  "key": "node_label",
+                  "value": "<string>",
+                  "description": "type of nodes to look up, for example ``'case'``"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "output format, ``json`` or ``tsv`` or ``csv``; default is ``tsv``"
+                },
+                {
+                  "disabled": false,
+                  "key": "with_children",
+                  "value": "<string>",
+                  "description": "whether to recursively find children or not; default is False"
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "category of node to filter on children. Example: ``clinical``"
+                },
+                {
+                  "disabled": false,
+                  "key": "without_id",
+                  "value": "<boolean>",
+                  "description": "whether to include the ids in the export file; default is False"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a4c16d0-f84b-4096-8437-dcb60f3f27fa",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c920fec-1da0-45ac-bc4c-537e8400098d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "02041b32-4bf6-44f3-b061-60497a082460",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f4cbd048-788c-4aff-85a2-2f2af0fd2a0b",
+              "name": "No id is found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "node_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_children",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "without_id",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "43ca960e-3563-486d-83f1-a5a8c04af8d8",
+    "name": "Fence OpenAPI Specification admin/user export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

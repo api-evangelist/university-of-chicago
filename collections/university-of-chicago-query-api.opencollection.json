@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user query API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "search index records by urls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/_query/urls/q",
+            "params": [
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "search for documents without a single URL that match this pattern"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "search for documents with at least one URL that match this pattern"
+              },
+              {
+                "name": "versioned",
+                "value": "",
+                "type": "query",
+                "description": "if true search for documents with a version set, else search documents without version"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "maximum rows to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "pointer position to start search"
+              }
+            ]
+          },
+          "docs": "search index records by urls"
+        },
+        {
+          "info": {
+            "name": "search index records by urls metadata key and value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/_query/urls/metadata/q",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "metadata key to search by"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "query",
+                "description": "metadata value for provided key"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "URL patter to filter by"
+              },
+              {
+                "name": "versioned",
+                "value": "",
+                "type": "query",
+                "description": "if true search for documents with a version set, else search documents without version"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "maximum rows to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "pointer position to start search"
+              }
+            ]
+          },
+          "docs": "search index records by urls metadata key and value"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

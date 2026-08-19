@@ -1,0 +1,475 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user index API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "index",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/index",
+            "params": [
+              {
+                "name": "form",
+                "value": "",
+                "type": "query",
+                "description": "specify whether you want to list bundle, objects or both Defaults to object."
+              },
+              {
+                "name": "urls_metadata",
+                "value": "",
+                "type": "query",
+                "description": "urls_metadata in JSON string format \"{url_key: {key: value, ...}, ...}\". Will get records whose url_metadata have at least one key containing the substring \"url_key\" AND whose url_metadata have all the \"key: value\" properties\n"
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query",
+                "description": "metadata in format key:value. Multiple metadata values can be specified, for example \"?metadata=a:xxx&metadata=b:yyy\""
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "object size"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query",
+                "description": "hash in format hash_type:hash_value. Multiple hashes can be specified, for example \"?hash=a:xxx&hash=b:yyy\""
+              },
+              {
+                "name": "uploader",
+                "value": "",
+                "type": "query",
+                "description": "uploader id"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "comma delimited ids, when provided,\npagination params(start, limit) are not supported\n"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "URL to query. Multiple URLs can be specified, for example \"?url=url1&url=url2\" - in that case, returned records will have ALL URLs"
+              },
+              {
+                "name": "acl",
+                "value": "",
+                "type": "query",
+                "description": "comma delimited ACE - if multiple ACE are specified, returned records will have ALL ACEs"
+              },
+              {
+                "name": "authz",
+                "value": "",
+                "type": "query",
+                "description": "comma delimited resources - if multiple resources are specified, returned records will have ALL resources"
+              },
+              {
+                "name": "negate_params",
+                "value": "",
+                "type": "query",
+                "description": "The negate params in JSON string format.\nFor string params (version, file_name): filters value != param value\nFor list params (urls, acl): filters records that don't include the param value\nFor dict params (metadata, urls_metadata), for each (key,value) pair:\n- if param value is None or empty: filters with key doesn't exist\n- if param value is provided: filters with value != param value OR key doesn't exist\n"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "start did"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of records to return for this page, default to 100"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "pagination support without relying on dids. offsets results by limit*page"
+              }
+            ]
+          },
+          "docs": "List all records"
+        },
+        {
+          "info": {
+            "name": "Add a new entry to the index",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/index",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new entry to the index"
+        },
+        {
+          "info": {
+            "name": "Create a blank record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/index/blank",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "An authz can optionally be specified."
+        },
+        {
+          "info": {
+            "name": "Create a new, blank version for the document associated to the provided uuid.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/index/blank/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "the uuid associated to the record needed to have new version"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new blank version of a record with the provided GUID. Returns the GUID of the new version of the record and the baseid common to all versions of the record. Authorization (acl/authz fields) carry over from the original record to the new blank version, unless an authz is provided. No other metadata (md5sum, etc) carries over from the original record to the new blank version."
+        },
+        {
+          "info": {
+            "name": "Update only hashes, size and optionally urls and authz for blank index",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/index/blank/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "entry id"
+              },
+              {
+                "name": "rev",
+                "value": "",
+                "type": "query",
+                "description": "data revision - simple consistency mechanism"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update only hashes, size and optionally urls and authz for blank index"
+        },
+        {
+          "info": {
+            "name": "Get the metadata associated with the given id. Resolves bundle id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/index/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "entry id"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Only shows first layer of contents when expand=false. Recursively unbundles contents when expand=true. false by default"
+              }
+            ]
+          },
+          "docs": "Get the metadata associated with the given id. Resolves bundle id."
+        },
+        {
+          "info": {
+            "name": "Add new version for the document associated to the provided uuid.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/index/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "the uuid associated to the record needed to have new version"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Since data content is immutable, when you want to change the size or hash, a new index document with new uuid need to be created as its new version. That uuid is returned in the did field of the response. The old index document is not deleted."
+        },
+        {
+          "info": {
+            "name": "Update an existing entry in the index",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/index/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "entry id"
+              },
+              {
+                "name": "rev",
+                "value": "",
+                "type": "query",
+                "description": "data revision - simple consistency mechanism"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing entry in the index"
+        },
+        {
+          "info": {
+            "name": "Delete an entry from the index",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/index/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "entry id"
+              },
+              {
+                "name": "rev",
+                "value": "",
+                "type": "query",
+                "description": "data revision - simple consistency mechanism"
+              }
+            ]
+          },
+          "docs": "Delete an entry from the index"
+        },
+        {
+          "info": {
+            "name": "Get all aliases associated with this GUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/index/:GUID/aliases",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "The GUID to query."
+              }
+            ]
+          },
+          "docs": "Get all aliases associated with this GUID"
+        },
+        {
+          "info": {
+            "name": "Append new aliases to this GUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/index/:GUID/aliases",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "The GUID to associate the new aliases with."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds new aliases to the aliases already associated with this GUID. The new aliases must be globally unique."
+        },
+        {
+          "info": {
+            "name": "Replace all aliases for this GUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/index/:GUID/aliases",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "The GUID to associate the new aliases with."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces all aliases associated with this GUID with new aliases. The new aliases can be the same as the aliases already associated with this GUID, but must otherwise be globally unique."
+        },
+        {
+          "info": {
+            "name": "Delete all aliases for this GUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/index/:GUID/aliases",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "The GUID to delete these aliases from."
+              }
+            ]
+          },
+          "docs": "Delete all aliases for this GUID"
+        },
+        {
+          "info": {
+            "name": "Delete one alias for this GUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/index/:GUID/aliases/:ALIAS",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "The GUID to delete this alias from."
+              },
+              {
+                "name": "ALIAS",
+                "value": "",
+                "type": "path",
+                "description": "The alias to delete from this GUID. The alias should be URL-encoded."
+              }
+            ]
+          },
+          "docs": "Delete one alias for this GUID"
+        },
+        {
+          "info": {
+            "name": "Get the metadata of the latest index record version associated with the given id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/index/:GUID/latest",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "entry id"
+              },
+              {
+                "name": "has_version",
+                "value": "",
+                "type": "query",
+                "description": "filter by latest doc that has version value populated"
+              }
+            ]
+          },
+          "docs": "Get the metadata of the latest index record version associated with the given id"
+        },
+        {
+          "info": {
+            "name": "Get the metadata of index record versions associated with the given id, in the order the versions were created",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/index/:GUID/versions",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "GUID of any record version, or the baseid common to all versions"
+              }
+            ]
+          },
+          "docs": "Get the metadata of index record versions associated with the given id, in the order the versions were created"
+        },
+        {
+          "info": {
+            "name": "Update metadata for all versions of this record. Only some metadata fields can be updated in this way.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/index/:GUID/versions",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "GUID of any record version, or the baseid common to all versions"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update metadata for all versions of this record. Only some metadata fields can be updated in this way."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

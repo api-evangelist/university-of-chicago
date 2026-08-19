@@ -1,0 +1,335 @@
+{
+  "item": [
+    {
+      "id": "0155b56d-808e-4881-9e65-ee8b99478e30",
+      "name": "global",
+      "description": {
+        "content": "Search for an alias or index, potentially even a distributed search.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "410a957a-ea24-46cf-8c27-e92110501a19",
+          "name": "Get the metadata associated with the given id, alias, or distributed identifier",
+          "request": {
+            "name": "Get the metadata associated with the given id, alias, or distributed identifier",
+            "description": {
+              "content": "Only the hashes which exist will be included in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) entry id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c1cabd3-9625-476f-92c5-f71a668764cf",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"did\": \"eeFdD39a-dd6C-7c3c-2DDc-F6CaaF19f1be\",\n  \"baseid\": \"bF6AefC6-3ccF-d1FC-A1e0-05eeC3Fbbb50\",\n  \"rev\": \"9761f3f7\",\n  \"form\": \"multipart\",\n  \"size\": 5571,\n  \"file_name\": \"string\",\n  \"version\": \"string\",\n  \"uploader\": \"string\",\n  \"urls\": [\n    \"string\",\n    \"string\"\n  ],\n  \"acl\": [\n    \"string\",\n    \"string\"\n  ],\n  \"authz\": [\n    \"string\",\n    \"string\"\n  ],\n  \"hashes\": {\n    \"md5\": \"6b1aec8af006e3ada533d3f59867ad81\",\n    \"sha\": \"2b89356d39fdf1b58bb6b8db746f3ee803561701\",\n    \"sha256\": \"abf8fe0db2fd65d3b6700aca53a96b128b4829d2db93554df5f408db2b42e835\",\n    \"sha512\": \"4f0f1076ae93081d9f746bbaffd975023de699a8d1ddd5b2c7a235be5a292cf196ba96da8a9b5c02de4e4d29d46d420326b336749656632ef91394483193d30d\",\n    \"crc\": \"cc58e821\",\n    \"etag\": \"5d85915813384bc1771084f53e82bacc-3376694\"\n  },\n  \"updated_date\": \"1999-03-26T00:17:51.320Z\",\n  \"created_date\": \"1972-08-18T06:06:35.473Z\",\n  \"metadata\": {},\n  \"urls_metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c6632c5-efa3-4b50-8d89-34fd8eeba5a1",
+              "name": "Invalid status value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3125a04c-57a3-48da-bd30-226521bc55e2",
+              "name": "Record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) entry id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a978b2d-0c13-4b94-9f3c-8bbbcf3ba790",
+          "name": "Get a list of urls that match query params",
+          "request": {
+            "name": "Get a list of urls that match query params",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "urls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "object size"
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>",
+                  "description": "hashes specified as algorithm:value. Multiple hashes can be specified, for example \"?hash=a:xxx&hash=b:yyy\""
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "comma delimited ids"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "80c54cb4-542c-4774-b48d-a7d0c58e9425",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"urls\": [\n    {\n      \"url\": \"string\",\n      \"metadata\": {}\n    },\n    {\n      \"url\": \"string\",\n      \"metadata\": {}\n    }\n  ],\n  \"size\": 6937,\n  \"start\": 7079,\n  \"limit\": 3790,\n  \"hashes\": {\n    \"md5\": \"3477468c6d815ab041d154462ef6e167\",\n    \"sha\": \"1af2a06b56974c5cc8460aa23f9d22ca6cf06b56\",\n    \"sha256\": \"7ea70d126bdd753ada415cfcaa85e91d2cce302eadd89fdfbe0674b1c3fee3cd\",\n    \"sha512\": \"4a796bc2a59ecf0992ebcc297827db8b4900a56da2271d8bd881fa6ac3f2350df26fbb3dcf5fa0ca67e841e0e16ec219e5b02381734a37094b6fd087def444a7\",\n    \"crc\": \"b1f33bed\",\n    \"etag\": \"f1cbc129191e63234e086d4cb069322c-55010\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21e835f3-1452-4aa1-b9d6-b3645b6dd519",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ba44148f-306b-46be-9b01-392cb7920425",
+    "name": "Fence OpenAPI Specification admin/user global API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

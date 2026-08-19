@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user bundle API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "bundle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Bundles.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/bundle",
+            "params": [
+              {
+                "name": "form",
+                "value": "",
+                "type": "query",
+                "description": "specify whether you want to list bundle, objects or both."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "start did"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of records to return for this page, default to 100"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "pagination support without relying on dids. offsets results by limit*page"
+              }
+            ]
+          },
+          "docs": "By default lists all the bundles"
+        },
+        {
+          "info": {
+            "name": "Create a bundle.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/bundle",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a bundle."
+        },
+        {
+          "info": {
+            "name": "Get bundle info for a given GUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/bundle/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "Resolves for both bundle id and object id."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Only shows first layer of contents when expand=false. Recursively unbundles contents when expand=true. false by default"
+              }
+            ]
+          },
+          "docs": "Get bundle info for a given GUID"
+        },
+        {
+          "info": {
+            "name": "delete bundle from bundle records",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/bundle/:GUID",
+            "params": [
+              {
+                "name": "GUID",
+                "value": "",
+                "type": "path",
+                "description": "bundle id"
+              }
+            ]
+          },
+          "docs": "delete bundle from bundle records"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

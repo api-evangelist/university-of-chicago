@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user oauth2 API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "oauth2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Perform OAuth2 authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/oauth2/authorize",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query",
+                "description": "The client's ID, issued by authorization server"
+              },
+              {
+                "name": "response_type",
+                "value": "",
+                "type": "query",
+                "description": "For an authorization request using the access code flow, the response type must be \"code\". If this is missing from the request then the authorization server must return an error."
+              },
+              {
+                "name": "redirect_uri",
+                "value": "",
+                "type": "query",
+                "description": "Page to redirect to after access has been granted"
+              },
+              {
+                "name": "idp",
+                "value": "google",
+                "type": "query",
+                "description": "Upstream identity provider to use. Specifying `idp=fence` lets us specify a `fence_idp`. Specifying `idp=shibboleth` lets us specify a `shib_idp`. If no `idp` is specified, defaults to the configured default login."
+              },
+              {
+                "name": "fence_idp",
+                "value": "shibboleth",
+                "type": "query",
+                "description": "Upstream identity provider to use. Specifying `idp=fence` and `fence_idp=shibboleth` lets us specify a `shib_idp`. If no `fence_idp` is specified, defaults to NIH login."
+              },
+              {
+                "name": "shib_idp",
+                "value": "urn:mace:incommon:uchicago.edu",
+                "type": "query",
+                "description": "Identifier for the shibboleth IDP. Available identifiers are what is listed by the `login.bionimbus.org/Shibboleth.sso/DiscoFeed` endpoint. If no `shib_idp` is specified, defaults to NIH login."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Requested authorization scope. Must include `openid`. `user` allows getting a user's access information.\n> NOTE: This is required for [OIDC](http://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)\n"
+              },
+              {
+                "name": "upstream_expires_in",
+                "value": "",
+                "type": "query",
+                "description": "the time (in seconds) during which the upstream refresh token (eg. RAS) is valid. Must be less\nthan the configured maximum. If it's greater,\nthe configured maximum will be used.\n"
+              }
+            ]
+          },
+          "docs": "**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard\nsimply because of its length and complexity.\n\nPlease [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.\n\nObtain an authorization grant through the OAuth2 protocol. To handle\nthis request, render a page for the user to confirm the OAuth2 grant\n(through e.g. Google). Redirect user to `redirect_uri` with an added\n`code` parameter obtained"
+        },
+        {
+          "info": {
+            "name": "Perform OAuth2 authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/oauth2/authorize",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "response_type",
+                  "value": ""
+                },
+                {
+                  "name": "redirect_uri",
+                  "value": ""
+                },
+                {
+                  "name": "confirm",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                },
+                {
+                  "name": "upstream_expires_in",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard\nsimply because of its length and complexity.\n\nPlease [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.\n\nObtain an authorization grant through the OAuth2 protocol. To handle\nthis request, render a page for the user to confirm the OAuth2 grant\n(through e.g. Google). Redirect user to `redirect_uri` with an added\n`code` parameter obtained"
+        },
+        {
+          "info": {
+            "name": "Exchange code for or refresh the access token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/oauth2/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "value": ""
+                },
+                {
+                  "name": "redirect_uri",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard\nsimply because of its length and complexity.\n\nPlease [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.\n\nExchange the `code` obtained from OAuth2 for an access token, or refresh\nthe access token using a refresh token.\n"
+        },
+        {
+          "info": {
+            "name": "Revoke a refresh token per RFC 7009",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/oauth2/revoke",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Revoke a refresh (not access) token granted to a user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user register API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "register",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register in order to get access to download data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/user/register"
+          },
+          "docs": "This register functionality enables a registration page for users to provide basic information before being added to a preconfigured group. The GET request will redirect to a HTML page where users can provide their first name, last name, organization, and email, in order to gain some predefined permissions (i.e. to be automatically added to a preconfigured Arborist group)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

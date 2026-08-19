@@ -1,0 +1,1249 @@
+{
+  "item": [
+    {
+      "id": "1d8f92a0-483c-4332-9478-97265c7165e3",
+      "name": "dictionary",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05175568-37bb-458d-8134-b8b377ca93be",
+          "name": "Get the dictionary schema for entities of a project",
+          "request": {
+            "name": "Get the dictionary schema for entities of a project",
+            "description": {
+              "content": "Return links to the project level JSON schema definitions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "_dictionary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "046e8730-a13a-4260-96a0-c2060f410b86",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "_dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fccd0ed9-064d-49ae-9f2f-202c68a05038",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "_dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3d0bf4c-20d4-47b5-8bb8-74fcb5dbe015",
+          "name": "Get the dictionary schema for an entity of a project",
+          "request": {
+            "name": "Get the dictionary schema for an entity of a project",
+            "description": {
+              "content": "Get the dictionary entry for a specific project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "_dictionary",
+                "<entry>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entry",
+                  "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e81b81bb-bcf9-4aeb-84c8-9223f08a0732",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "_dictionary",
+                    "<entry>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry",
+                      "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"...fields specific to this entity\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e51f79f-bfa0-486c-ac97-c153c8e3b7e8",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "_dictionary",
+                    "<entry>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry",
+                      "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4f91ac5-5014-4522-b1df-37d16d85844e",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "_dictionary",
+                    "<entry>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry",
+                      "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28780b9d-a6f8-4e54-b9bf-7020a4374c27",
+          "name": "Get templates for all entity types of a project",
+          "request": {
+            "name": "Get templates for all entity types of a project",
+            "description": {
+              "content": "Get templates for all entity types. In the template, Links are represented as {link_type}.{link_unique_key} for one_to_one  and many_to_one relationships. For many_to_many relationships, they are represented as {link_type}.{link_unique_key}#1 to infer user the multiplicity",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "template"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "output format, ``csv`` or ``tsv``, default is tsv"
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "list of entities' categories to include in the template"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude",
+                  "value": "<string>",
+                  "description": "list of entities' categories to exclude from the template"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a5900a2b-c58c-4a6c-afbc-f070855dd06c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef256996-8755-4c67-a58b-3d2199126e3d",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99569d33-bc96-4adf-a94b-f15ef6446f06",
+          "name": "Get a template for an entity type of a project",
+          "request": {
+            "name": "Get a template for an entity type of a project",
+            "description": {
+              "content": "Return TSV template of an entity type. In the template, links are represented as {link_type}.{link_unique_key} for one_to_one and many_to_one relationships. For many_to_many relationships, they are represented as {link_type}.{link_unique_key}#1 to infer user the multiplicity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "template",
+                "<entity>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "output format, ``csv`` or ``tsv``, default is tsv"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) type of the entity"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "223fc3bb-fd84-40de-b178-28920b9c9473",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "template",
+                    "<entity>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) type of the entity"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8e8498f-8bcf-4c31-b6a9-0e430a151082",
+              "name": "Entity type is not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "template",
+                    "<entity>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) type of the entity"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe5cce79-67d9-4bef-ac35-e2a1eb0b94f9",
+          "name": "Get the dictionary schema",
+          "request": {
+            "name": "Get the dictionary schema",
+            "description": {
+              "content": "Return links to the JSON schema definitions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "_dictionary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d57c762-bf9d-4faa-b509-706b3c0ee90a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "_dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8f3e6d7-5b53-4f89-9cc2-0333bb17d1ad",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "_dictionary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4824be79-c4cd-41ec-ab0f-fbacd09f6b78",
+          "name": "Get the dictionary schema for an entity",
+          "request": {
+            "name": "Get the dictionary schema for an entity",
+            "description": {
+              "content": "Return the project level JSON schema definition for a given entity type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "_dictionary",
+                "<entry>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entry",
+                  "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec4a04ed-b56d-499b-9b02-957e9d0371df",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "_dictionary",
+                    "<entry>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry",
+                      "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"...fields specific to this entity\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30f72279-2cb2-45b0-968f-a9c66f04ad25",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "_dictionary",
+                    "<entry>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry",
+                      "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3154fbf6-5c9d-418b-b399-f5be90bacd70",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "_dictionary",
+                    "<entry>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry",
+                      "description": "(Required) entity type to retrieve the schema for (e.g. ``aliquot``)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33286c48-3e9a-4e8b-b15d-4e393e0eb061",
+          "name": "Get templates for all entity types",
+          "request": {
+            "name": "Get templates for all entity types",
+            "description": {
+              "content": "Get templates for all entity types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "template"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "output format, ``csv`` or ``tsv``, default is tsv"
+                },
+                {
+                  "disabled": false,
+                  "key": "categories",
+                  "value": "<string>",
+                  "description": "list of entities' categories to include in the template"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude",
+                  "value": "<string>",
+                  "description": "list of entities' categories to exclude from the template"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4bc7bd8-136e-442c-9ccc-fd49b943b123",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf815340-2770-49e1-af59-a92a357cfb46",
+          "name": "Get a template for an entity type",
+          "request": {
+            "name": "Get a template for an entity type",
+            "description": {
+              "content": "Get a template for an entity type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "template",
+                "<entity>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) entity"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb1958cc-4c95-47c4-a4e8-f7d188b5b24c",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "template",
+                    "<entity>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) entity"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "492f8438-3534-4ec8-83f0-d113ad608a51",
+    "name": "Fence OpenAPI Specification admin/user dictionary API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

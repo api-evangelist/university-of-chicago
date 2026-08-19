@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "c6dacb20-f5c7-47fc-b5e7-24dcc1b48fb8",
+      "name": "privacy-policy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b47def55-c696-41f2-bc0c-4fcd795445ba",
+          "name": "Return the full text of the privacy policy for Gen3",
+          "request": {
+            "name": "Return the full text of the privacy policy for Gen3",
+            "description": {
+              "content": "The privacy policy should contain details about what information our technology collects from users and how it is used. According to the `Accept` header in the request it returns either markdown or raw HTML.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "privacy-policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/markdown"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f485d968-2fc1-4dd0-aaf8-8cffc5dc46ac",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "privacy-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/markdown"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/markdown"
+                }
+              ],
+              "body": "# Gen3 Privacy Policy ...",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9fdf3b86-a4ce-46b2-a8f5-3226a0c9a72f",
+    "name": "Fence OpenAPI Specification admin/user privacy-policy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

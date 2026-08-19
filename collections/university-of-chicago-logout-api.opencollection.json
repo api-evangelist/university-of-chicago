@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user logout API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "logout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Log out the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/logout",
+            "params": [
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "The url to redirect the user to after logout"
+              },
+              {
+                "name": "force_era_global_logout",
+                "value": "",
+                "type": "query",
+                "description": "Use era commons itrust to logout"
+              }
+            ]
+          },
+          "docs": "Log out the current user and redirect to the provided url. The logout will propogate, depending on the identity provider."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

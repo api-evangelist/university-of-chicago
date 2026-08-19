@@ -1,0 +1,388 @@
+{
+  "item": [
+    {
+      "id": "d748f4b4-d5a2-446f-b8d1-734c11de5569",
+      "name": "system",
+      "description": {
+        "content": "System endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52dbb27f-e415-41b1-bcf2-90b0ba7c905b",
+          "name": "Returns if Fence is healthy or not",
+          "request": {
+            "name": "Returns if Fence is healthy or not",
+            "description": {
+              "content": "Health check endpoint",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "_status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56f25e99-b693-481e-a4f5-7e1da996afc0",
+              "name": "Healthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5337efd5-2ffc-4314-8568-8adf24446af4",
+              "name": "Unhealthy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a7650d2-a7dc-4e06-98d0-2cba58904766",
+          "name": "Returns the version of Fence",
+          "request": {
+            "name": "Returns the version of Fence",
+            "description": {},
+            "url": {
+              "path": [
+                "_version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e79514ca-f2e5-46a3-aaa1-bce49e17a4a6",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43ffe6be-1a8c-4954-917f-02180d3bf3c3",
+          "name": "Get Prometheus metrics",
+          "request": {
+            "name": "Get Prometheus metrics",
+            "description": {
+              "content": "Returns Prometheus metrics if the `ENABLE_PROMETHEUS_METRICS` setting is `True`. By default, this endpoint is public. Authorization controls can be setup externally; in cloud-automation setups, access to this endpoint is blocked at the revproxy level.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8067388c-82c7-4ee0-8aaf-fe5cb3fa0afc",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de0a7560-3835-4140-a684-34c8cdc71a8f",
+          "name": "Returns the IndexD dist configuration",
+          "request": {
+            "name": "Returns the IndexD dist configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "_dist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "367a8523-3897-479f-86d0-7a696c731d48",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"host\": \"string\",\n    \"hints\": [\n      \"string\",\n      \"string\"\n    ],\n    \"type\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"host\": \"string\",\n    \"hints\": [\n      \"string\",\n      \"string\"\n    ],\n    \"type\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3902e6b9-47c0-4cc0-bb14-38323c5a1a31",
+          "name": "Returns basic information about the records in IndexD",
+          "request": {
+            "name": "Returns basic information about the records in IndexD",
+            "description": {},
+            "url": {
+              "path": [
+                "_stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "month",
+                  "value": "<integer>",
+                  "description": "Month for which data is to be returned. (Either both month and year or neither must be provided)"
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "year for which data is to be returned. (Either both month and year or neither must be provided)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a81f8082-aff2-4456-a878-bdbc2cdfad9f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "month",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "year",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fileCount\": 1842,\n  \"totalFileSize\": 2521\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6cbcc826-6527-4e72-8100-b9067f4c997a",
+    "name": "Fence OpenAPI Specification admin/user system API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

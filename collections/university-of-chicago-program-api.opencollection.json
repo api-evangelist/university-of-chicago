@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user program API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "program",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the programs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/"
+          },
+          "docs": "Return the available resources at the top level above programs i.e. registered programs."
+        },
+        {
+          "info": {
+            "name": "Create a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users."
+        },
+        {
+          "info": {
+            "name": "Create a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users."
+        },
+        {
+          "info": {
+            "name": "Create a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://example.domain/v0/submission/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users."
+        },
+        {
+          "info": {
+            "name": "Delete a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/v0/submission/<program>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              }
+            ]
+          },
+          "docs": "Delete a program given program name. If the program is not empty raise an appropriate exception"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

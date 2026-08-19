@@ -1,0 +1,182 @@
+{
+  "item": [
+    {
+      "id": "f62fd617-7ca2-4296-8e74-a394754f8a3a",
+      "name": "GUID",
+      "description": {
+        "content": "Endpoints for generation of Gen3 GUIDs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b07bda1-9abd-41de-a223-31fbac13c258",
+          "name": "Get a list of valid GUIDs without actually indexing records",
+          "request": {
+            "name": "Get a list of valid GUIDs without actually indexing records",
+            "description": {},
+            "url": {
+              "path": [
+                "guid",
+                "mint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<string>",
+                  "description": "Number of GUIDs to return, default is 1 (note that there is a max of 10k)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79aefe90-ffea-4d55-a28f-f9acdaef5a2a",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guid",
+                    "mint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"guids\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "adb1e2a4-603d-4fe5-b470-68fac5218fba",
+          "name": "Provide prefix used for this instance (if any)",
+          "request": {
+            "name": "Provide prefix used for this instance (if any)",
+            "description": {},
+            "url": {
+              "path": [
+                "guid",
+                "prefix"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "18a20c28-7ae9-4589-b87d-135130766412",
+              "name": "successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guid",
+                    "prefix"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prefix\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4c60e4b1-2224-4e4b-b4b2-91a8562ae250",
+    "name": "Fence OpenAPI Specification admin/user GUID API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

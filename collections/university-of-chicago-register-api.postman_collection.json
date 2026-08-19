@@ -1,0 +1,104 @@
+{
+  "item": [
+    {
+      "id": "11ce6629-2d4c-4e6f-b3ed-bd0548cc04a4",
+      "name": "register",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b1dd4ca-11e4-450a-8473-9db5bbaff5ea",
+          "name": "Register in order to get access to download data",
+          "request": {
+            "name": "Register in order to get access to download data",
+            "description": {
+              "content": "This register functionality enables a registration page for users to provide basic information before being added to a preconfigured group. The GET request will redirect to a HTML page where users can provide their first name, last name, organization, and email, in order to gain some predefined permissions (i.e. to be automatically added to a preconfigured Arborist group).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/markdown"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6a100a5-60b3-4693-b450-726f7fb0bfe7",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/markdown"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/markdown"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a653faa5-cf5d-48a6-87ce-ff5811c237d8",
+    "name": "Fence OpenAPI Specification admin/user register API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

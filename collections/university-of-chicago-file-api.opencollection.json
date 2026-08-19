@@ -1,0 +1,270 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user file API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "file",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to list parts"
+              }
+            ]
+          },
+          "docs": "Get a data file from object storage"
+        },
+        {
+          "info": {
+            "name": "Upload data by multipart upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "uploads",
+                "value": "",
+                "type": "query",
+                "description": "to initiate multipart upload"
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to complete multipart upload"
+              }
+            ]
+          },
+          "docs": "Upload data by multipart upload"
+        },
+        {
+          "info": {
+            "name": "Upload a data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "partNumber",
+                "value": "",
+                "type": "query",
+                "description": "to upload part (use with uploadId)"
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to upload part (use with partNumber)"
+              }
+            ]
+          },
+          "docs": "Upload data using single PUT. The request body should contain binary data of the file."
+        },
+        {
+          "info": {
+            "name": "Delete a data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to abort a multipart upload"
+              }
+            ]
+          },
+          "docs": "Delete molecular data from object storage."
+        },
+        {
+          "info": {
+            "name": "Get a manifest of data files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/manifest",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Create a json manifest of the files."
+        },
+        {
+          "info": {
+            "name": "Get a manifest of data files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/upload_manifest",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Create a json manifest of the files."
+        },
+        {
+          "info": {
+            "name": "Reassign the S3 URL of a data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/admin/<program>/<project>/files/<file_uuid>/reassign",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              }
+            ]
+          },
+          "docs": "Manually (re)assign the S3 url for a given node."
+        },
+        {
+          "info": {
+            "name": "Validate a manifest of data files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/validation/upload_manifest"
+          },
+          "docs": "Generate a list of errors found in JSON Schema validation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

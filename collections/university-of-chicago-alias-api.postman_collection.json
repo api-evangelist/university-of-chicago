@@ -1,0 +1,569 @@
+{
+  "item": [
+    {
+      "id": "e02672cb-4527-4c38-828b-f7e383dc1e05",
+      "name": "alias",
+      "description": {
+        "content": "create an alias for an entity stored in an external system managed by some other authority",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8c721d55-e523-4c21-a452-116af663e20e",
+          "name": "list aliases with pagination",
+          "request": {
+            "name": "list aliases with pagination",
+            "description": {},
+            "url": {
+              "path": [
+                "alias",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<long>",
+                  "description": "size in bytes"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<long>",
+                  "description": "start index for the pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "number of aliases to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "hash",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93d2e7a4-16d9-4858-81d5-94fe7854afb7",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alias",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "hash",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aliases\": [\n    \"string\",\n    \"string\"\n  ],\n  \"size\": 869,\n  \"start\": 9044,\n  \"limit\": 3477,\n  \"hashes\": {\n    \"md5\": \"59799624298c8fb7abd3e5408bf44a28\",\n    \"sha\": \"b941752ab6134ddff8eeffc93dbd3dccdd21237a\",\n    \"sha256\": \"aa4e9d3e918d9818d568df2f958d119b76fc4c006d17eadcc35a3a281dbb29e3\",\n    \"sha512\": \"6aaf3f3d247056c4b7b5d0960ed65fee7317599ca8be06174fab0764d5c4a95f26235b7bc11d2ad6a3d0154ef5a8539d31b12f63a736862dc895cf71c5541afc\",\n    \"crc\": \"038e7162\",\n    \"etag\": \"60c736889e9b689cabe8d8f86ea2a630-83533147942\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71ebc8e2-7c6c-4841-a4a7-0e04a674d9ea",
+          "name": "Create or update an alias",
+          "request": {
+            "name": "Create or update an alias",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alias",
+                ":ALIASSTRING"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "rev",
+                  "value": "<string>",
+                  "description": "Revision of the current alias to be updated. If you do not specify this then the last update wins in races."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ALIASSTRING",
+                  "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"release\": \"<string>\",\n  \"keeper_authority\": \"<string>\",\n  \"host_authority\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73181ec9-a3af-4413-ad3f-723e1fc85bac",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alias",
+                    ":ALIASSTRING"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIASSTRING",
+                      "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"release\": \"<string>\",\n  \"keeper_authority\": \"<string>\",\n  \"host_authority\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"rev\": \"7b418366\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f49f290-b0ef-4b1f-b8c7-3f3397510c02",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alias",
+                    ":ALIASSTRING"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIASSTRING",
+                      "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"<long>\",\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"release\": \"<string>\",\n  \"keeper_authority\": \"<string>\",\n  \"host_authority\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97c95330-5b36-48c5-8b81-12ef66018ab6",
+          "name": "Fetch an alias",
+          "request": {
+            "name": "Fetch an alias",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alias",
+                ":ALIASSTRING"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ALIASSTRING",
+                  "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f110b27-9a43-4e9f-8c61-caf702f99304",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alias",
+                    ":ALIASSTRING"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIASSTRING",
+                      "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"rev\": \"f5e89c8f\",\n  \"release\": \"private\",\n  \"size\": 8146,\n  \"keeper_authority\": \"string\",\n  \"host_authorities\": [\n    \"string\",\n    \"string\"\n  ],\n  \"hashes\": {\n    \"md5\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"sha256\": \"<string>\",\n    \"sha512\": \"<string>\",\n    \"crc\": \"<string>\",\n    \"etag\": \"<string>\"\n  },\n  \"metadata\": \"string\",\n  \"limit\": 3243,\n  \"start\": 2280,\n  \"urls\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1574b625-6073-43ff-8677-a1718efdefc5",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alias",
+                    ":ALIASSTRING"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIASSTRING",
+                      "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50a93440-add1-4560-8b9d-94a042551dc4",
+          "name": "Delete an alias",
+          "request": {
+            "name": "Delete an alias",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alias",
+                ":ALIASSTRING"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "rev",
+                  "value": "<string>",
+                  "description": "Revision of the current alias to be deleted."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ALIASSTRING",
+                  "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                }
+              ]
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "ae0be7ab-6a00-446a-9912-a180b512e326",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alias",
+                    ":ALIASSTRING"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIASSTRING",
+                      "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3cc9e20-a601-4a49-855f-9ef11c9e9965",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alias",
+                    ":ALIASSTRING"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rev",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ALIASSTRING",
+                      "description": "(Required) alias like ark:/31807/DC1-TESTARK"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0b2fd9cd-4d31-4b0b-8d1f-deb1be0c742a",
+    "name": "Fence OpenAPI Specification admin/user alias API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

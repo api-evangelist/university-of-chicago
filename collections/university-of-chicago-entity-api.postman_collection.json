@@ -1,0 +1,2424 @@
+{
+  "item": [
+    {
+      "id": "2deec2b4-171b-4790-bf86-5b1b1f2f4e4d",
+      "name": "entity",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dea12930-603f-4dec-afe4-51f3bf6cbd4e",
+          "name": "Create entities",
+          "request": {
+            "name": "Create entities",
+            "description": {
+              "content": "Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3dbf1f89-3022-4745-b159-41167bf49ef7",
+              "name": "Entities created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "application/json (default), text/tab-separated-values, text/tsv or text/csv",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "79e7a6d8-24dc-4358-a3d4-d275ceb5adee",
+              "name": "At least one entity was invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "application/json (default), text/tab-separated-values, text/tsv or text/csv",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb3d9c32-e1a1-4700-9f3a-c33d52e9a5ca",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "application/json (default), text/tab-separated-values, text/tsv or text/csv",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b1beba3-b17b-4299-a2b4-2467253d751f",
+          "name": "Update entities",
+          "request": {
+            "name": "Update entities",
+            "description": {
+              "content": "Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "48c5c997-feff-41c3-87bc-09ccc5395c26",
+              "name": "Entities created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "application/json (default), text/tab-separated-values, text/tsv or text/csv",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61cc8854-bdd6-4432-9282-45d9ad56e149",
+              "name": "At least one entity was invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "application/json (default), text/tab-separated-values, text/tsv or text/csv",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c067e7b-8654-4597-ab17-358b48b050f7",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "application/json (default), text/tab-separated-values, text/tsv or text/csv",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"...fields specific to this entity\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b13a41a1-486c-4177-b386-7cb81580cbdc",
+          "name": "Create entities in bulk",
+          "request": {
+            "name": "Create entities in bulk",
+            "description": {
+              "content": "Handle bulk transaction instead of single transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f066d1a-f5cd-4dd4-b11f-6ea04c9b69dc",
+              "name": "Entities created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc8f500d-db8b-457e-ace4-92ca682aad16",
+              "name": "At least one entity was invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bdde7280-b7c2-4e92-8665-8625d7f20cc7",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1e1c6a7-9bba-41cf-a1d4-310265fcf499",
+          "name": "Update entities in bulk",
+          "request": {
+            "name": "Update entities in bulk",
+            "description": {
+              "content": "Handle bulk transaction instead of single transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63ac2e14-623e-43ad-a79e-77d8cbf9388d",
+              "name": "Entities created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cce85c09-ec5f-4f2c-a38e-a2295d45b459",
+              "name": "At least one entity was invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cb0df6b5-b260-45ab-a1aa-f1c557c27b48",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"doc_format\": \"<string>\",\n  \"doc\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0035d1a-3a38-46a6-b795-9f3c8ba14783",
+          "name": "Get entities by ID",
+          "request": {
+            "name": "Get entities by ID",
+            "description": {
+              "content": "Retrieve existing entities by ID. The return type of a HTTP `get` on this endpoint is a JSON array containing JSON object elements, each corresponding to a provided ID. Return results are unordered. If any ID is not found in the database, a status code of 404 is returned with the missing IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "entities",
+                "<entity_id_string>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity_id_string",
+                  "description": "(Required) A comma-separated list of ids specifying the entities to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8dcb537-bf68-476c-b3fa-47177389bdd7",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<entity_id_string>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id_string",
+                      "description": "(Required) A comma-separated list of ids specifying the entities to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"...fields specific to this entity\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  {\n    \"...fields specific to this entity\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd700303-c7e9-4737-be3e-803e27e3555f",
+              "name": "User error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<entity_id_string>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id_string",
+                      "description": "(Required) A comma-separated list of ids specifying the entities to retrieve."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee974ff4-0396-4847-9441-b1a34cd28fc1",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<entity_id_string>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id_string",
+                      "description": "(Required) A comma-separated list of ids specifying the entities to retrieve."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0e84991-9b00-40f4-a1c1-3c684fcb3a66",
+              "name": "Entity not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<entity_id_string>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id_string",
+                      "description": "(Required) A comma-separated list of ids specifying the entities to retrieve."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4715536c-4b3a-4bd9-b1d4-9c12b1c18b4e",
+          "name": "Delete entities",
+          "request": {
+            "name": "Delete entities",
+            "description": {
+              "content": "Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond with at least one entity that must be deleted prior to deleting the target entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "entities",
+                "<ids>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "to_delete",
+                  "value": "<boolean>",
+                  "description": "Set the to_delete sysan as true or false. If none, then don't try to set the sysan, and instead delete the node."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5db72f4d-c45f-4ce8-9eb5-c62365afec2b",
+              "name": "Entities deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a138621b-c454-44cf-bf6c-36f9a63e6d37",
+              "name": "User error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94dabe52-c052-4432-857e-0d2ccc117880",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db13d222-c31e-4aae-a61d-ef5f9a6fc2ba",
+              "name": "Entity not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea3b746e-1018-4996-8c39-f673715ab192",
+          "name": "Update Biospecimen Supplement entities",
+          "request": {
+            "name": "Update Biospecimen Supplement entities",
+            "description": {
+              "content": "The entities stored in BRC XML are converted to JSON before being updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "xml",
+                "biospecimen",
+                "bcr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f9004849-4507-490b-b30f-ecadf3792711",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "xml",
+                    "biospecimen",
+                    "bcr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05e3bc91-7418-47cb-a414-452f0519a0bb",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "xml",
+                    "biospecimen",
+                    "bcr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c20a5c6d-f391-4e5d-8927-6b9b17a93538",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "xml",
+                    "biospecimen",
+                    "bcr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95b09c46-ae52-4977-9e2b-4df6153ec799",
+          "name": "Update Clinical Supplement entities",
+          "request": {
+            "name": "Update Clinical Supplement entities",
+            "description": {
+              "content": "The entities stored in BRC XML are converted to JSON before being updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "<program>",
+                "<project>",
+                "xml",
+                "clinical",
+                "bcr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "46ceb2a6-d644-4b78-80ec-b18c7b4e8668",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "xml",
+                    "clinical",
+                    "bcr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "type": "file"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "21ca8635-bd74-4818-912e-2cd0acc124bc",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "xml",
+                    "clinical",
+                    "bcr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "type": "file"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "32b553d2-423c-491c-9c23-36da77f6867d",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "<program>",
+                    "<project>",
+                    "xml",
+                    "clinical",
+                    "bcr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "type": "file"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c18c1b01-4f50-4a45-9c99-1f2b33047e5d",
+          "name": "Delete entities",
+          "request": {
+            "name": "Delete entities",
+            "description": {
+              "content": "Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond with at least one entity that must be deleted prior to deleting the target entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submission",
+                "admin",
+                "<program>",
+                "<project>",
+                "entities",
+                "<ids>",
+                "to_delete",
+                "<to_delete>"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "to_delete",
+                  "value": "<boolean>",
+                  "description": "Set the to_delete sysan as true or false. If none, then don't try to set the sysan, and instead delete the node."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "program",
+                  "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ids",
+                  "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "538d2ee6-1c88-40c3-8fa3-f3c9d2751cfe",
+              "name": "Entities deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "admin",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>",
+                    "to_delete",
+                    "<to_delete>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9896600f-ffc1-4532-b581-5dca406f1eb6",
+              "name": "User error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "admin",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>",
+                    "to_delete",
+                    "<to_delete>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "319ba75f-cf32-4d5f-9c74-dd2d9f327d2c",
+              "name": "Unauthorized request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "admin",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>",
+                    "to_delete",
+                    "<to_delete>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14902c79-ac68-44e5-80e1-9a97ec40e57b",
+              "name": "Entity not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submission",
+                    "admin",
+                    "<program>",
+                    "<project>",
+                    "entities",
+                    "<ids>",
+                    "to_delete",
+                    "<to_delete>"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to_delete",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "program",
+                      "description": "(Required) The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ids",
+                      "description": "(Required) A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "941abd9f-ae7e-46c7-8414-07b6ff90f633",
+    "name": "Fence OpenAPI Specification admin/user entity API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,485 @@
+{
+  "item": [
+    {
+      "id": "db13780e-0f97-441d-8705-17a7406a2579",
+      "name": "DRS",
+      "description": {
+        "content": "Data Repository Service Retrieval Endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8c2ccbfb-9313-4dfc-8f3d-9b7f50208ed0",
+          "name": "List all DrsObject.",
+          "request": {
+            "name": "List all DrsObject.",
+            "description": {
+              "content": "Url field here contains their location and not the presigned url.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ga4gh",
+                "drs",
+                "v1",
+                "objects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "form",
+                  "value": "<string>",
+                  "description": "specify whether you want to list bundle, objects or both."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c3f109ad-804b-4168-b565-d041afb92108",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "form",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"drs_objects\": [\n    {\n      \"id\": \"string\",\n      \"self_uri\": \"drs://drs.example.org/314159\",\n      \"size\": 3697,\n      \"created_time\": \"1987-11-08T07:10:14.352Z\",\n      \"checksums\": [\n        {\n          \"checksum\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"updated_time\": \"2009-09-05T09:07:04.623Z\",\n      \"version\": \"string\",\n      \"mime_type\": \"application/json\",\n      \"access_methods\": [\n        {\n          \"type\": \"globus\",\n          \"access_url\": {\n            \"url\": \"string\"\n          },\n          \"access_id\": \"string\",\n          \"region\": \"us-east-1\"\n        }\n      ],\n      \"contents\": [\n        {\n          \"name\": \"string\",\n          \"id\": \"string\",\n          \"drs_uri\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"name\": \"string\",\n          \"id\": \"string\",\n          \"drs_uri\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"description\": \"string\",\n      \"aliases\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"self_uri\": \"drs://drs.example.org/314159\",\n      \"size\": 7192,\n      \"created_time\": \"1995-12-07T13:46:53.616Z\",\n      \"checksums\": [\n        {\n          \"checksum\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"updated_time\": \"1973-01-10T01:18:57.109Z\",\n      \"version\": \"string\",\n      \"mime_type\": \"application/json\",\n      \"access_methods\": [\n        {\n          \"type\": \"gsiftp\",\n          \"access_url\": {\n            \"url\": \"string\"\n          },\n          \"access_id\": \"string\",\n          \"region\": \"us-east-1\"\n        }\n      ],\n      \"contents\": [\n        {\n          \"name\": \"string\",\n          \"id\": \"string\",\n          \"drs_uri\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"name\": \"string\",\n          \"id\": \"string\",\n          \"drs_uri\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"description\": \"string\",\n      \"aliases\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a2f8fd1-589e-4e50-87b1-66e208dcf402",
+          "name": "Get info about a DrsObject.",
+          "request": {
+            "name": "Get info about a DrsObject.",
+            "description": {
+              "content": "Returns object metadata, and a list of access methods that can be used to fetch object bytes. Resolves for bundles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ga4gh",
+                "drs",
+                "v1",
+                "objects",
+                ":object_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "false",
+                  "description": "NOT IMPLEMENTED YET.\nIf false and the object_id refers to a bundle, then the ContentsObject array contains only those objects directly contained in the bundle. That is, if the bundle contains other bundles, those other bundles are not recursively included in the result.\nIf true and the object_id refers to a bundle, then the entire set of objects in the bundle is expanded. That is, if the bundle contains aother bundles, then those other bundles are recursively expanded and included in the result. Recursion continues through the entire sub-tree of the bundle. If the object_id refers to a blob, then the query parameter is ignored."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "object_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "3c034faa-ae6d-4f6b-849c-c7963128909b",
+              "name": "The DrsObject was found successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"self_uri\": \"drs://drs.example.org/314159\",\n  \"size\": 2668,\n  \"created_time\": \"1993-08-22T07:22:24.497Z\",\n  \"checksums\": [\n    {\n      \"checksum\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"name\": \"string\",\n  \"updated_time\": \"1985-08-31T16:03:00.053Z\",\n  \"version\": \"string\",\n  \"mime_type\": \"application/json\",\n  \"access_methods\": [\n    {\n      \"type\": \"s3\",\n      \"access_url\": {\n        \"url\": \"string\"\n      },\n      \"access_id\": \"string\",\n      \"region\": \"us-east-1\"\n    }\n  ],\n  \"contents\": [\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"drs_uri\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"id\": \"string\",\n      \"drs_uri\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"description\": \"string\",\n  \"aliases\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26b0d16b-45a6-4551-be32-b92064714e08",
+              "name": "The request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 9321\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d6fda29-11e2-4e13-9b7d-0ea8a6d159bb",
+              "name": "The request is unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 9321\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bcebd37-89a9-4c43-bf9e-69224f51b849",
+              "name": "The requester is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 9321\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64926e34-c8b2-4203-bd95-8b287f8474ef",
+              "name": "The requested DrsObject wasn't found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 9321\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9b8a50d-bf9f-42f7-b903-2fb00910315b",
+              "name": "An unexpected error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 9321\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "859e5de0-0528-4e4b-8caf-c09739b73f88",
+    "name": "Fence OpenAPI Specification admin/user DRS API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user system API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "system",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns if Fence is healthy or not",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/_status"
+          },
+          "docs": "Health check endpoint"
+        },
+        {
+          "info": {
+            "name": "Returns the version of Fence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/_version"
+          },
+          "docs": "Returns the version of Fence"
+        },
+        {
+          "info": {
+            "name": "Get Prometheus metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/metrics"
+          },
+          "docs": "Returns Prometheus metrics if the `ENABLE_PROMETHEUS_METRICS` setting is `True`. By default, this endpoint is public. Authorization controls can be setup externally; in cloud-automation setups, access to this endpoint is blocked at the revproxy level."
+        },
+        {
+          "info": {
+            "name": "Returns the IndexD dist configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/_dist"
+          },
+          "docs": "Returns the IndexD dist configuration"
+        },
+        {
+          "info": {
+            "name": "Returns basic information about the records in IndexD",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/_stats",
+            "params": [
+              {
+                "name": "month",
+                "value": "",
+                "type": "query",
+                "description": "Month for which data is to be returned. (Either both month and year or neither must be provided)"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "year for which data is to be returned. (Either both month and year or neither must be provided)"
+              }
+            ]
+          },
+          "docs": "Returns basic information about the records in IndexD"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

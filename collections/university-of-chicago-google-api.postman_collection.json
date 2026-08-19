@@ -1,0 +1,1462 @@
+{
+  "item": [
+    {
+      "id": "66fd1e7e-1b3b-4efd-8c32-54238c3fae6a",
+      "name": "google",
+      "description": {
+        "content": "Google functionality",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5076f44c-9323-4b1a-aa6e-92fa5fed1fe4",
+          "name": "Get the configured default Google project for billing",
+          "request": {
+            "name": "Get the configured default Google project for billing",
+            "description": {
+              "content": "Get the configured default Google project identifiers that will be used for billing access to requester pays Google buckets. This effectively bills all access to the specified Project and *not* the end-user (may be a different project for different data access methods). If there is no configured default billing project, requests to Data Access Method endpoints will rely on a query parameter `userProject` for the end-user to specify a valid Google project that Fence has the necessary roles in to provide relevant service accounts the necessary access. Please see the README for more details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "billing_projects",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fc64450c-6fd3-4f27-bbc3-c93652ddac07",
+              "name": "billing projects in response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "billing_projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"signed_urls\": {\n    \"project_id\": \"string\"\n  },\n  \"temporary_service_account_credentials\": {\n    \"project_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5fbc3df3-26de-4213-bf4a-fe6038c10637",
+          "name": "Register a Google Service Account",
+          "request": {
+            "name": "Register a Google Service Account",
+            "description": {
+              "content": "Register a Google Cloud Project's service account to allow access to controlled data. If there are issues, will provide details for what went wrong.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "service_accounts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_account_email\": \"<string>\",\n  \"google_project_id\": \"<string>\",\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ba4d6de7-d956-4785-9ee1-fdbe8250a45c",
+              "name": "success, registered service account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_account_email\": \"<string>\",\n  \"google_project_id\": \"<string>\",\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"service_account_email\": \"<string>\",\n  \"google_project_id\": \"<string>\",\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b03c596-3537-4588-845c-3ad799e12057",
+              "name": "failure, trying to register service account resulted in errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_account_email\": \"<string>\",\n  \"google_project_id\": \"<string>\",\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": {\n    \"service_account_email\": {\n      \"status\": 15,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": true,\n          \"owned_by_project\": false,\n          \"valid_type\": false,\n          \"policy_accessible\": true\n        }\n      }\n    },\n    \"google_project_id\": {\n      \"status\": 4918,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"membership_validity\": {\n        \"valid_member_types\": true,\n        \"members_exist_in_fence\": false\n      },\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": false,\n          \"owned_by_project\": true,\n          \"valid_type\": true,\n          \"policy_accessible\": false\n        }\n      }\n    },\n    \"project_access\": {\n      \"status\": 5027,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"project_validity\": {\n        \"project_id\": {\n          \"all_users_have_access\": false,\n          \"exists\": false\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4eb4838-bccd-494a-9661-80476ed6df60",
+          "name": "Get a list of Google Service Accounts",
+          "request": {
+            "name": "Get a list of Google Service Accounts",
+            "description": {
+              "content": "Get a list of service accounts for the given Google Cloud Project IDs.\n> **NOTE: This will only provide service account information for\nGoogle Cloud Projects if the current user is a member of those\nprojects**\n\nThe endpoint lists the `project_access` that was previously granted\n(whether or not the SA currently has access). The `project_access_exp`\nwill be `0` when the SA isn't currently given access\n(but can be provided access again with a `PATCH`).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "service_accounts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "google_project_ids",
+                  "value": "<string>",
+                  "description": "(Required) Google Cloud Project IDs to get service accounts for.\nUse a comma-separated list: `project_a,project_b,project_c`\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c52cfe97-f27d-4f5b-8886-1eaf9c0b324e",
+              "name": "List of service accounts for specified projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "google_project_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"service_accounts\": [\n    {\n      \"service_account_email\": \"string\",\n      \"google_project_id\": \"string\",\n      \"project_access\": [\n        \"string\",\n        \"string\"\n      ],\n      \"project_access_exp\": 8336\n    },\n    {\n      \"service_account_email\": \"string\",\n      \"google_project_id\": \"string\",\n      \"project_access\": [\n        \"string\",\n        \"string\"\n      ],\n      \"project_access_exp\": 1583\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79386821-9bfc-423b-ba14-f4ab94f554a2",
+              "name": "User is not a member on all the provided project ids",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "google_project_ids",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36dcc76b-4a64-4932-a8fe-e76d6762b3c1",
+          "name": "Dry run to attempt to register a Google Service Account",
+          "request": {
+            "name": "Dry run to attempt to register a Google Service Account",
+            "description": {
+              "content": "Attempt to register a service account WITHOUT actually doing so. Will provide detailed errors for what went wrong.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "service_accounts",
+                "_dry_run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_account_email\": \"<string>\",\n  \"google_project_id\": \"<string>\",\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b161c8ce-bfeb-4ca5-898b-3bf3ce671412",
+              "name": "success, registering service account is possible",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "_dry_run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_account_email\": \"<string>\",\n  \"google_project_id\": \"<string>\",\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": {\n    \"service_account_email\": {\n      \"status\": 15,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": true,\n          \"owned_by_project\": false,\n          \"valid_type\": false,\n          \"policy_accessible\": true\n        }\n      }\n    },\n    \"google_project_id\": {\n      \"status\": 4918,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"membership_validity\": {\n        \"valid_member_types\": true,\n        \"members_exist_in_fence\": false\n      },\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": false,\n          \"owned_by_project\": true,\n          \"valid_type\": true,\n          \"policy_accessible\": false\n        }\n      }\n    },\n    \"project_access\": {\n      \"status\": 5027,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"project_validity\": {\n        \"project_id\": {\n          \"all_users_have_access\": false,\n          \"exists\": false\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70fcad14-1188-419e-a407-50d483870884",
+              "name": "failure, registering service account would result in errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "_dry_run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_account_email\": \"<string>\",\n  \"google_project_id\": \"<string>\",\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": {\n    \"service_account_email\": {\n      \"status\": 15,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": true,\n          \"owned_by_project\": false,\n          \"valid_type\": false,\n          \"policy_accessible\": true\n        }\n      }\n    },\n    \"google_project_id\": {\n      \"status\": 4918,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"membership_validity\": {\n        \"valid_member_types\": true,\n        \"members_exist_in_fence\": false\n      },\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": false,\n          \"owned_by_project\": true,\n          \"valid_type\": true,\n          \"policy_accessible\": false\n        }\n      }\n    },\n    \"project_access\": {\n      \"status\": 5027,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"project_validity\": {\n        \"project_id\": {\n          \"all_users_have_access\": false,\n          \"exists\": false\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e035678-f865-41b7-9962-190b6e27c813",
+          "name": "Return the service account used for monitoring user's Google Cloud Projects",
+          "request": {
+            "name": "Return the service account used for monitoring user's Google Cloud Projects",
+            "description": {
+              "content": "This account is used to monitor and validate access to data\nfor registered service accounts for the project.\n\n>NOTE: This service account must be given editor role on a Google\nProject for service account registration to succeed. If it is ever\nremoved, all access to data will be removed.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "service_accounts",
+                "monitor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c8ef343-b07a-419e-b2a5-f2438f581be8",
+              "name": "Monitoring service account information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"service_account_email\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7667919e-4fc7-4ab8-a4dd-922cd4d08662",
+              "name": "No monitoring service account is configured. In other words, fence does not currently support user-registered service accounts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "010c395b-9057-43c4-877a-b340d92fbc73",
+          "name": "Dry run to attempt to update a Google Service Account",
+          "request": {
+            "name": "Dry run to attempt to update a Google Service Account",
+            "description": {
+              "content": "Try to update a Google Cloud Project's service account to change access to\ncontrolled data and/or extend access to data WITHOUT actually doing so.\nThis would extend the service account's access to data if using the non _dry_run\nendpoint. It would also modify access if a patch document is provided with new access.\n\n> *NOTE*: If you do not provide a patch document (e.g. no payload),\nthis will extend access to ALL PREVIOUS DATA. If you want to REMOVE\naccess, either use the DELETE endpoint or provide a patch document\nwith an empty list for \"project_access\". It's important to note that\nproviding {\"project_access\": []} is different than not including a\npayload at all.\n\n> **WARNING**: Provided patch document will *fully replace* previous data.\nIt will NOT extend previous data by provided values, it will FULLY\nREPLACE the data with what's provided.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "service_accounts",
+                "_dry_run",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ServiceAccount idenitifer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a61b9665-013b-4728-a523-556226e8dad8",
+              "name": "success, updating service account access is possible",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "_dry_run",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": {\n    \"service_account_email\": {\n      \"status\": 15,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": true,\n          \"owned_by_project\": false,\n          \"valid_type\": false,\n          \"policy_accessible\": true\n        }\n      }\n    },\n    \"google_project_id\": {\n      \"status\": 4918,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"membership_validity\": {\n        \"valid_member_types\": true,\n        \"members_exist_in_fence\": false\n      },\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": false,\n          \"owned_by_project\": true,\n          \"valid_type\": true,\n          \"policy_accessible\": false\n        }\n      }\n    },\n    \"project_access\": {\n      \"status\": 5027,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"project_validity\": {\n        \"project_id\": {\n          \"all_users_have_access\": false,\n          \"exists\": false\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c52f8df4-fcee-48fe-8a07-543edb43b896",
+              "name": "failure, trying to update service account access resulted in errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "_dry_run",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": {\n    \"service_account_email\": {\n      \"status\": 15,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": true,\n          \"owned_by_project\": false,\n          \"valid_type\": false,\n          \"policy_accessible\": true\n        }\n      }\n    },\n    \"google_project_id\": {\n      \"status\": 4918,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"membership_validity\": {\n        \"valid_member_types\": true,\n        \"members_exist_in_fence\": false\n      },\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": false,\n          \"owned_by_project\": true,\n          \"valid_type\": true,\n          \"policy_accessible\": false\n        }\n      }\n    },\n    \"project_access\": {\n      \"status\": 5027,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"project_validity\": {\n        \"project_id\": {\n          \"all_users_have_access\": false,\n          \"exists\": false\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7bb1fad8-17b0-42f4-bc7a-692f9d5cc826",
+              "name": "unauthorized, can modify provided fields but user does not have permission to update this service account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "_dry_run",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2c5f9943-0b6d-435e-b40d-21f360b226c3",
+              "name": "forbidden, cannot modify the provided fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    "_dry_run",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a695b6bc-0264-4481-8652-be4b9dfcf7f2",
+          "name": "Delete a specific Google Service Account",
+          "request": {
+            "name": "Delete a specific Google Service Account",
+            "description": {
+              "content": "Delete a service account and remove from access",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "service_accounts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ServiceAccount idenitifer"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63c32546-0638-468d-925a-6e1419692a90",
+              "name": "success, deleted service account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a2cd04b-d99f-4cf1-8fa2-f0f5cc51bbad",
+              "name": "failure, could not service account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "40d0cb8b-43f6-496c-9959-36188f12c3d6",
+              "name": "unauthorized, user cannot delete this service account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad477c60-336e-4907-a6f9-12fd6d567e83",
+          "name": "Update a Google Service Account",
+          "request": {
+            "name": "Update a Google Service Account",
+            "description": {
+              "content": "Update a Google Cloud Project's service account to change access to\ncontrolled data and/or extend access to data. This will extend the\nservice account's access to data. It will also modify access if a\npatch document is provided with new access.\n\n> *NOTE*: If you do not provide a patch document (e.g. no payload),\nthis will extend access to ALL PREVIOUS DATA. If you want to REMOVE\naccess, either use the DELETE endpoint or provide a patch document\nwith an empty list for \"project_access\". It's important to note that\nproviding {\"project_access\": []} is different than not including a\npayload at all.\n\n> **WARNING**: Provided patch document will *fully replace* previous data.\nIt will NOT extend previous data by provided values, it will FULLY\nREPLACE the data with what's provided.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "service_accounts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) during which the Google service account has bucket access. Must be less than the configured maximum (default is 7 days). If it's greater, the configured maximum will be used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ServiceAccount idenitifer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c18c4a3-0e19-42ca-9ebb-c6ef80d20832",
+              "name": "success, updated service account access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "069b63f6-8f7c-4ceb-8463-ed7ff3edfdd3",
+              "name": "failure, trying to update service account access resulted in errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": {\n    \"service_account_email\": {\n      \"status\": 15,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": true,\n          \"owned_by_project\": false,\n          \"valid_type\": false,\n          \"policy_accessible\": true\n        }\n      }\n    },\n    \"google_project_id\": {\n      \"status\": 4918,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"membership_validity\": {\n        \"valid_member_types\": true,\n        \"members_exist_in_fence\": false\n      },\n      \"service_account_validity\": {\n        \"service_account_id\": {\n          \"no_external_access\": false,\n          \"owned_by_project\": true,\n          \"valid_type\": true,\n          \"policy_accessible\": false\n        }\n      }\n    },\n    \"project_access\": {\n      \"status\": 5027,\n      \"error\": \"string\",\n      \"error_description\": \"string\",\n      \"project_validity\": {\n        \"project_id\": {\n          \"all_users_have_access\": false,\n          \"exists\": false\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afd7432b-7891-4a3b-9610-16585829affc",
+              "name": "unauthorized, can modify provided fields but user does not have permission to update this service account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ecd519ca-d49a-4f5e-a7e8-983a7ba1ad8a",
+              "name": "forbidden, cannot modify the provided fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "service_accounts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ServiceAccount idenitifer"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_access\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52bbfc55-04a6-4217-be98-844f835a9985",
+          "name": "Force the creation of the User's Primary Google Service Account instead of\nrelying on lazy creation at first time of Google Data Access.\n",
+          "request": {
+            "name": "Force the creation of the User's Primary Google Service Account instead of\nrelying on lazy creation at first time of Google Data Access.\n",
+            "description": {
+              "content": "Force the creation of the User's Primary Google Service Account instead of\nrelying on lazy creation at first time of Google Data Access.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "google",
+                "primary_google_service_account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80218d20-91f3-4653-86ba-433300338534",
+              "name": "success, created User's Primary Google Service Account or already exists\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "primary_google_service_account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c002f42-c1ac-408e-be69-c60dec6412e3",
+              "name": "invalid token provided (or none provided)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "google",
+                    "primary_google_service_account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "31cceaec-3153-446e-a297-67a9ba8debc6",
+    "name": "Fence OpenAPI Specification admin/user google API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

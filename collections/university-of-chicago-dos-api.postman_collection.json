@@ -1,0 +1,745 @@
+{
+  "item": [
+    {
+      "id": "f5ce6c2d-816e-4ae1-afa3-ea9b183147f1",
+      "name": "DOS",
+      "description": {
+        "content": "Data Object Service Retrieval Endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ad09e195-2f7f-4222-92e9-e9caaca52666",
+          "name": "List the Data Objects",
+          "request": {
+            "name": "List the Data Objects",
+            "description": {},
+            "url": {
+              "path": [
+                "ga4gh",
+                "dos",
+                "v1",
+                "dataobjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "alias",
+                  "value": "<string>",
+                  "description": "If provided will only return Data Objects with the given alias."
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "If provided will return only Data Objects with a that URL matches\nthis string."
+                },
+                {
+                  "disabled": false,
+                  "key": "checksum",
+                  "value": "<string>",
+                  "description": "The hexlified checksum that one would like to match on."
+                },
+                {
+                  "disabled": false,
+                  "key": "checksum_type",
+                  "value": "<string>",
+                  "description": "If provided will restrict responses to those that match the provided\ntype.\npossible values:\nmd5                # most blob stores provide a checksum using this\nmultipart-md5      # multipart uploads provide a specialized tag in S3\nsha256\nsha512"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Specifies the maximum number of results to return in a single page.\nIf unspecified, a system default will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "The continuation token, which is used to page through large result sets.\nTo get the next page of results, set this parameter to the value of\nnext_page_token from the previous response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "531779de-881e-4442-a787-69ac2575f94c",
+              "name": "The Data Objects were listed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alias",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data_objects\": [\n    {\n      \"id\": \"string\",\n      \"size\": \"string\",\n      \"created\": \"1975-08-02T09:40:16.478Z\",\n      \"checksums\": [\n        {\n          \"checksum\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"checksum\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"updated\": \"2004-08-17T13:41:56.104Z\",\n      \"version\": \"string\",\n      \"mime_type\": \"string\",\n      \"urls\": [\n        {\n          \"url\": \"string\",\n          \"system_metadata\": {\n            \"key_0\": \"string\"\n          },\n          \"user_metadata\": {\n            \"key_0\": 7282,\n            \"key_1\": true,\n            \"key_2\": 6131\n          }\n        },\n        {\n          \"url\": \"string\",\n          \"system_metadata\": {\n            \"key_0\": 6408,\n            \"key_1\": \"string\"\n          },\n          \"user_metadata\": {\n            \"key_0\": \"string\",\n            \"key_1\": 3663\n          }\n        }\n      ],\n      \"description\": \"string\",\n      \"aliases\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"size\": \"string\",\n      \"created\": \"2012-12-05T05:54:28.538Z\",\n      \"checksums\": [\n        {\n          \"checksum\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"checksum\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"updated\": \"1953-08-31T21:40:27.235Z\",\n      \"version\": \"string\",\n      \"mime_type\": \"string\",\n      \"urls\": [\n        {\n          \"url\": \"string\",\n          \"system_metadata\": {\n            \"key_0\": false,\n            \"key_1\": \"string\"\n          },\n          \"user_metadata\": {\n            \"key_0\": true\n          }\n        },\n        {\n          \"url\": \"string\",\n          \"system_metadata\": {\n            \"key_0\": false\n          },\n          \"user_metadata\": {\n            \"key_0\": 9572\n          }\n        }\n      ],\n      \"description\": \"string\",\n      \"aliases\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc415a0f-026e-4ca0-8073-f799a793fdbf",
+              "name": "The request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alias",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24a8b609-3a94-41ad-9624-5dc6847554f6",
+              "name": "The request is unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alias",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1de6e68f-c3a8-45c1-a5eb-01d83667931a",
+              "name": "The requester is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alias",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e12bf2fa-2001-4d46-a5b9-fa67ddf31d89",
+              "name": "An unexpected error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alias",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "checksum_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d96bcd8c-db20-406a-bc0f-c28ea52cdb62",
+          "name": "Retrieve a Data Object",
+          "request": {
+            "name": "Retrieve a Data Object",
+            "description": {},
+            "url": {
+              "path": [
+                "ga4gh",
+                "dos",
+                "v1",
+                "dataobjects",
+                ":GUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "GUID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c7b2bf02-a365-4aa0-86c0-c5c29ee4c1b7",
+              "name": "The Data Object was found successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data_object\": {\n    \"id\": \"string\",\n    \"size\": \"string\",\n    \"created\": \"2002-08-19T06:42:33.953Z\",\n    \"checksums\": [\n      {\n        \"checksum\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"checksum\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"name\": \"string\",\n    \"updated\": \"1961-12-27T08:42:52.161Z\",\n    \"version\": \"string\",\n    \"mime_type\": \"string\",\n    \"urls\": [\n      {\n        \"url\": \"string\",\n        \"system_metadata\": {\n          \"key_0\": false,\n          \"key_1\": 1224\n        },\n        \"user_metadata\": {\n          \"key_0\": true\n        }\n      },\n      {\n        \"url\": \"string\",\n        \"system_metadata\": {\n          \"key_0\": 5198.629618560402,\n          \"key_1\": 5476\n        },\n        \"user_metadata\": {\n          \"key_0\": true,\n          \"key_1\": true\n        }\n      }\n    ],\n    \"description\": \"string\",\n    \"aliases\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b854c91-8cb1-49b7-b097-07d2af87c451",
+              "name": "The request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb6d4323-971d-4379-a08e-ed4617e97423",
+              "name": "The request is unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9f36318-0759-4091-a1f4-9c5348fdbd4b",
+              "name": "The requester is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d6c4067-53cc-45df-b5b4-c9bd7ffecd33",
+              "name": "The requested Data Object wasn't found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d50fdce2-d375-44f6-96fd-e064390f23e7",
+              "name": "An unexpected error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "dos",
+                    "v1",
+                    "dataobjects",
+                    ":GUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "GUID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"status_code\": 7589\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ac89e9ff-8ab1-458d-a6b3-4b1a825b8262",
+    "name": "Fence OpenAPI Specification admin/user DOS API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

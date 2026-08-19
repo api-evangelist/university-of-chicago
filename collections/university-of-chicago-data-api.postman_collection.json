@@ -1,0 +1,2127 @@
+{
+  "item": [
+    {
+      "id": "611eac2c-2091-4e7c-89c6-cda2687c0496",
+      "name": "data",
+      "description": {
+        "content": "Generate signed URLs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f60cbe8e-08bd-41f6-8ed5-d10d97cbc321",
+          "name": "delete all locations of a stored data file and remove its record from indexd",
+          "request": {
+            "name": "delete all locations of a stored data file and remove its record from indexd",
+            "description": {
+              "content": "After a user uploads a data file and it is registered in indexd (before or after it is mapped into the graph via metadata submission), this endpoint will delete the file from its storage locations (saved in the record in indexd) and delete the record in indexd.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                ":file_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "810128e7-6af2-49cf-b4b0-1eb741f33598",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2eeebd77-5ea7-410a-83bf-45cd77932e22",
+              "name": "internal server error; could not delete stored files, or not able to delete indexd record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c63ce7dc-2282-45cd-be0e-8c06559dbbe0",
+          "name": "Create a signed URL for data download given a file_id",
+          "request": {
+            "name": "Create a signed URL for data download given a file_id",
+            "description": {
+              "content": "Allow users to get a signed URL for a data file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "download",
+                ":file_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "protocol",
+                  "value": "<string>",
+                  "description": "a protocol provided by storage provider, e.g. http, ftp, s3, gs"
+                },
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) in which return url is valid. Must be less than the configured maximum (default is 3600). If it's greater, the configured maximum will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect",
+                  "value": "<boolean>",
+                  "description": "if set, then a redirect to the signed url will be sent. Otherwise, json data with the url is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "no_force_sign",
+                  "value": "<boolean>",
+                  "description": "if `no_force_sign=True`, this will request to *not* sign the resulting URL (i.e. just provide the public url without using anonymous signing creds)."
+                },
+                {
+                  "disabled": false,
+                  "key": "userProject",
+                  "value": "<string>",
+                  "description": "a Google Project to bill for accessing data in requester pays buckets in Google Storage. Will override any configured default billing projects. If Fence is configured to automatically attempt to provide the necessary service account(s) billing permission, the provided Google Project will need to have given the Fence admin service account necessary permissions to create custom roles and set Project IAM policies. Please see README for more information."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "file_id",
+                  "description": "(Required) data UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cdf99509-14c5-4957-a5db-56be717193f7",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "download",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "redirect",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "no_force_sign",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "userProject",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "file_id",
+                      "description": "(Required) data UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dec99299-21ab-4d99-886a-8bccd893456c",
+              "name": "Invalid input: UUID not found or invalid location",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "download",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "redirect",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "no_force_sign",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "userProject",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "file_id",
+                      "description": "(Required) data UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "93e02bdd-7951-4a69-80a2-ab95386a0540",
+              "name": "No location found for this file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "download",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "redirect",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "no_force_sign",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "userProject",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "file_id",
+                      "description": "(Required) data UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aece0d4b-09e1-4dd6-a1e0-d17d1baaa481",
+          "name": "GA4GH DRS Access API to get a URL for fetching bytes.",
+          "request": {
+            "name": "GA4GH DRS Access API to get a URL for fetching bytes.",
+            "description": {
+              "content": "Returns a URL that can be used to fetch the bytes of a DrsObject. This method only needs to be called when using an AccessMethod that contains an access_id (e.g., for servers that use signed URLs for fetching object bytes).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ga4gh",
+                "drs",
+                "v1",
+                "objects",
+                ":object_id",
+                "access",
+                ":access_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "object_id",
+                  "description": "(Required) An id of a DrsObject"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "access_id",
+                  "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d99bc4ad-6250-4b7a-9da5-b370a5cc12bf",
+              "name": "The access URL was found successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69863f86-f631-4a7a-95aa-ca77f01e2b2c",
+              "name": "The request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41346d69-2651-4623-af9d-9530d89a1783",
+              "name": "The request is unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba4ef745-d150-4017-a2e8-c98ff40a4e6a",
+              "name": "The requester is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "84a61e2f-8df3-4d81-9659-1e8ea1fdec58",
+              "name": "The requested access URL wasn't found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "48090d14-92ae-4569-a0f1-2a6f42a2995b",
+              "name": "An unexpected error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfe5a51e-a364-4041-a04e-295932653a0d",
+          "name": "GA4GH DRS Access API to get a URL for fetching bytes.",
+          "request": {
+            "name": "GA4GH DRS Access API to get a URL for fetching bytes.",
+            "description": {
+              "content": "Returns a URL that can be used to fetch the bytes of a DrsObject. This method only needs to be called when using an AccessMethod that contains an access_id (e.g., for servers that use signed URLs for fetching object bytes).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ga4gh",
+                "drs",
+                "v1",
+                "objects",
+                ":object_id",
+                "access",
+                ":access_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "object_id",
+                  "description": "(Required) An id of a DrsObject"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "access_id",
+                  "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "null",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9dfd49d9-8385-4c8d-b8b7-4c4ded1474d0",
+              "name": "The access URL was found successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20069245-09bf-422a-973f-6fa76b6e47a1",
+              "name": "The request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e071a3a4-bb99-4ce2-b7f6-27c27fce0817",
+              "name": "The request is unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3bbbad9-a15f-4bd6-b949-767e06160c93",
+              "name": "The requester is not authorized to perform this action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0e188458-fdea-4b34-8d0a-333575ddcb6e",
+              "name": "The requested access URL wasn't found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e728d316-5e81-4877-acc8-c58b8f5ae67b",
+              "name": "An unexpected error occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ga4gh",
+                    "drs",
+                    "v1",
+                    "objects",
+                    ":object_id",
+                    "access",
+                    ":access_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "object_id",
+                      "description": "(Required) An id of a DrsObject"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "access_id",
+                      "description": "(Required) An access_id from the access_methods list of a DrsObject"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc9f62f6-f1a7-4de7-9f87-6add1a94ccd4",
+          "name": "Create a new blank record in indexd to use for uploading a data file less than 5GB. For files larger than 5GB, please use multipart upload presigned url",
+          "request": {
+            "name": "Create a new blank record in indexd to use for uploading a data file less than 5GB. For files larger than 5GB, please use multipart upload presigned url",
+            "description": {
+              "content": "This is the first step on the API side for the data upload flow.  This\nendpoint causes fence to make a request to indexd to create a new, blank\nindex record, and returns the GUID for this new record and a presigned\nURL which a client can then use to upload their data file directly to a\nstorage bucket. No parameters are accepted because fence retrieves the\nusername from the current token to send to indexd for the `uploader`\nfield in the new record.\n\nThis API also supports utilizing the newer authorization within the indexing\nservice by providing an \"authz\" field.\n\nIf an \"authz\" field is provided, the authorization checks are slightly different:\nyour user must have *both* \"create\" and \"write-storage\" permission on the resources\nyou are including in the \"authz\" list.\n\nIn addition to a different authorization check, when \"authz\" is provided the\n\"uploader\" field in indexd with *not* be populated.\n\nPrevious authorization check requires a more general, global upload permission:\n\"file_upload\" on \"/data_file\" resource. When \"authz\" is *not* provided, this\nendpoint will check for that permission for your user.\n\nAccepts a \"guid\" field in the request body. If \"guid\" is provided, it checks indexd for an existing record. If not found, it raises a 404.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_name\": \"<string>\",\n  \"bucket\": \"<string>\",\n  \"guid\": \"<string>\",\n  \"expires_in\": \"<integer>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7394708b-dab0-4929-9da7-8dc5f6e44ac3",
+              "name": "successful operation; created new record in indexd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guid\": \"123456abcd\",\n  \"file_name\": \"my_file.bam\",\n  \"bucket\": \"bucket1\",\n  \"expires_in\": 1200,\n  \"authz\": [\n    \"/programs/A\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"guid\": \"string\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "397cef86-9770-40c3-a8c4-38c37ce4009d",
+              "name": "Record with <guid> not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guid\": \"123456abcd\",\n  \"file_name\": \"my_file.bam\",\n  \"bucket\": \"bucket1\",\n  \"expires_in\": 1200,\n  \"authz\": [\n    \"/programs/A\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a748d69-e59e-45c4-8353-564bdb1a7ffd",
+          "name": "Create a signed URL for data upload specified by file_id",
+          "request": {
+            "name": "Create a signed URL for data upload specified by file_id",
+            "description": {
+              "content": "Allow users to get a signed URL to upload data given the location of preference.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "upload",
+                ":file_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "protocol",
+                  "value": "<string>",
+                  "description": "a protocol provided by storage provider, e.g. http, ftp, s3, gs"
+                },
+                {
+                  "disabled": false,
+                  "key": "expires_in",
+                  "value": "<integer>",
+                  "description": "the time (in seconds) in which return url is valid. Must be less than the configured maximum (default is 3600). If it's greater, the configured maximum will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "file_name",
+                  "value": "<string>",
+                  "description": "the requested file name in the cloud bucket you will upload to. If not provided, will use the GUID/file_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "bucket",
+                  "value": "<string>",
+                  "description": "the requested bucket to upload to. If not provided, defaults to the configured DATA_UPLOAD_BUCKET."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "file_id",
+                  "description": "(Required) data UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ef56dba-b3f0-48d7-8b80-8f1c4573fd9b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "upload",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bucket",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "file_id",
+                      "description": "(Required) data UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "149dd083-47e8-4b7e-86af-ecf02ca98ad3",
+              "name": "Invalid input: UUID not found or invalid location",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "upload",
+                    ":file_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expires_in",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bucket",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "file_id",
+                      "description": "(Required) data UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3be6ffd5-eb88-478c-9ea2-b5153d6bda95",
+          "name": "Initilize a multipart upload for AWS bucket. It returns an uploadId which can be used for uploading object parts (see /multipart/upload) and completing the upload (see /multipart/complete)",
+          "request": {
+            "name": "Initilize a multipart upload for AWS bucket. It returns an uploadId which can be used for uploading object parts (see /multipart/upload) and completing the upload (see /multipart/complete)",
+            "description": {
+              "content": "For uploading the big file with the size is larger than 5GB in data upload flow, Fence needs to provide a list of endpoints for supporting multipart upload presigned url This is the first step on the API side for the multipart upload presigned url. This endpoint causes fence to make a request to indexd to create a new, blank index record, and returns the GUID for this new record and an uploadId for multipart upload presigned url.\n\nAccepts a \"guid\" field in the request body. If \"guid\" is provided, it checks indexd for an existing record. If not found, it raises a 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "multipart",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"file_name\": \"<string>\",\n  \"guid\": \"<string>\",\n  \"expires_in\": \"<integer>\",\n  \"authz\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bucket\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7566708a-d521-4066-b16e-8c829cf54340",
+              "name": "successful operation; created new blank record in indexd and uploadId for multipart upload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "multipart",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_name\": \"my_file.bam\",\n  \"expires_in\": 1200,\n  \"authz\": [\n    \"/programs/A\"\n  ],\n  \"bucket\": \"bucket-1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"guid\": \"string\",\n  \"uploadId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35e9156f-3115-40a5-82fb-862aef1361bd",
+              "name": "Record with <guid> not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "multipart",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"file_name\": \"my_file.bam\",\n  \"expires_in\": 1200,\n  \"authz\": [\n    \"/programs/A\"\n  ],\n  \"bucket\": \"bucket-1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19340a48-f1cc-4670-9666-8b512b2c4471",
+          "name": "Upload an object part given uploadId",
+          "request": {
+            "name": "Upload an object part given uploadId",
+            "description": {
+              "content": "This is the second step on the API side for the multipart upload presigned url. The object is chopped into multiple parts with part number start from 1. Each part is submitted to the cloud resource with this endpoint by providing the part number a long with uploadId. It is worth to mention that the minimal supported part size is 5 MB as describe in https://docs.aws.amazon.com/AmazonS3/latest/dev/qfacts.html",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "multipart",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"uploadId\": \"<string>\",\n  \"partNumber\": \"<integer>\",\n  \"expires_in\": \"<integer>\",\n  \"bucket\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a14ad016-c364-420c-a259-f352963bdad6",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "multipart",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"uploadId\": \"<string>\",\n  \"partNumber\": \"<integer>\",\n  \"expires_in\": \"<integer>\",\n  \"bucket\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"presigned_url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c08ea6e-33d6-462d-bd0d-f7aea4d59b1b",
+          "name": "Complete aws multipart upload",
+          "request": {
+            "name": "Complete aws multipart upload",
+            "description": {
+              "content": "This is the last step for the multipart upload presigned url. All the parts which were submitted need to be combined together. This enpoint takes a list of the part info (partNumber, Etag) and uploadId in order to finish the upload",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "multipart",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"uploadId\": \"<string>\",\n  \"parts\": [\n    {\n      \"partNumber\": \"<integer>\",\n      \"ETag\": \"<string>\"\n    },\n    {\n      \"partNumber\": \"<integer>\",\n      \"ETag\": \"<string>\"\n    }\n  ],\n  \"expires_in\": \"<integer>\",\n  \"bucket\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca38b526-f58d-45d5-831f-16d4cd892a3c",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "multipart",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"uploadId\": \"<string>\",\n  \"parts\": [\n    {\n      \"partNumber\": \"<integer>\",\n      \"ETag\": \"<string>\"\n    },\n    {\n      \"partNumber\": \"<integer>\",\n      \"ETag\": \"<string>\"\n    }\n  ],\n  \"expires_in\": \"<integer>\",\n  \"bucket\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b1ad0e5-1f56-4950-8b81-f560a66f9db3",
+          "name": "Get list of buckets and relevant bucket info",
+          "request": {
+            "name": "Get list of buckets and relevant bucket info",
+            "description": {
+              "content": "Returns a list of buckets and relevant bucket information provided in the fence-config under AWS_BUCKETS and GS_BUCKETS. It filters out sensitive information about the bucket and only shows information like bucket region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "buckets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1218e007-9bbb-40ac-a4ec-aa78bd4f4050",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"S3_BUCKETS\": {\n    \"bucket1\": {\n      \"region\": \"string\"\n    },\n    \"bucket2\": {\n      \"region\": \"string\"\n    }\n  },\n  \"GS_BUCKETS\": {\n    \"bucket1\": {\n      \"region\": \"string\"\n    },\n    \"bucket2\": {\n      \"region\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f0aebcb4-b72c-478f-bf59-4f770e2442f0",
+    "name": "Fence OpenAPI Specification admin/user data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "item": [
+    {
+      "id": "ebdfeb0c-02b7-4c6e-ae21-9cfc020cd03b",
+      "name": "user",
+      "description": {
+        "content": "User information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78d41ebb-b0ed-4b8b-96e2-0f5910f499a4",
+          "name": "Return info about the current user",
+          "request": {
+            "name": "Return info about the current user",
+            "description": {
+              "content": "**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard simply because of its length and complexity.\nPlease [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "30975130-0e02-4261-8475-f00a56f04954",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"user_id\": 5103.059477827893,\n  \"idp\": \"string\",\n  \"sub\": \"string\",\n  \"username\": \"string\",\n  \"name\": \"string\",\n  \"display_name\": \"string\",\n  \"preferred_username\": \"string\",\n  \"phone_number\": \"string\",\n  \"email\": \"string\",\n  \"is_admin\": true,\n  \"role\": \"string\",\n  \"project_access\": {},\n  \"certificates_uploaded\": [\n    \"string\",\n    \"string\"\n  ],\n  \"resources_granted\": [\n    \"string\",\n    \"string\"\n  ],\n  \"groups\": [\n    \"string\",\n    \"string\"\n  ],\n  \"message\": \"string\",\n  \"active\": false,\n  \"primary_google_service_account\": \"string\",\n  \"authz\": {},\n  \"resources\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tags\": {},\n  \"azp\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.domain/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0d105b26-cbbb-4f81-a6ec-967e469d2a7a",
+    "name": "Fence OpenAPI Specification admin/ user API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).\n\nContact Support:\n Email: cdis@uchicago.edu",
+      "type": "text/plain"
+    }
+  }
+}

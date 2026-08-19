@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user DRS API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DRS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all DrsObject.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/ga4gh/drs/v1/objects",
+            "params": [
+              {
+                "name": "form",
+                "value": "",
+                "type": "query",
+                "description": "specify whether you want to list bundle, objects or both."
+              }
+            ]
+          },
+          "docs": "Url field here contains their location and not the presigned url."
+        },
+        {
+          "info": {
+            "name": "Get info about a DrsObject.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/ga4gh/drs/v1/objects/:object_id",
+            "params": [
+              {
+                "name": "object_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "NOT IMPLEMENTED YET.\nIf false and the object_id refers to a bundle, then the ContentsObject array contains only those objects directly contained in the bundle. That is, if the bundle contains other bundles, those other bundles are not recursively included in the result.\nIf true and the object_id refers to a bundle, then the entire set of objects in the bundle is expanded. That is, if the bundle contains aother bundles, then those other bundles are recursively expanded and included in the result. Recursion continues through the entire sub-tree of the bundle. If the object_id refers to a blob, then the query parameter is ignored."
+              }
+            ]
+          },
+          "docs": "Returns object metadata, and a list of access methods that can be used to fetch object bytes. Resolves for bundles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,737 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fence OpenAPI Specification admin/user dry run API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "dry run",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/_dry_run",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity."
+        },
+        {
+          "info": {
+            "name": "Update entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/_dry_run",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity."
+        },
+        {
+          "info": {
+            "name": "Create entities in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/bulk/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handle bulk transaction instead of single transaction."
+        },
+        {
+          "info": {
+            "name": "Update entities in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/bulk/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handle bulk transaction instead of single transaction."
+        },
+        {
+          "info": {
+            "name": "Delete entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/v0/submission/<program>/<project>/entities/_dry_run/<ids>",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "A comma separated list of ids specifying the entities to delete. These ids must be official ids."
+              },
+              {
+                "name": "to_delete",
+                "value": "",
+                "type": "query",
+                "description": "Set the to_delete sysan as true or false. If none, then don't try to set the sysan, and instead delete the node."
+              }
+            ]
+          },
+          "docs": "Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond "
+        },
+        {
+          "info": {
+            "name": "Get a data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to list parts"
+              }
+            ]
+          },
+          "docs": "Get a data file from object storage"
+        },
+        {
+          "info": {
+            "name": "Upload data by multipart upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "uploads",
+                "value": "",
+                "type": "query",
+                "description": "to initiate multipart upload"
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to complete multipart upload"
+              }
+            ]
+          },
+          "docs": "Upload data by multipart upload"
+        },
+        {
+          "info": {
+            "name": "Upload a data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "partNumber",
+                "value": "",
+                "type": "query",
+                "description": "to upload part (use with uploadId)"
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to upload part (use with partNumber)"
+              }
+            ]
+          },
+          "docs": "Upload data using single PUT. The request body should contain binary data of the file."
+        },
+        {
+          "info": {
+            "name": "Delete a data file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.domain/v0/submission/<program>/<project>/files/<file_uuid>/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The id of the file to upload."
+              },
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "query",
+                "description": "to abort a multipart upload"
+              }
+            ]
+          },
+          "docs": "Delete molecular data from object storage."
+        },
+        {
+          "info": {
+            "name": "Open a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/open/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed."
+        },
+        {
+          "info": {
+            "name": "Open a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/open/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed."
+        },
+        {
+          "info": {
+            "name": "Release a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/release/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Release a project."
+        },
+        {
+          "info": {
+            "name": "Release a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/release/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Release a project."
+        },
+        {
+          "info": {
+            "name": "Review a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/review/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``."
+        },
+        {
+          "info": {
+            "name": "Review a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/review/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``."
+        },
+        {
+          "info": {
+            "name": "Submit a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/submit/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Submit a project."
+        },
+        {
+          "info": {
+            "name": "Submit a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/submit/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ]
+          },
+          "docs": "Submit a project."
+        },
+        {
+          "info": {
+            "name": "Close a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/transactions/<int:transaction_id>/close",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "transaction_id"
+              }
+            ]
+          },
+          "docs": "Close a transaction. The transaction is prevented from being committed in the future."
+        },
+        {
+          "info": {
+            "name": "Close a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/transactions/<int:transaction_id>/close",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "transaction_id"
+              }
+            ]
+          },
+          "docs": "Close a transaction. The transaction is prevented from being committed in the future."
+        },
+        {
+          "info": {
+            "name": "Commit a dry run transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.domain/v0/submission/<program>/<project>/transactions/<int:transaction_id>/commit",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "transaction_id"
+              }
+            ]
+          },
+          "docs": "Commit a dry run transaction. This call should only succeed if: 1. transaction_id points to a dry_run transaction; 2. transaction_id points to a transaction that hasn't been committed already; 3. transaction_id points to a successful transaction."
+        },
+        {
+          "info": {
+            "name": "Commit a dry run transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/transactions/<int:transaction_id>/commit",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              },
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "transaction_id"
+              }
+            ]
+          },
+          "docs": "Commit a dry run transaction. This call should only succeed if: 1. transaction_id points to a dry_run transaction; 2. transaction_id points to a transaction that hasn't been committed already; 3. transaction_id points to a successful transaction."
+        },
+        {
+          "info": {
+            "name": "Update Biospecimen Supplement entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/xml/biospecimen/bcr/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "The entities stored in BRC XML are converted to JSON before being updated."
+        },
+        {
+          "info": {
+            "name": "Update Clinical Supplement entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.domain/v0/submission/<program>/<project>/xml/clinical/bcr/_dry_run",
+            "params": [
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA."
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The project to which the submitter belongs and in which the entities will be created. The `project` is the human-readable code, e.g. BRCA."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "The entities stored in BRC XML are converted to JSON before being updated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
