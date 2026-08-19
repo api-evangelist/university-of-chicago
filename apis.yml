@@ -1,18 +1,28 @@
 aid: university-of-chicago
 name: University of Chicago
 description: >-
-  The University of Chicago is a private research university in Chicago,
-  Illinois, founded in 1890 and ranked #14 in the QS World University Rankings
-  2025. Its public developer and API footprint is anchored in research data
-  infrastructure rather than a single central developer portal: the Center for
-  Translational Data Science (CTDS) maintains the open-source Gen3 data platform
-  (uc-cdis on GitHub), which auto-generates FAIR APIs for accessing biomedical
-  data commons. The University also publishes Shibboleth/OpenID Connect identity
-  integrations for CNetID authentication, and the University of Chicago Library
-  operates IIIF image and presentation endpoints plus a VuFind-based catalog. A
-  faculty/staff-facing AI API portal (Azure OpenAI via API Management) exists but
-  is gated and not publicly accessible.
+  The University of Chicago is a private research university in Chicago, Illinois, founded in 1890.
+  It operates no central developer portal and publishes no institution-wide API programme, and the
+  one gated portal it does run — an Azure API Management front end for Azure OpenAI at
+  ai-api-portal-dev.uchicago.edu — serves a certificate that does not match its own hostname and,
+  with verification disabled, answers a bare Azure Application Gateway 404, so it is not a public
+  surface. What it does operate is
+  unusually real for a university, because UChicago is a genuine PRODUCER of open-source data
+  infrastructure rather than only a buyer of it: the Center for Translational Data Science (CTDS,
+  github.com/uc-cdis) authors the Gen3 data-commons platform and runs its own reference commons at
+  gen3.datacommons.io, a domain registered to CDIS at the University. The OpenAPI documents in this
+  repository are CTDS's own contracts (info.contact cdis@uchicago.edu, termsOfService
+  cdis.uchicago.edu), not a vendor's running under the institution's name. Alongside that the
+  institution operates a Shibboleth identity provider whose InCommon SAML metadata is public
+  (entityID urn:mace:incommon:uchicago.edu), Knowledge@UChicago on self-hosted InvenioRDM 13.1 with a
+  live REST API and an OAI-PMH 2.0 responder advertising DataCite metadata, the OCHRE ancient-studies
+  data service, and IIIF Presentation 3.0 and Image 2.0 endpoints for library digital collections.
+  Course catalog and registrar data remain behind PeopleSoft authentication, the VuFind catalog API
+  is deployed with its API permissions denied, and there is no open-data portal — data.uchicago.edu
+  is the Office of Institutional Analysis's reporting site, not a machine-readable catalog.
 type: Index
+x-type: university
+x-category: Private Research University
 accessModel:
   pricing: free
   onboarding: self-serve
@@ -31,60 +41,232 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-chicago.png
 url: https://raw.githubusercontent.com/api-evangelist/university-of-chicago/refs/heads/main/apis.yml
 tags:
-- Education
-- Higher Education
 - University
-- Research Data
-- Open Source
-- IIIF
-- Identity
+- Higher Education
+- Education
+- Private Research University
 - United States
+- Illinois
+- Research Data
+- Research Repository
+- Identity Federation
+- OAI-PMH
+- IIIF
+- Open Source
+- Data Commons
+- Digital Collections
+- Research Computing
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-19'
 specificationVersion: '0.23'
 apis:
-- aid: university-of-chicago:cnetid-oidc
-  name: CNetID OpenID Connect / Shibboleth Identity
+- aid: university-of-chicago:shibboleth-idp-metadata
+  name: University of Chicago Shibboleth Identity Provider — InCommon SAML Metadata
   description: >-
-    University of Chicago identity and authentication integrations published on the official uchicago
-    GitHub organization, including Shibboleth Identity Provider extensions and OpenID Connect (OIDC) examples
-    for authenticating CNetID-backed applications.
-  humanURL: https://github.com/uchicago
+    The University of Chicago's Shibboleth identity provider publishes its SAML 2.0 metadata document
+    publicly. entityID urn:mace:incommon:uchicago.edu places the institution in the InCommon
+    federation and therefore in eduGAIN. The document carries an IDPSSODescriptor supporting the SAML
+    2.0 protocol, HTTP-Redirect and HTTP-POST SingleSignOnService bindings at
+    https://shibboleth2.uchicago.edu/saml2/idp/SSOService.php, the transient NameID format, signing
+    and encryption key descriptors, and md:OrganizationName "University of Chicago". This is the
+    surface class a university operates by definition and it is machine-readable — verified live
+    2026-08-19, HTTP 200, application/xml.
+  humanURL: https://its.uchicago.edu/
+  baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
+  x-operator: institution
+  x-operator-basis: Host shibboleth2.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-verified: '2026-08-19'
   tags:
-  - Identity
-  - Authentication
-  - OpenID Connect
+  - Identity Federation
+  - SAML
   - Shibboleth
-  - SSO
+  - InCommon
+  - eduGAIN
+  - Single Sign-On
   properties:
-  - type: Documentation
-    url: https://github.com/uchicago
+  - type: IdentityFederation
+    url: https://shibboleth2.uchicago.edu/idp/shibboleth
+  - type: Conformance
+    url: conformance/university-of-chicago-domain-standards.yml
   - type: GitHub
     url: https://github.com/uchicago
-- aid: university-of-chicago:library-iiif
-  name: University of Chicago Library IIIF
+- aid: university-of-chicago:knowledge-invenio-rest
+  name: Knowledge@UChicago Repository REST API
   description: >-
-    The University of Chicago Library exposes International Image Interoperability Framework (IIIF) image
-    and presentation endpoints for its digital collections, with related code published in the uchicago-library
-    GitHub organization.
-  humanURL: https://github.com/uchicago-library/iiif
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+    Knowledge@UChicago is the University's institutional repository, running self-hosted InvenioRDM
+    13.1 on the institution's own domain. Its REST API returns records, communities and files as
+    JSON, with DataCite DOIs minted under the 10.6082 prefix and creator identifiers typed by scheme
+    (orcid, ror, isni). The institution runs the software rather than renting a vendor tenancy, so
+    this is an institution-operated surface, not a tenant relationship. Verified live 2026-08-19,
+    HTTP 200, application/json; a nonsense identifier returns a real HTTP 404, not a soft-404.
+  humanURL: https://knowledge.uchicago.edu/
+  baseURL: https://knowledge.uchicago.edu/api
+  x-operator: institution
+  x-operator-basis: Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu; InvenioRDM is open-source software the institution self-hosts.
+  x-verified: '2026-08-19'
+  tags:
+  - Research Repository
+  - InvenioRDM
+  - DataCite
+  - ORCID
+  - Open Access
+  - Scholarly Communication
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-knowledge-repository-api-openapi.yml
+    x-provenance-method: derived
+    x-provenance-note: >-
+      Derived by API Evangelist from live probe responses on 2026-08-19. The University does not
+      publish an OpenAPI description for this surface.
+  - type: ResearchRepository
+    url: https://knowledge.uchicago.edu/
+  - type: APIReference
+    url: https://knowledge.uchicago.edu/api/records
+  - type: Conformance
+    url: conformance/university-of-chicago-domain-standards.yml
+- aid: university-of-chicago:knowledge-oai-pmh
+  name: Knowledge@UChicago OAI-PMH Endpoint
+  description: >-
+    OAI-PMH 2.0 harvesting endpoint for the University of Chicago institutional repository.
+    ?verb=Identify returns repositoryName "UChicago Knowledge", protocolVersion 2.0, granularity
+    YYYY-MM-DDThh:mm:ssZ and adminEmail info@knowledge.uchicago.edu; ?verb=ListMetadataFormats
+    advertises oai_dc, datacite, marcxml, marc21 and dcat. earliestDatestamp is 2026-05-22, which
+    dates the current platform rather than the collection. OAI-PMH is a named standard of the Kin
+    Score education regime and this endpoint is a verified conformance hit.
+  humanURL: https://knowledge.uchicago.edu/
+  baseURL: https://knowledge.uchicago.edu/oai2d
+  x-operator: institution
+  x-operator-basis: Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-verified: '2026-08-19'
+  tags:
+  - OAI-PMH
+  - Metadata Harvesting
+  - DataCite
+  - Dublin Core
+  - MARCXML
+  - Research Repository
+  properties:
+  - type: ResearchRepository
+    url: https://knowledge.uchicago.edu/oai2d?verb=Identify
+  - type: Conformance
+    url: conformance/university-of-chicago-domain-standards.yml
+- aid: university-of-chicago:ochre-data-service
+  name: OCHRE Data Service API
+  description: >-
+    OCHRE (Online Cultural and Historical Research Environment) is the University of Chicago's
+    item-level research database for ancient studies, maintained by the OCHRE Data Service at the
+    Institute for the Study of Ancient Cultures. Published items are retrievable as XML by UUID from
+    the institution's own host, and resolvable through the Library's persistent-identifier service at
+    pi.lib.uchicago.edu/1001/org/ochre/{uuid}. Verified live 2026-08-19 — a real UUID returned HTTP
+    200, text/xml, 106KB of item data.
+  humanURL: https://ochre.uchicago.edu/
+  baseURL: https://ochre.lib.uchicago.edu/ochre
+  x-operator: institution
+  x-operator-basis: Hosts ochre.lib.uchicago.edu and pi.lib.uchicago.edu are under the institution's own registrable domain uchicago.edu.
+  x-verified: '2026-08-19'
+  tags:
+  - Research Data
+  - Digital Humanities
+  - Ancient Studies
+  - XML
+  - Persistent Identifiers
+  properties:
+  - type: APIReference
+    url: https://ochre.lib.uchicago.edu/ochre?uuid=e5e9d6aa-1e63-461a-a8b3-0ee3ac1b2418
+  - type: Documentation
+    url: https://sites.google.com/view/ochrewiki/general-topics/digital-publication/using-the-ochre-api
+- aid: university-of-chicago:library-iiif-presentation
+  name: University of Chicago Library IIIF Presentation API
+  description: >-
+    IIIF Presentation API 3.0 manifests for the University of Chicago Library's digital collections,
+    addressed by ARK (naming authority 61001) at
+    iiif-collection.lib.uchicago.edu/object/ark:61001/{arkid}.json. Manifests declare the IIIF
+    Presentation 3 context, embed the IIIF Image 2 context, and carry a requiredStatement attributing
+    the University of Chicago. Verified live 2026-08-19 — HTTP 200, application/json, 99KB manifest;
+    a nonsense ARK returns a real HTTP 404. NOTE: the older manifest host
+    iiif-manifest.lib.uchicago.edu, which this repository previously recorded as the base URL for
+    every entry, is dead — it answers HTTP 200 with a soft-404 body for every path including valid
+    ARKs.
+  humanURL: https://www.lib.uchicago.edu/
+  baseURL: https://iiif-collection.lib.uchicago.edu/
+  x-operator: institution
+  x-operator-basis: Host iiif-collection.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-verified: '2026-08-19'
   tags:
   - IIIF
-  - Library
   - Digital Collections
-  - Images
-  - Open Source
+  - Library
+  - Presentation API
+  - ARK
+  - Linked Data
   properties:
+  - type: APIReference
+    url: https://iiif-collection.lib.uchicago.edu/object/ark:61001/b2p35sm3m743.json
   - type: Documentation
-    url: https://github.com/uchicago-library/iiif
+    url: https://github.com/uchicago-library/IIIF
   - type: GitHub
     url: https://github.com/uchicago-library
+- aid: university-of-chicago:library-iiif-image
+  name: University of Chicago Library IIIF Image API
+  description: >-
+    IIIF Image API Level 2 service for the University of Chicago Library, running Loris. The service
+    root self-identifies: "This is Loris, an image server that implements the IIIF Image API Level
+    2." Verified live 2026-08-19, HTTP 200, text/plain. The related delivery host
+    iiif-image.lib.uchicago.edu returns HTTP 403 to a browser user-agent — blocked to us, live to the
+    Library's own viewers.
+  humanURL: https://www.lib.uchicago.edu/
+  baseURL: https://iiif-server.lib.uchicago.edu/
+  x-operator: institution
+  x-operator-basis: Host iiif-server.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-verified: '2026-08-19'
+  tags:
+  - IIIF
+  - Image API
+  - Loris
+  - Library
+  - Digital Collections
+  properties:
+  - type: APIReference
+    url: https://iiif-server.lib.uchicago.edu/
+  - type: GitHub
+    url: https://github.com/uchicago-library
+- aid: university-of-chicago:vufind-catalog-api
+  name: University of Chicago Library Catalog API (VuFind)
+  description: >-
+    The Library's discovery layer is VuFind, self-hosted at catalog.lib.uchicago.edu and forked in
+    the institution's own GitHub organization (uchicago-library/vufind). VuFind ships a REST search
+    API at /vufind/api/v1; on this deployment it is present but switched off — a search request
+    returns HTTP 403 with {"status":"ERROR","statusMessage":"Permission denied"}. Recorded because
+    the surface is real, institution-operated, and deliberately gated rather than absent; it is NOT
+    counted as a consumable API.
+  humanURL: https://catalog.lib.uchicago.edu/vufind/
+  baseURL: https://catalog.lib.uchicago.edu/vufind/api/v1
+  x-operator: institution
+  x-operator-basis: Host catalog.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu; the VuFind fork is published under github.com/uchicago-library.
+  x-verified: '2026-08-19'
+  x-availability: gated
+  tags:
+  - Library Catalog
+  - VuFind
+  - Discovery
+  - Gated
+  properties:
+  - type: LibraryCatalog
+    url: https://catalog.lib.uchicago.edu/vufind/
+  - type: GitHub
+    url: https://github.com/uchicago-library/vufind
 - aid: university-of-chicago:university-of-chicago-admin-user-api
-  name: University of Chicago admin/user API
+  name: University of Chicago Gen3 Fence — admin/user API
+  x-surface-group: gen3-fence
   description: The admin/user API from University of Chicago — 4 operation(s) for admin/user.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - admin/user
   properties:
@@ -101,11 +283,18 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-alias-api
-  name: University of Chicago alias API
+  name: University of Chicago Gen3 indexd — alias API
+  x-surface-group: gen3-indexd
   description: >-
     create an alias for an entity stored in an external system managed by some other authority
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - alias
   properties:
@@ -122,10 +311,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-bulk-api
-  name: University of Chicago bulk API
+  name: University of Chicago Gen3 indexd — bulk API
+  x-surface-group: gen3-indexd
   description: bulk endpoints
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - bulk
   properties:
@@ -142,10 +338,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-bundle-api
-  name: University of Chicago bundle API
+  name: University of Chicago Gen3 indexd — bundle API
+  x-surface-group: gen3-indexd
   description: Bundle endpoints.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - bundle
   properties:
@@ -162,10 +365,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-core-metadata-api
-  name: University of Chicago core metadata API
+  name: University of Chicago Gen3 Peregrine — core metadata API
+  x-surface-group: gen3-peregrine
   description: The core metadata API from University of Chicago — 1 operation(s) for core metadata.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - core metadata
   properties:
@@ -182,10 +392,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-credentials-api-api
-  name: University of Chicago credentials/api API
+  name: University of Chicago Gen3 Fence — credentials/api API
+  x-surface-group: gen3-fence
   description: API Credentials
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - credentials/api
   properties:
@@ -202,10 +419,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-credentials-api
-  name: University of Chicago credentials API
+  name: University of Chicago Gen3 Fence — credentials API
+  x-surface-group: gen3-fence
   description: Access credentials
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - credentials
   properties:
@@ -222,10 +446,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-credentials-cdis-api
-  name: University of Chicago credentials/cdis API
+  name: University of Chicago Gen3 Fence — credentials/cdis API
+  x-surface-group: gen3-fence
   description: Deprecated! Use credentials/api
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - credentials/cdis
   properties:
@@ -242,10 +473,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-credentials-google-api
-  name: University of Chicago credentials/google API
+  name: University of Chicago Gen3 Fence — credentials/google API
+  x-surface-group: gen3-fence
   description: Google Credentials
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - credentials/google
   properties:
@@ -262,10 +500,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-credentials-provider-api
-  name: University of Chicago credentials/{provider} API
+  name: University of Chicago Gen3 Fence — credentials/{provider} API
+  x-surface-group: gen3-fence
   description: Other provider credentials
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - credentials/{provider}
   properties:
@@ -282,10 +527,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-data-api
-  name: University of Chicago data API
+  name: University of Chicago Gen3 Fence — data API
+  x-surface-group: gen3-fence
   description: Generate signed URLs
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - data
   properties:
@@ -302,10 +554,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-datasets-api
-  name: University of Chicago datasets API
+  name: University of Chicago Gen3 Peregrine — datasets API
+  x-surface-group: gen3-peregrine
   description: The datasets API from University of Chicago — 2 operation(s) for datasets.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - datasets
   properties:
@@ -322,10 +581,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-dictionary-api
-  name: University of Chicago dictionary API
+  name: University of Chicago Gen3 Sheepdog — dictionary API
+  x-surface-group: gen3-sheepdog
   description: The dictionary API from University of Chicago — 8 operation(s) for dictionary.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - dictionary
   properties:
@@ -342,10 +608,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-dos-api
-  name: University of Chicago DOS API
+  name: University of Chicago Gen3 indexd — DOS API
+  x-surface-group: gen3-indexd
   description: Data Object Service Retrieval Endpoints
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - DOS
   properties:
@@ -362,10 +635,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-drs-api
-  name: University of Chicago DRS API
+  name: University of Chicago Gen3 indexd — DRS API
+  x-surface-group: gen3-indexd
   description: Data Repository Service Retrieval Endpoints
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - DRS
   properties:
@@ -382,10 +662,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-dry-run-api
-  name: University of Chicago dry run API
+  name: University of Chicago Gen3 Sheepdog — dry run API
+  x-surface-group: gen3-sheepdog
   description: The dry run API from University of Chicago — 12 operation(s) for dry run.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - dry run
   properties:
@@ -402,10 +689,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-entity-api
-  name: University of Chicago entity API
+  name: University of Chicago Gen3 Sheepdog — entity API
+  x-surface-group: gen3-sheepdog
   description: The entity API from University of Chicago — 7 operation(s) for entity.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - entity
   properties:
@@ -422,10 +716,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-export-api
-  name: University of Chicago export API
+  name: University of Chicago Gen3 Sheepdog — export API
+  x-surface-group: gen3-sheepdog
   description: The export API from University of Chicago — 1 operation(s) for export.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - export
   properties:
@@ -442,10 +743,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-file-api
-  name: University of Chicago file API
+  name: University of Chicago Gen3 Sheepdog — file API
+  x-surface-group: gen3-sheepdog
   description: The file API from University of Chicago — 5 operation(s) for file.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - file
   properties:
@@ -462,10 +770,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-global-api
-  name: University of Chicago global API
+  name: University of Chicago Gen3 indexd — global API
+  x-surface-group: gen3-indexd
   description: Search for an alias or index, potentially even a distributed search.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - global
   properties:
@@ -482,10 +797,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-google-api
-  name: University of Chicago google API
+  name: University of Chicago Gen3 Fence — google API
+  x-surface-group: gen3-fence
   description: Google functionality
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - google
   properties:
@@ -502,10 +824,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-graphql-api
-  name: University of Chicago graphql API
+  name: University of Chicago Gen3 Peregrine — graphql API
+  x-surface-group: gen3-peregrine
   description: GraphQL Queries
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - graphql
   properties:
@@ -522,10 +851,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-guid-api
-  name: University of Chicago GUID API
+  name: University of Chicago Gen3 indexd — GUID API
+  x-surface-group: gen3-indexd
   description: Endpoints for generation of Gen3 GUIDs
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - GUID
   properties:
@@ -542,10 +878,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-index-api
-  name: University of Chicago index API
+  name: University of Chicago Gen3 indexd — index API
+  x-surface-group: gen3-indexd
   description: Associate a file (object) with a unique id, and store some basic metadata.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - index
   properties:
@@ -562,10 +905,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-keys-api
-  name: University of Chicago keys API
+  name: University of Chicago Gen3 Fence — keys API
+  x-surface-group: gen3-fence
   description: Get public keys used to validate JWTs issued by fence
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - keys
   properties:
@@ -582,10 +932,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-link-api
-  name: University of Chicago link API
+  name: University of Chicago Gen3 Fence — link API
+  x-surface-group: gen3-fence
   description: Link access identities
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - link
   properties:
@@ -602,10 +959,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-login-api
-  name: University of Chicago login API
+  name: University of Chicago Gen3 Fence — login API
+  x-surface-group: gen3-fence
   description: The login API from University of Chicago — 2 operation(s) for login.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - login
   properties:
@@ -622,10 +986,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-logout-api
-  name: University of Chicago logout API
+  name: University of Chicago Gen3 Fence — logout API
+  x-surface-group: gen3-fence
   description: Log out the current user
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - logout
   properties:
@@ -642,10 +1013,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-oauth2-api
-  name: University of Chicago oauth2 API
+  name: University of Chicago Gen3 Fence — oauth2 API
+  x-surface-group: gen3-fence
   description: Authorization and token management
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - oauth2
   properties:
@@ -662,10 +1040,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-oidc-api
-  name: University of Chicago OIDC API
+  name: University of Chicago Gen3 Fence — OIDC API
+  x-surface-group: gen3-fence
   description: The OIDC API from University of Chicago — 1 operation(s) for oidc.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - OIDC
   properties:
@@ -682,10 +1067,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-privacy-policy-api
-  name: University of Chicago privacy-policy API
+  name: University of Chicago Gen3 Fence — privacy-policy API
+  x-surface-group: gen3-fence
   description: The privacy-policy API from University of Chicago — 1 operation(s) for privacy-policy.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - privacy-policy
   properties:
@@ -702,10 +1094,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-program-api
-  name: University of Chicago program API
+  name: University of Chicago Gen3 Sheepdog — program API
+  x-surface-group: gen3-sheepdog
   description: The program API from University of Chicago — 2 operation(s) for program.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - program
   properties:
@@ -722,10 +1121,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-project-api
-  name: University of Chicago project API
+  name: University of Chicago Gen3 Sheepdog — project API
+  x-surface-group: gen3-sheepdog
   description: The project API from University of Chicago — 6 operation(s) for project.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - project
   properties:
@@ -742,10 +1148,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-query-api
-  name: University of Chicago query API
+  name: University of Chicago Gen3 indexd — query API
+  x-surface-group: gen3-indexd
   description: query endpoints
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - query
   properties:
@@ -762,10 +1175,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-register-api
-  name: University of Chicago register API
+  name: University of Chicago Gen3 Fence — register API
+  x-surface-group: gen3-fence
   description: The register API from University of Chicago — 1 operation(s) for register.
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - register
   properties:
@@ -782,10 +1202,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-system-api
-  name: University of Chicago system API
+  name: University of Chicago Gen3 indexd — system API
+  x-surface-group: gen3-indexd
   description: System endpoints
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - system
   properties:
@@ -802,10 +1229,17 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 - aid: university-of-chicago:university-of-chicago-user-api
-  name: University of Chicago user API
+  name: University of Chicago Gen3 Fence — user API
+  x-surface-group: gen3-fence
   description: User information
   humanURL: https://uc-cdis.github.io/gen3-user-doc/
-  baseURL: https://iiif-manifest.lib.uchicago.edu/
+  baseURL: https://gen3.datacommons.io/
+  x-operator: institution
+  x-operator-basis: >-
+    Authored by the University of Chicago Center for Translational Data Science — info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
+    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+  x-verified: '2026-08-19'
   tags:
   - user
   properties:
@@ -822,6 +1256,48 @@ apis:
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
 common:
+- type: Website
+  url: https://www.uchicago.edu/
+- type: Blog
+  url: https://news.uchicago.edu/
+- type: GitHub
+  url: https://github.com/uchicago
+- type: GitHubOrganization
+  url: https://github.com/uc-cdis
+- type: SourceCode
+  url: https://github.com/uchicago-library
+- type: LinkedIn
+  url: https://www.linkedin.com/school/uchicago/
+- type: Twitter
+  url: https://twitter.com/UChicago
+- type: PrivacyPolicy
+  url: https://privacy.uchicago.edu/privacy-policy/
+- type: Support
+  url: https://uchicago.service-now.com/it
+- type: Documentation
+  url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
+- type: DeveloperPortal
+  url: https://gen3.datacommons.io/
+- type: APIReference
+  url: https://gen3.datacommons.io/.well-known/openid-configuration
+- type: IdentityFederation
+  url: https://shibboleth2.uchicago.edu/idp/shibboleth
+- type: ResearchRepository
+  url: https://knowledge.uchicago.edu/
+- type: LibraryCatalog
+  url: https://catalog.lib.uchicago.edu/vufind/
+- type: ResearchComputing
+  url: https://rcc.uchicago.edu/
+- type: AIPolicy
+  url: https://genai.uchicago.edu/
+- type: AITooling
+  url: https://genai.uchicago.edu/service-requests
+- type: Conformance
+  url: conformance/university-of-chicago-domain-standards.yml
+- type: Errors
+  url: errors/university-of-chicago-errors.yml
+- type: Lifecycle
+  url: lifecycle/university-of-chicago-lifecycle.yml
 - type: AgenticAccess
   url: agentic-access/university-of-chicago-agentic-access.yml
 - type: DomainSecurity
@@ -830,18 +1306,12 @@ common:
   url: authentication/university-of-chicago-authentication.yml
 - type: OAuthScopes
   url: scopes/university-of-chicago-scopes.yml
-- type: Website
-  url: https://www.uchicago.edu/
-- type: GitHub
-  url: https://github.com/uchicago
-- type: LinkedIn
-  url: https://www.linkedin.com/school/uchicago/
-- type: Twitter
-  url: https://twitter.com/UChicago
-- type: SourceCode
-  url: https://github.com/uc-cdis
-- type: Authentication
-  url: https://github.com/uchicago
+- type: Rules
+  url: rules/university-of-chicago-rules.yml
+- type: Vocabulary
+  url: vocabulary/university-of-chicago-vocabulary.yml
+- type: x-json-ld
+  url: json-ld/university-of-chicago-context.jsonld
 - type: Plans
   url: plans/university-of-chicago-plans-pricing.yml
 - type: RateLimits
@@ -850,6 +1320,150 @@ common:
   url: finops/university-of-chicago-finops.yml
 - type: Review
   url: review.yml
+x-coverage:
+  state: covered
+  reason: institution_operated_surfaces_verified
+  generated: '2026-08-19'
+  method: probed
+  detail: >-
+    The University of Chicago publishes no central developer portal, but it is one of the few
+    institutions in this cohort that genuinely PRODUCES machine-readable infrastructure rather than
+    only consuming a vendor's. Seven institution-operated surfaces were verified live on 2026-08-19:
+    the Shibboleth/InCommon SAML metadata document, the Knowledge@UChicago InvenioRDM REST API, the
+    Knowledge@UChicago OAI-PMH 2.0 responder, the OCHRE ancient-studies data service, the Library
+    IIIF Presentation 3.0 manifest service, the Library IIIF Image 2.0 (Loris) server, and the CTDS
+    reference Gen3 data commons at gen3.datacommons.io. Zero vendor-operated contracts and zero
+    tenant relationships were found — this repository holds no Figshare, Pure, Ex Libris, Dataverse
+    or Symplectic surface, and none was removed to reach that state. Every OpenAPI document held here
+    is authored by the University's own Center for Translational Data Science (info.contact
+    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu), which is why they survive the operator
+    check that eliminated the rest of the cohort's artifacts.
+  gaps:
+  - surface_class: Course Catalog
+    state: gated
+    detail: >-
+      coursesearch.uchicago.edu redirects to a PeopleSoft (Oracle Campus Solutions) guest login at
+      coursesearch92.ais.uchicago.edu. No machine-readable course, section or timetable feed is
+      exposed. collegecatalog.uchicago.edu does not accept connections at all.
+    evidence:
+    - url: https://coursesearch.uchicago.edu/
+      status: 200
+      note: redirects to PeopleSoft login — HTML only, no data surface
+    - url: https://collegecatalog.uchicago.edu/
+      status: 0
+      note: connection refused
+  - surface_class: Library Catalog API
+    state: gated
+    detail: >-
+      VuFind is deployed at catalog.lib.uchicago.edu and forked in the institution's own GitHub
+      organization, but its REST API is switched off.
+    evidence:
+    - url: https://catalog.lib.uchicago.edu/vufind/api/v1/search?lookfor=test&limit=1
+      status: 403
+      note: '{"status":"ERROR","statusMessage":"Permission denied"}'
+  - surface_class: Open Data Portal
+    state: none
+    detail: >-
+      No CKAN, Socrata or DCAT catalog is operated. data.uchicago.edu is the Office of Institutional
+      Analysis's reporting site — HTML dashboards, no machine-readable catalog and no API.
+    evidence:
+    - url: https://data.uchicago.edu/
+      status: 200
+      note: institutional-analysis reporting site, not a data catalog
+  - surface_class: Developer Portal
+    state: unreadable
+    detail: >-
+      The University's Azure API Management front end for Azure OpenAI, ai-api-portal-dev.uchicago.edu,
+      does not present a valid certificate for its own hostname and, with verification disabled,
+      returns a bare Microsoft-Azure-Application-Gateway 404. It is a real internal facility for
+      faculty and staff, and it is not a public surface. NOT emitted as a pointer.
+    evidence:
+    - url: https://ai-api-portal-dev.uchicago.edu/
+      status: 0
+      note: 'SSL: no alternative certificate subject name matches target host name'
+    - url: https://ai-api-portal-dev.uchicago.edu/
+      status: 404
+      note: with certificate verification disabled — Microsoft-Azure-Application-Gateway/v2
+  defects_corrected:
+  - defect: fabricated_base_url
+    detail: >-
+      All 38 apis[] entries carried baseURL https://iiif-manifest.lib.uchicago.edu/ — the Library's
+      IIIF manifest host stamped onto 37 Gen3 API entries that have nothing to do with it. Repaired
+      to the verified CTDS commons https://gen3.datacommons.io/.
+  - defect: soft_404_host_credited_as_live
+    detail: >-
+      iiif-manifest.lib.uchicago.edu answers HTTP 200 with the body "The requested resource is
+      unavailable." for every path tested, including a valid ARK (ark:61001/b2p35sm3m743) that
+      resolves correctly on iiif-collection.lib.uchicago.edu. The host was the repository's only
+      recorded institution-owned host and it is dead. Replaced with the two IIIF hosts that answer.
+  - defect: placeholder_servers_block
+    detail: >-
+      All 37 refined OpenAPI documents declared servers[0].url https://example.domain/ — the upstream
+      Gen3 placeholder, present because Fence/indexd/sheepdog/peregrine are deployable software.
+      Repaired to the deployment CTDS itself operates, with x-operator and probe evidence recorded on
+      the server object rather than asserted.
+  - defect: wrong_service_attribution_in_contracts
+    detail: >-
+      All 37 refined documents carried info.title "Fence OpenAPI Specification ..." and the Fence
+      description, including the 10 indexd, 7 Sheepdog and 3 Peregrine documents. Corrected by
+      matching each document's paths back to the four pristine sources in openapi/_original/ — a
+      100% path match for every document — and retitling to the correct Gen3 service. apis[] entries
+      now carry x-surface-group naming the parent service, so the footprint reads as four Gen3
+      services split by tag rather than 37 unrelated University APIs.
+  - defect: dead_terms_of_service_in_contract
+    detail: >-
+      Every Gen3 contract declares info.termsOfService http://cdis.uchicago.edu/terms/, which returns
+      HTTP 404. The host cdis.uchicago.edu is live; the terms path is gone. Left in place because it
+      is the institution's own declaration and correcting it would be fabricating a document — but no
+      TermsOfService pointer is emitted in common[] on the strength of it.
+  evidence:
+  - url: https://shibboleth2.uchicago.edu/idp/shibboleth
+    status: 200
+  - url: https://knowledge.uchicago.edu/api/records?size=1
+    status: 200
+  - url: https://knowledge.uchicago.edu/oai2d?verb=Identify
+    status: 200
+  - url: https://knowledge.uchicago.edu/oai2d?verb=ListMetadataFormats
+    status: 200
+  - url: https://ochre.lib.uchicago.edu/ochre?uuid=e5e9d6aa-1e63-461a-a8b3-0ee3ac1b2418
+    status: 200
+  - url: https://pi.lib.uchicago.edu/1001/org/ochre/e5e9d6aa-1e63-461a-a8b3-0ee3ac1b2418
+    status: 200
+  - url: https://iiif-collection.lib.uchicago.edu/object/ark:61001/b2p35sm3m743.json
+    status: 200
+  - url: https://iiif-server.lib.uchicago.edu/
+    status: 200
+  - url: https://gen3.datacommons.io/.well-known/openid-configuration
+    status: 200
+  - url: https://gen3.datacommons.io/index/index
+    status: 200
+  - url: https://gen3.datacommons.io/api/v0/submission/_dictionary/_all
+    status: 200
+  - url: https://gen3.datacommons.io/mds/metadata
+    status: 200
+  - url: https://gen3.datacommons.io/guppy/_status
+    status: 200
+  - url: https://iiif-manifest.lib.uchicago.edu/ark:61001/b2p35sm3m743
+    status: 200
+    note: soft-404 — HTTP 200 with an error body
+  - url: https://api.uchicago.edu/
+    status: 200
+    note: soft-404 — IT Services "URL Reserved" placeholder page
+  - url: https://its.uchicago.edu/zzz-nonsense-path-xyz
+    status: 200
+    note: soft-404 — identical shell served for every path; no its.uchicago.edu pointer emitted
+  - url: https://privacy.uchicago.edu/privacy-policy/
+    status: 200
+    note: client-rendered SPA; path-level verification not possible, pointer retained as the link the institution's own homepage emits
+  - url: https://catalog.lib.uchicago.edu/vufind/api/v1/search?lookfor=test&limit=1
+    status: 403
+  - url: https://iiif-image.lib.uchicago.edu/
+    status: 403
+    note: blocked to us, live to the Library's own viewers
+  - url: https://www.lib.uchicago.edu/iiif_files/
+    status: 200
+    note: Turnstile bot challenge — live, not readable
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
