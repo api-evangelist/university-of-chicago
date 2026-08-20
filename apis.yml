@@ -52,6 +52,22 @@ tags:
 - Identity Federation
 - OAI-PMH
 - IIIF
+- Open-Source
+- Data Commons
+- Digital Collections
+- Research Computing
+tags_raw:
+- University
+- Higher Education
+- Education
+- Private Research University
+- United States
+- Illinois
+- Research Data
+- Research Repository
+- Identity Federation
+- OAI-PMH
+- IIIF
 - Open Source
 - Data Commons
 - Digital Collections
@@ -268,6 +284,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Admin User
+  tags_raw:
   - admin/user
   properties:
   - type: OpenAPI
@@ -296,6 +314,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Alias
+  tags_raw:
   - alias
   properties:
   - type: OpenAPI
@@ -323,6 +343,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Bulk
+  tags_raw:
   - bulk
   properties:
   - type: OpenAPI
@@ -350,6 +372,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Bundle
+  tags_raw:
   - bundle
   properties:
   - type: OpenAPI
@@ -431,6 +455,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Credentials
+  tags_raw:
   - credentials
   properties:
   - type: OpenAPI
@@ -511,7 +537,8 @@ apis:
     cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
-  tags:
+  tags: []
+  tags_raw:
   - credentials/{provider}
   properties:
   - type: OpenAPI
@@ -539,6 +566,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Data
+  tags_raw:
   - data
   properties:
   - type: OpenAPI
@@ -566,6 +595,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Datasets
+  tags_raw:
   - datasets
   properties:
   - type: OpenAPI
@@ -593,6 +624,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Dictionary
+  tags_raw:
   - dictionary
   properties:
   - type: OpenAPI
@@ -701,6 +734,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Entity
+  tags_raw:
   - entity
   properties:
   - type: OpenAPI
@@ -728,6 +763,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Export
+  tags_raw:
   - export
   properties:
   - type: OpenAPI
@@ -755,6 +792,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - File
+  tags_raw:
   - file
   properties:
   - type: OpenAPI
@@ -782,6 +821,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Global
+  tags_raw:
   - global
   properties:
   - type: OpenAPI
@@ -809,6 +850,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Google
+  tags_raw:
   - google
   properties:
   - type: OpenAPI
@@ -836,6 +879,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - GraphQL
+  tags_raw:
   - graphql
   properties:
   - type: OpenAPI
@@ -890,6 +935,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Index
+  tags_raw:
   - index
   properties:
   - type: OpenAPI
@@ -917,6 +964,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Keys
+  tags_raw:
   - keys
   properties:
   - type: OpenAPI
@@ -944,6 +993,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Link
+  tags_raw:
   - link
   properties:
   - type: OpenAPI
@@ -971,6 +1022,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Login
+  tags_raw:
   - login
   properties:
   - type: OpenAPI
@@ -998,6 +1051,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Logout
+  tags_raw:
   - logout
   properties:
   - type: OpenAPI
@@ -1025,6 +1080,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Authentication
+  tags_raw:
   - oauth2
   properties:
   - type: OpenAPI
@@ -1079,6 +1136,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Privacy Policy
+  tags_raw:
   - privacy-policy
   properties:
   - type: OpenAPI
@@ -1106,6 +1165,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Program
+  tags_raw:
   - program
   properties:
   - type: OpenAPI
@@ -1133,6 +1194,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Project
+  tags_raw:
   - project
   properties:
   - type: OpenAPI
@@ -1160,6 +1223,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Query
+  tags_raw:
   - query
   properties:
   - type: OpenAPI
@@ -1187,6 +1252,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Register
+  tags_raw:
   - register
   properties:
   - type: OpenAPI
@@ -1214,6 +1281,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - System
+  tags_raw:
   - system
   properties:
   - type: OpenAPI
@@ -1241,6 +1310,8 @@ apis:
     gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
