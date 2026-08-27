@@ -80,17 +80,17 @@ apis:
   name: University of Chicago Shibboleth Identity Provider — InCommon SAML Metadata
   description: >-
     The University of Chicago's Shibboleth identity provider publishes its SAML 2.0 metadata document
-    publicly. entityID urn:mace:incommon:uchicago.edu places the institution in the InCommon
-    federation and therefore in eduGAIN. The document carries an IDPSSODescriptor supporting the SAML
-    2.0 protocol, HTTP-Redirect and HTTP-POST SingleSignOnService bindings at
-    https://shibboleth2.uchicago.edu/saml2/idp/SSOService.php, the transient NameID format, signing
-    and encryption key descriptors, and md:OrganizationName "University of Chicago". This is the
-    surface class a university operates by definition and it is machine-readable — verified live
-    2026-08-19, HTTP 200, application/xml.
+    publicly. entityID urn:mace:incommon:uchicago.edu places the institution in the InCommon federation
+    and therefore in eduGAIN. The document carries an IDPSSODescriptor supporting the SAML 2.0 protocol,
+    HTTP-Redirect and HTTP-POST SingleSignOnService bindings at https://shibboleth2.uchicago.edu/saml2/idp/SSOService.php,
+    the transient NameID format, signing and encryption key descriptors, and md:OrganizationName "University
+    of Chicago". This is the surface class a university operates by definition and it is machine-readable
+    — verified live 2026-08-19, HTTP 200, application/xml.
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   x-operator: institution
-  x-operator-basis: Host shibboleth2.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-operator-basis: >-
+    Host shibboleth2.uchicago.edu is under the institution's own registrable domain uchicago.edu.
   x-verified: '2026-08-19'
   tags:
   - Identity Federation
@@ -106,53 +106,20 @@ apis:
     url: conformance/university-of-chicago-domain-standards.yml
   - type: GitHub
     url: https://github.com/uchicago
-- aid: university-of-chicago:knowledge-invenio-rest
-  name: Knowledge@UChicago Repository REST API
-  description: >-
-    Knowledge@UChicago is the University's institutional repository, running self-hosted InvenioRDM
-    13.1 on the institution's own domain. Its REST API returns records, communities and files as
-    JSON, with DataCite DOIs minted under the 10.6082 prefix and creator identifiers typed by scheme
-    (orcid, ror, isni). The institution runs the software rather than renting a vendor tenancy, so
-    this is an institution-operated surface, not a tenant relationship. Verified live 2026-08-19,
-    HTTP 200, application/json; a nonsense identifier returns a real HTTP 404, not a soft-404.
-  humanURL: https://knowledge.uchicago.edu/
-  baseURL: https://knowledge.uchicago.edu/api
-  x-operator: institution
-  x-operator-basis: Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu; InvenioRDM is open-source software the institution self-hosts.
-  x-verified: '2026-08-19'
-  tags:
-  - Research Repository
-  - InvenioRDM
-  - DataCite
-  - ORCID
-  - Open Access
-  - Scholarly Communication
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-chicago-knowledge-repository-api-openapi.yml
-    x-provenance-method: derived
-    x-provenance-note: >-
-      Derived by API Evangelist from live probe responses on 2026-08-19. The University does not
-      publish an OpenAPI description for this surface.
-  - type: ResearchRepository
-    url: https://knowledge.uchicago.edu/
-  - type: APIReference
-    url: https://knowledge.uchicago.edu/api/records
-  - type: Conformance
-    url: conformance/university-of-chicago-domain-standards.yml
 - aid: university-of-chicago:knowledge-oai-pmh
   name: Knowledge@UChicago OAI-PMH Endpoint
   description: >-
-    OAI-PMH 2.0 harvesting endpoint for the University of Chicago institutional repository.
-    ?verb=Identify returns repositoryName "UChicago Knowledge", protocolVersion 2.0, granularity
-    YYYY-MM-DDThh:mm:ssZ and adminEmail info@knowledge.uchicago.edu; ?verb=ListMetadataFormats
-    advertises oai_dc, datacite, marcxml, marc21 and dcat. earliestDatestamp is 2026-05-22, which
-    dates the current platform rather than the collection. OAI-PMH is a named standard of the Kin
-    Score education regime and this endpoint is a verified conformance hit.
+    OAI-PMH 2.0 harvesting endpoint for the University of Chicago institutional repository. ?verb=Identify
+    returns repositoryName "UChicago Knowledge", protocolVersion 2.0, granularity YYYY-MM-DDThh:mm:ssZ
+    and adminEmail info@knowledge.uchicago.edu; ?verb=ListMetadataFormats advertises oai_dc, datacite,
+    marcxml, marc21 and dcat. earliestDatestamp is 2026-05-22, which dates the current platform rather
+    than the collection. OAI-PMH is a named standard of the Kin Score education regime and this endpoint
+    is a verified conformance hit.
   humanURL: https://knowledge.uchicago.edu/
   baseURL: https://knowledge.uchicago.edu/oai2d
   x-operator: institution
-  x-operator-basis: Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-operator-basis: >-
+    Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu.
   x-verified: '2026-08-19'
   tags:
   - OAI-PMH
@@ -169,16 +136,17 @@ apis:
 - aid: university-of-chicago:ochre-data-service
   name: OCHRE Data Service API
   description: >-
-    OCHRE (Online Cultural and Historical Research Environment) is the University of Chicago's
-    item-level research database for ancient studies, maintained by the OCHRE Data Service at the
-    Institute for the Study of Ancient Cultures. Published items are retrievable as XML by UUID from
-    the institution's own host, and resolvable through the Library's persistent-identifier service at
-    pi.lib.uchicago.edu/1001/org/ochre/{uuid}. Verified live 2026-08-19 — a real UUID returned HTTP
-    200, text/xml, 106KB of item data.
+    OCHRE (Online Cultural and Historical Research Environment) is the University of Chicago's item-level
+    research database for ancient studies, maintained by the OCHRE Data Service at the Institute for the
+    Study of Ancient Cultures. Published items are retrievable as XML by UUID from the institution's own
+    host, and resolvable through the Library's persistent-identifier service at pi.lib.uchicago.edu/1001/org/ochre/{uuid}.
+    Verified live 2026-08-19 — a real UUID returned HTTP 200, text/xml, 106KB of item data.
   humanURL: https://ochre.uchicago.edu/
   baseURL: https://ochre.lib.uchicago.edu/ochre
   x-operator: institution
-  x-operator-basis: Hosts ochre.lib.uchicago.edu and pi.lib.uchicago.edu are under the institution's own registrable domain uchicago.edu.
+  x-operator-basis: >-
+    Hosts ochre.lib.uchicago.edu and pi.lib.uchicago.edu are under the institution's own registrable domain
+    uchicago.edu.
   x-verified: '2026-08-19'
   tags:
   - Research Data
@@ -190,23 +158,23 @@ apis:
   - type: APIReference
     url: https://ochre.lib.uchicago.edu/ochre?uuid=e5e9d6aa-1e63-461a-a8b3-0ee3ac1b2418
   - type: Documentation
-    url: https://sites.google.com/view/ochrewiki/general-topics/digital-publication/using-the-ochre-api
+    url: >-
+      https://sites.google.com/view/ochrewiki/general-topics/digital-publication/using-the-ochre-api
 - aid: university-of-chicago:library-iiif-presentation
   name: University of Chicago Library IIIF Presentation API
   description: >-
-    IIIF Presentation API 3.0 manifests for the University of Chicago Library's digital collections,
-    addressed by ARK (naming authority 61001) at
-    iiif-collection.lib.uchicago.edu/object/ark:61001/{arkid}.json. Manifests declare the IIIF
-    Presentation 3 context, embed the IIIF Image 2 context, and carry a requiredStatement attributing
-    the University of Chicago. Verified live 2026-08-19 — HTTP 200, application/json, 99KB manifest;
-    a nonsense ARK returns a real HTTP 404. NOTE: the older manifest host
-    iiif-manifest.lib.uchicago.edu, which this repository previously recorded as the base URL for
-    every entry, is dead — it answers HTTP 200 with a soft-404 body for every path including valid
-    ARKs.
+    IIIF Presentation API 3.0 manifests for the University of Chicago Library's digital collections, addressed
+    by ARK (naming authority 61001) at iiif-collection.lib.uchicago.edu/object/ark:61001/{arkid}.json.
+    Manifests declare the IIIF Presentation 3 context, embed the IIIF Image 2 context, and carry a requiredStatement
+    attributing the University of Chicago. Verified live 2026-08-19 — HTTP 200, application/json, 99KB
+    manifest; a nonsense ARK returns a real HTTP 404. NOTE: the older manifest host iiif-manifest.lib.uchicago.edu,
+    which this repository previously recorded as the base URL for every entry, is dead — it answers HTTP
+    200 with a soft-404 body for every path including valid ARKs.
   humanURL: https://www.lib.uchicago.edu/
   baseURL: https://iiif-collection.lib.uchicago.edu/
   x-operator: institution
-  x-operator-basis: Host iiif-collection.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-operator-basis: >-
+    Host iiif-collection.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu.
   x-verified: '2026-08-19'
   tags:
   - IIIF
@@ -225,15 +193,15 @@ apis:
 - aid: university-of-chicago:library-iiif-image
   name: University of Chicago Library IIIF Image API
   description: >-
-    IIIF Image API Level 2 service for the University of Chicago Library, running Loris. The service
-    root self-identifies: "This is Loris, an image server that implements the IIIF Image API Level
-    2." Verified live 2026-08-19, HTTP 200, text/plain. The related delivery host
-    iiif-image.lib.uchicago.edu returns HTTP 403 to a browser user-agent — blocked to us, live to the
-    Library's own viewers.
+    IIIF Image API Level 2 service for the University of Chicago Library, running Loris. The service root
+    self-identifies: "This is Loris, an image server that implements the IIIF Image API Level 2." Verified
+    live 2026-08-19, HTTP 200, text/plain. The related delivery host iiif-image.lib.uchicago.edu returns
+    HTTP 403 to a browser user-agent — blocked to us, live to the Library's own viewers.
   humanURL: https://www.lib.uchicago.edu/
   baseURL: https://iiif-server.lib.uchicago.edu/
   x-operator: institution
-  x-operator-basis: Host iiif-server.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu.
+  x-operator-basis: >-
+    Host iiif-server.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu.
   x-verified: '2026-08-19'
   tags:
   - IIIF
@@ -249,16 +217,18 @@ apis:
 - aid: university-of-chicago:vufind-catalog-api
   name: University of Chicago Library Catalog API (VuFind)
   description: >-
-    The Library's discovery layer is VuFind, self-hosted at catalog.lib.uchicago.edu and forked in
-    the institution's own GitHub organization (uchicago-library/vufind). VuFind ships a REST search
-    API at /vufind/api/v1; on this deployment it is present but switched off — a search request
-    returns HTTP 403 with {"status":"ERROR","statusMessage":"Permission denied"}. Recorded because
-    the surface is real, institution-operated, and deliberately gated rather than absent; it is NOT
-    counted as a consumable API.
+    The Library's discovery layer is VuFind, self-hosted at catalog.lib.uchicago.edu and forked in the
+    institution's own GitHub organization (uchicago-library/vufind). VuFind ships a REST search API at
+    /vufind/api/v1; on this deployment it is present but switched off — a search request returns HTTP
+    403 with {"status":"ERROR","statusMessage":"Permission denied"}. Recorded because the surface is real,
+    institution-operated, and deliberately gated rather than absent; it is NOT counted as a consumable
+    API.
   humanURL: https://catalog.lib.uchicago.edu/vufind/
   baseURL: https://catalog.lib.uchicago.edu/vufind/api/v1
   x-operator: institution
-  x-operator-basis: Host catalog.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu; the VuFind fork is published under github.com/uchicago-library.
+  x-operator-basis: >-
+    Host catalog.lib.uchicago.edu is under the institution's own registrable domain uchicago.edu; the
+    VuFind fork is published under github.com/uchicago-library.
   x-verified: '2026-08-19'
   x-availability: gated
   tags:
@@ -279,9 +249,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Admin User
@@ -309,9 +279,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Alias
@@ -338,9 +308,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Bulk
@@ -367,9 +337,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Bundle
@@ -396,9 +366,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - core metadata
@@ -423,9 +393,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - credentials/api
@@ -450,9 +420,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Credentials
@@ -479,9 +449,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - credentials/cdis
@@ -506,9 +476,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - credentials/google
@@ -533,9 +503,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags: []
   tags_raw:
@@ -561,9 +531,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Data
@@ -590,9 +560,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Datasets
@@ -619,9 +589,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Dictionary
@@ -648,9 +618,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - DOS
@@ -675,9 +645,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - DRS
@@ -702,9 +672,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - dry run
@@ -729,9 +699,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Entity
@@ -758,9 +728,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Export
@@ -787,9 +757,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - File
@@ -816,9 +786,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Global
@@ -845,9 +815,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Google
@@ -874,9 +844,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - GraphQL
@@ -903,9 +873,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - GUID
@@ -930,9 +900,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Index
@@ -959,9 +929,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Keys
@@ -988,9 +958,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Link
@@ -1017,9 +987,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Login
@@ -1046,9 +1016,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Logout
@@ -1075,9 +1045,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Authentication
@@ -1104,9 +1074,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - OIDC
@@ -1131,9 +1101,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Privacy Policy
@@ -1160,9 +1130,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Program
@@ -1189,9 +1159,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Project
@@ -1218,9 +1188,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Query
@@ -1247,9 +1217,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - Register
@@ -1276,9 +1246,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - System
@@ -1305,9 +1275,9 @@ apis:
   baseURL: https://gen3.datacommons.io/
   x-operator: institution
   x-operator-basis: >-
-    Authored by the University of Chicago Center for Translational Data Science — info.contact
-    cdis@uchicago.edu, info.termsOfService cdis.uchicago.edu. Deployed by CTDS at
-    gen3.datacommons.io, a domain whose whois registrant organization is CDIS, Illinois, US.
+    Authored by the University of Chicago Center for Translational Data Science — info.contact cdis@uchicago.edu,
+    info.termsOfService cdis.uchicago.edu. Deployed by CTDS at gen3.datacommons.io, a domain whose whois
+    registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
   - User
@@ -1326,6 +1296,38 @@ apis:
     url: json-ld/university-of-chicago-context.jsonld
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
+- aid: university-of-chicago:university-of-chicago-communities-api
+  name: University of Chicago Communities API
+  description: Repository communities (collections).
+  humanURL: https://its.uchicago.edu/
+  baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
+  tags:
+  - communities
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-communities-api-openapi.yml
+  - type: ResearchRepository
+    url: https://knowledge.uchicago.edu/
+  - type: APIReference
+    url: https://knowledge.uchicago.edu/api/records
+  - type: Conformance
+    url: conformance/university-of-chicago-domain-standards.yml
+- aid: university-of-chicago:university-of-chicago-records-api
+  name: University of Chicago Records API
+  description: Published repository records.
+  humanURL: https://its.uchicago.edu/
+  baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
+  tags:
+  - records
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-chicago-records-api-openapi.yml
+  - type: ResearchRepository
+    url: https://knowledge.uchicago.edu/
+  - type: APIReference
+    url: https://knowledge.uchicago.edu/api/records
+  - type: Conformance
+    url: conformance/university-of-chicago-domain-standards.yml
 common:
 - type: Website
   url: https://www.uchicago.edu/
