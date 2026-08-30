@@ -1,0 +1,138 @@
+name: University of Chicago — Education Domain Standard Conformance
+aid: university-of-chicago
+description: >-
+  Conformance of University of Chicago operated surfaces against the Kin Score `education`
+  regulatory regime standards[] set. Reward-only: a standard is listed as `conformant` ONLY where a
+  live probe returned the standard's own protocol response from a host the institution operates.
+  Standards in the regime that were probed and NOT found are recorded as `not_found` so the absence
+  is a statement rather than a silence.
+generated: '2026-08-19'
+method: probed
+source: >-
+  Live HTTP probes of University of Chicago operated hosts on 2026-08-19; see evidence[] on each
+  entry for the exact URL and status code.
+regime: education
+regime_standards:
+- scim
+- lti
+- oneroster
+- ed-fi
+- caliper
+- qti
+- oai-pmh
+- shibboleth
+- saml
+- orcid
+- datacite
+- crossref
+conformance:
+- standard: oai-pmh
+  status: conformant
+  operator: institution
+  surface: Knowledge@UChicago institutional repository (InvenioRDM 13.1)
+  location: https://knowledge.uchicago.edu/oai2d
+  detail: >-
+    OAI-PMH 2.0 responder. `?verb=Identify` returns a well-formed OAI-PMH envelope with
+    repositoryName "UChicago Knowledge", baseURL https://knowledge.uchicago.edu/oai2d,
+    protocolVersion 2.0, granularity YYYY-MM-DDThh:mm:ssZ, adminEmail info@knowledge.uchicago.edu.
+    `?verb=ListMetadataFormats` advertises oai_dc, datacite, marcxml, marc21 and dcat.
+  method: probed
+  evidence:
+  - url: https://knowledge.uchicago.edu/oai2d?verb=Identify
+    status: 200
+    content_type: text/xml
+  - url: https://knowledge.uchicago.edu/oai2d?verb=ListMetadataFormats
+    status: 200
+    content_type: text/xml
+- standard: datacite
+  status: conformant
+  operator: institution
+  surface: Knowledge@UChicago institutional repository
+  location: https://knowledge.uchicago.edu/oai2d?verb=ListMetadataFormats
+  detail: >-
+    The repository exposes a `datacite` OAI metadata prefix bound to the DataCite kernel-4 schema,
+    and mints DataCite DOIs under the 10.6082 prefix — records returned by the REST API carry
+    resolvable https://doi.org/10.6082/... links.
+  method: probed
+  evidence:
+  - url: https://knowledge.uchicago.edu/oai2d?verb=ListMetadataFormats
+    status: 200
+  - url: https://knowledge.uchicago.edu/api/records?size=1
+    status: 200
+- standard: orcid
+  status: conformant
+  operator: institution
+  surface: Knowledge@UChicago institutional repository REST API
+  location: https://knowledge.uchicago.edu/api/records
+  detail: >-
+    Record creator/contributor identifiers are typed by scheme; a 25-record sample returned
+    "scheme": "orcid" person identifiers alongside "scheme": "ror" and "scheme": "isni" affiliation
+    identifiers. ORCID is carried in the machine-readable payload, not merely claimed in prose.
+  method: probed
+  evidence:
+  - url: https://knowledge.uchicago.edu/api/records?size=25
+    status: 200
+- standard: shibboleth
+  status: conformant
+  operator: institution
+  surface: University of Chicago identity provider
+  location: https://shibboleth2.uchicago.edu/idp/shibboleth
+  detail: >-
+    Shibboleth IdP metadata document served as application/xml, carrying the
+    urn:mace:shibboleth:metadata:1.0 (shibmd) namespace and md:OrganizationName
+    "University of Chicago".
+  method: probed
+  evidence:
+  - url: https://shibboleth2.uchicago.edu/idp/shibboleth
+    status: 200
+    content_type: application/xml
+- standard: saml
+  status: conformant
+  operator: institution
+  surface: University of Chicago identity provider — InCommon federation entry
+  location: https://shibboleth2.uchicago.edu/idp/shibboleth
+  detail: >-
+    SAML 2.0 metadata (urn:oasis:names:tc:SAML:2.0:metadata) with
+    entityID "urn:mace:incommon:uchicago.edu", an IDPSSODescriptor supporting the SAML 2.0 protocol,
+    HTTP-Redirect and HTTP-POST SingleSignOnService bindings at
+    https://shibboleth2.uchicago.edu/saml2/idp/SSOService.php, and transient NameID format. The
+    urn:mace:incommon: entityID places the institution in the InCommon federation, and therefore in
+    eduGAIN.
+  method: probed
+  evidence:
+  - url: https://shibboleth2.uchicago.edu/idp/shibboleth
+    status: 200
+    content_type: application/xml
+- standard: scim
+  status: not_found
+  method: probed
+  detail: No public SCIM 2.0 endpoint found on any University of Chicago operated host.
+- standard: lti
+  status: not_found
+  method: probed
+  detail: >-
+    UChicago runs Canvas as its LMS. Any LTI 1.3 platform surface is a Canvas (Instructure)
+    contract behind institutional authentication, not an institution-operated public surface.
+- standard: oneroster
+  status: not_found
+  method: probed
+  detail: No OneRoster surface found; OneRoster is a K-12 rostering standard rarely deployed publicly by R1 universities.
+- standard: ed-fi
+  status: not_found
+  method: probed
+  detail: No Ed-Fi surface found; Ed-Fi is a K-12 data standard.
+- standard: caliper
+  status: not_found
+  method: probed
+  detail: No public Caliper Analytics event surface found.
+- standard: qti
+  status: not_found
+  method: probed
+  detail: No public QTI assessment surface found.
+- standard: crossref
+  status: not_found
+  method: probed
+  detail: >-
+    Knowledge@UChicago registers DOIs through DataCite, not Crossref. The University of Chicago
+    Press registers Crossref DOIs, but the Press is a separate publishing operation and its
+    Crossref deposits are not a University of Chicago machine-readable surface.

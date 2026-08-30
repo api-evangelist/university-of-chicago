@@ -1,0 +1,217 @@
+openapi: 3.2.0
+info:
+  title: Knowledge@UChicago Repository Records API
+  version: '13.1'
+  description: 'Read API for Knowledge@UChicago, the University of Chicago''s institutional repository, running self-hosted InvenioRDM 13.1 on the institution''s own domain. PROVENANCE: the University does not publish an OpenAPI description for this surface. This document was DERIVED by API Evangelist from live probe responses on 2026-08-19 — it describes observed behaviour, not a contract the institution authored, and must not be read as one. Write, draft and file-upload operations exist in InvenioRDM but require authentication and were not probed; they are deliberately absent here rather than guessed.'
+  contact:
+    name: Knowledge@UChicago
+    email: info@knowledge.uchicago.edu
+    url: https://knowledge.uchicago.edu/
+  license:
+    name: See individual record rights statements
+    url: https://knowledge.uchicago.edu/
+  x-provenance:
+    generated: '2026-08-19'
+    method: derived
+    source: Live unauthenticated HTTP probes of https://knowledge.uchicago.edu/api/ on 2026-08-19; response shapes read from the returned JSON. Platform version read from the <meta name="generator" content="InvenioRDM 13.1"/> tag served by the application.
+    x-operator: institution
+    x-operator-basis: Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu, and InvenioRDM is open-source software the institution self-hosts rather than a vendor tenancy.
+servers:
+- url: https://knowledge.uchicago.edu/api
+  description: Knowledge@UChicago production repository
+  x-operator: institution
+  x-verified: '2026-08-19'
+tags:
+- name: records
+  description: Published repository records.
+paths:
+  /records:
+    get:
+      tags:
+      - records
+      summary: Search published records
+      description: Returns a paged, faceted hit list of published records. Verified live 2026-08-19 — HTTP 200, application/json, hits.total 15893.
+      operationId: searchRecords
+      parameters:
+      - name: q
+        in: query
+        description: Search query.
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: Page size.
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        description: Page number, 1-based.
+        required: false
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        description: Sort order.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A page of records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordList'
+  /records/{id}:
+    get:
+      tags:
+      - records
+      summary: Get a single published record
+      description: Returns one record by its persistent identifier. Verified live 2026-08-19; an identifier that does not exist returns a genuine HTTP 404 with a JSON body, not a soft-404.
+      operationId: getRecord
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Record persistent identifier, e.g. 32tcw-22w75.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Record'
+        '404':
+          description: The persistent identifier does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Creator:
+      type: object
+      properties:
+        person_or_org:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+            identifiers:
+              type: array
+              description: Typed identifiers; scheme values observed include orcid, isni and gnd.
+              items:
+                type: object
+                properties:
+                  scheme:
+                    type: string
+                  identifier:
+                    type: string
+        affiliations:
+          type: array
+          description: Typed affiliation identifiers; scheme values observed include ror and grid.
+          items:
+            type: object
+    RecordMetadata:
+      type: object
+      properties:
+        title:
+          type: string
+        publisher:
+          type: string
+        publication_date:
+          type: string
+        resource_type:
+          type: object
+        creators:
+          type: array
+          items:
+            $ref: '#/components/schemas/Creator'
+        rights:
+          type: array
+          items:
+            type: object
+        copyright:
+          type: string
+        description:
+          type: string
+    RecordList:
+      type: object
+      properties:
+        hits:
+          type: object
+          properties:
+            total:
+              type: integer
+            hits:
+              type: array
+              items:
+                $ref: '#/components/schemas/Record'
+        aggregations:
+          type: object
+          description: Facets — access_status, file_type, resource_type.
+        sortBy:
+          type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              format: uri
+            next:
+              type: string
+              format: uri
+    Record:
+      type: object
+      properties:
+        id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        revision_id:
+          type: integer
+        is_published:
+          type: boolean
+        is_draft:
+          type: boolean
+        status:
+          type: string
+        pids:
+          type: object
+          description: Persistent identifiers. DataCite DOIs are minted under the 10.6082 prefix.
+        parent:
+          type: object
+        versions:
+          type: object
+        metadata:
+          $ref: '#/components/schemas/RecordMetadata'
+        access:
+          type: object
+        files:
+          type: object
+        media_files:
+          type: object
+        custom_fields:
+          type: object
+        stats:
+          type: object
+        links:
+          type: object
+          description: Includes self, self_html, doi, self_doi, parent, versions, files, archive, latest, communities and requests. Also self_iiif_manifest and self_iiif_sequence — InvenioRDM serves IIIF for record files.
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
