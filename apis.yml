@@ -266,7 +266,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Admin User
+  - admin/user
   tags_raw:
   - admin/user
   properties:
@@ -296,7 +296,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Alias
+  - alias
   tags_raw:
   - alias
   properties:
@@ -354,7 +354,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Bundle
+  - bundle
   tags_raw:
   - bundle
   properties:
@@ -437,7 +437,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Credentials
+  - credentials
   tags_raw:
   - credentials
   properties:
@@ -606,7 +606,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Dictionary
+  - dictionary
   tags_raw:
   - dictionary
   properties:
@@ -716,7 +716,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Entity
+  - entity
   tags_raw:
   - entity
   properties:
@@ -861,7 +861,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - GraphQL
+  - graphql
   tags_raw:
   - graphql
   properties:
@@ -975,7 +975,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Link
+  - link
   tags_raw:
   - link
   properties:
@@ -1033,7 +1033,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Logout
+  - logout
   tags_raw:
   - logout
   properties:
@@ -1234,7 +1234,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - Register
+  - register
   tags_raw:
   - register
   properties:
@@ -1314,6 +1314,8 @@ apis:
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
+  - Communities
+  tags_raw:
   - communities
   properties:
   - type: OpenAPI
@@ -1330,6 +1332,8 @@ apis:
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
+  - Records
+  tags_raw:
   - records
   properties:
   - type: OpenAPI
