@@ -266,7 +266,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - admin/user
+  - Admin User
   tags_raw:
   - admin/user
   properties:
@@ -296,7 +296,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - alias
+  - Alias
   tags_raw:
   - alias
   properties:
@@ -354,7 +354,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - bundle
+  - Bundle
   tags_raw:
   - bundle
   properties:
@@ -437,7 +437,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - credentials
+  - Credentials
   tags_raw:
   - credentials
   properties:
@@ -606,7 +606,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - dictionary
+  - Dictionary
   tags_raw:
   - dictionary
   properties:
@@ -716,7 +716,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - entity
+  - Entity
   tags_raw:
   - entity
   properties:
@@ -861,7 +861,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - graphql
+  - GraphQL
   tags_raw:
   - graphql
   properties:
@@ -975,7 +975,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - link
+  - Link
   tags_raw:
   - link
   properties:
@@ -1033,7 +1033,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - logout
+  - Logout
   tags_raw:
   - logout
   properties:
@@ -1234,7 +1234,7 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
-  - register
+  - Register
   tags_raw:
   - register
   properties:
