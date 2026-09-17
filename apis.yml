@@ -1283,16 +1283,16 @@ apis:
     url: https://knowledge.uchicago.edu/api/records
   - type: Conformance
     url: conformance/university-of-chicago-domain-standards.yml
-- aid: university-of-chicago:university-of-chicago-graph-ql-api
-  name: University of Chicago Graph QL API
-  description: GraphQL Queries
+- aid: university-of-chicago:university-of-chicago-oauth2-api
+  name: University of Chicago Oauth2 API
+  description: Authorization and token management
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
-  - Graph QL
+  - oauth2
   properties:
   - type: OpenAPI
-    url: openapi/university-of-chicago-graph-ql-api-openapi.yml
+    url: openapi/university-of-chicago-oauth2-api-openapi.yml
   - type: Documentation
     url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
   - type: GitHub
@@ -1303,16 +1303,16 @@ apis:
     url: json-ld/university-of-chicago-context.jsonld
   - type: GraphQL
     url: graphql/university-of-chicago-graphql.md
-- aid: university-of-chicago:university-of-chicago-o-auth2-api
-  name: University of Chicago O Auth2 API
-  description: Authorization and token management
+- aid: university-of-chicago:university-of-chicago-graph-ql-api
+  name: University of Chicago Graph QL API
+  description: GraphQL Queries
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
-  - O Auth2
+  - Graph QL
   properties:
   - type: OpenAPI
-    url: openapi/university-of-chicago-o-auth2-api-openapi.yml
+    url: openapi/university-of-chicago-graph-ql-api-openapi.yml
   - type: Documentation
     url: https://uc-cdis.github.io/gen3-user-doc/appendices/api-gen3/
   - type: GitHub
