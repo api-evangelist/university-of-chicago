@@ -107,6 +107,13 @@ apis:
   - Shibboleth
   - InCommon
   - eduGAIN
+  - SSO
+  tags_raw:
+  - Identity Federation
+  - SAML
+  - Shibboleth
+  - InCommon
+  - eduGAIN
   - Single Sign-On
   properties:
   - type: IdentityFederation
@@ -686,6 +693,8 @@ apis:
     registrant organization is CDIS, Illinois, US.
   x-verified: '2026-08-19'
   tags:
+  - Dry Run
+  tags_raw:
   - dry run
   properties:
   - type: OpenAPI
@@ -1289,6 +1298,8 @@ apis:
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
+  - Authentication
+  tags_raw:
   - oauth2
   properties:
   - type: OpenAPI
@@ -1309,6 +1320,8 @@ apis:
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
