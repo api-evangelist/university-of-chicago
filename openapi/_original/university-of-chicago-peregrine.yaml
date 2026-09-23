@@ -1,6 +1,14 @@
 openapi: 3.0.0
 servers:
-  - url: 'https://example.domain/'
+  - url: 'https://gen3.datacommons.io/'
+    description: >-
+      University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data
+      commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream
+      specification ships a placeholder host; this is the base URL of the deployment CTDS itself
+      operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+    x-operator: institution
+    x-verified: '2026-08-19'
+    x-verified-evidence: 'https://gen3.datacommons.io/.well-known/openid-configuration'
 info:
   title: Peregrine OpenAPI Specification
   version: 0.1.0

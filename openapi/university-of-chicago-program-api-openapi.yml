@@ -1,18 +1,22 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user program API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
-  termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
+  description: A data submission API for CDIS Gen 3 data commons. Code is available on GitHub.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://cdis.uchicago.edu/terms/
+  title: Sheepdog OpenAPI Specification Program API
+  version: '1.0'
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: program
+- name: Program
 paths:
   /v0/submission/:
     get:
@@ -28,9 +32,11 @@ paths:
           description: Unauthorized request.
       summary: Get the programs
       tags:
-      - program
+      - Program
+      operationId: getV0Submission
+      x-operation-id-source: derived
     patch:
-      description: Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users.
+      description: Register a program. The content of the request is a JSON containing the information describing a program. Authorization for registering programs is limited to administrative users.
       responses:
         '200':
           description: Registered successfully.
@@ -38,15 +44,17 @@ paths:
           description: Unauthorized request.
       summary: Create a program
       tags:
-      - program
+      - Program
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_program'
         description: input body
+      operationId: patchV0Submission
+      x-operation-id-source: derived
     post:
-      description: Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users.
+      description: Register a program. The content of the request is a JSON containing the information describing a program. Authorization for registering programs is limited to administrative users.
       responses:
         '200':
           description: Registered successfully.
@@ -54,15 +62,17 @@ paths:
           description: Unauthorized request.
       summary: Create a program
       tags:
-      - program
+      - Program
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_program'
         description: input body
+      operationId: postV0Submission
+      x-operation-id-source: derived
     put:
-      description: Register a program. The content of the request is a JSON containing the information describing a program.  Authorization for registering programs is limited to administrative users.
+      description: Register a program. The content of the request is a JSON containing the information describing a program. Authorization for registering programs is limited to administrative users.
       responses:
         '200':
           description: Registered successfully.
@@ -70,13 +80,15 @@ paths:
           description: Unauthorized request.
       summary: Create a program
       tags:
-      - program
+      - Program
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_program'
         description: input body
+      operationId: putV0Submission
+      x-operation-id-source: derived
   /v0/submission/<program>:
     delete:
       description: Delete a program given program name. If the program is not empty raise an appropriate exception
@@ -98,9 +110,20 @@ paths:
           description: Program not found.
       summary: Delete a program
       tags:
-      - program
+      - Program
+      operationId: deleteV0Submission<program>
+      x-operation-id-source: derived
 components:
   schemas:
+    schema_links:
+      properties:
+        links:
+          items:
+            type: string
+          type: array
+      required:
+      - links
+      type: object
     schema_program:
       properties:
         dbgap_accession_number:
@@ -113,21 +136,3 @@ components:
       - name
       - dbgap_accession_number
       type: object
-    schema_links:
-      properties:
-        links:
-          items:
-            type: string
-          type: array
-      required:
-      - links
-      type: object
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access

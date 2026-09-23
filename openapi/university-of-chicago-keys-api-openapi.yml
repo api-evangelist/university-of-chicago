@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user keys API
+  title: Fence OpenAPI Specification Keys API
   version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Access management for Gen3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,16 +10,20 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: keys
+- name: Keys
   description: Get public keys used to validate JWTs issued by fence
 paths:
   /jwt/keys:
     get:
       tags:
-      - keys
-      summary: Return the public keys which can be used to validate JWTs issued and signed by fence
+      - Keys
+      summary: Return the public keys which can be used to validate JWTs issued and signed by…
       operationId: getKeys
       responses:
         '200':
@@ -31,9 +35,9 @@ paths:
   /.well-known/jwks:
     get:
       tags:
-      - keys
+      - Keys
       summary: Get JWK Set used by the application
-      description: See [RFC 7517](https://tools.ietf.org/html/rfc7517) for detailed specification and an [example response](https://tools.ietf.org/html/rfc7517#appendix-A.1).
+      description: See RFC 7517 for detailed specification and an example response.
       responses:
         '200':
           description: JWKS response
@@ -41,6 +45,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/JWKS'
+      operationId: getWellKnownJwks
+      x-operation-id-source: derived
 components:
   schemas:
     PublicKeys:

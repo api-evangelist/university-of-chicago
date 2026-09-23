@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user bulk API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Indexd is a data indexing and tracking service. The code is open source on github
+  version: 1.0.0
+  title: Indexd OpenAPI Specification Bulk API
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,15 +10,19 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: bulk
+- name: Bulk
   description: bulk endpoints
 paths:
   /bulk/documents:
     post:
       tags:
-      - bulk
+      - Bulk
       summary: Get a list of documents given a list of dids
       operationId: getBulkIds
       responses:
@@ -40,41 +44,6 @@ paths:
         required: true
 components:
   schemas:
-    BulkInputInfo:
-      type: array
-      items:
-        type: string
-    HashInfo:
-      type: object
-      properties:
-        md5:
-          type: string
-          pattern: ^[0-9a-f]{32}$
-        sha:
-          type: string
-          pattern: ^[0-9a-f]{40}$
-        sha256:
-          type: string
-          pattern: ^[0-9a-f]{64}$
-        sha512:
-          type: string
-          pattern: ^[0-9a-f]{128}$
-        crc:
-          type: string
-          pattern: ^[0-9a-f]{8}$
-        etag:
-          type: string
-          pattern: ^[0-9a-f]{32}(-\d+)?$
-    DID:
-      type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-    BulkOutputInfo:
-      type: array
-      items:
-        $ref: '#/components/schemas/OutputInfo'
-    UUID:
-      type: string
-      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
     OutputInfo:
       type: object
       properties:
@@ -130,12 +99,46 @@ components:
         urls_metadata:
           type: object
           description: url level optional metadata
+    BulkOutputInfo:
+      type: array
+      items:
+        $ref: '#/components/schemas/OutputInfo'
+    UUID:
+      type: string
+      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    BulkInputInfo:
+      type: array
+      items:
+        type: string
+    HashInfo:
+      type: object
+      properties:
+        md5:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
   securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access
+    basic_auth:
+      type: http
+      scheme: basic
+    authToken:
+      type: apiKey
+      in: header
+      name: Authorization

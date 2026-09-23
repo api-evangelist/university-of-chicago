@@ -1,0 +1,86 @@
+name: University of Chicago — API Lifecycle and Versioning
+aid: university-of-chicago
+description: >-
+  Versioning, deprecation and change-management posture across the University of Chicago's
+  machine-readable surfaces. Derived from the contracts held in this repository and from live probes
+  of the institution-operated hosts; no lifecycle policy document was published by the institution
+  and none is asserted here.
+generated: '2026-08-19'
+method: derived
+source: >-
+  all/university-of-chicago/openapi/*.yml, openapi/_original/*.yaml, plus live probes of
+  gen3.datacommons.io, knowledge.uchicago.edu, shibboleth2.uchicago.edu and
+  iiif-collection.lib.uchicago.edu on 2026-08-19.
+operator: institution
+surfaces:
+- surface: Gen3 platform (Fence, indexd, sheepdog, peregrine)
+  operator: institution
+  versioning_scheme: >-
+    Two independent axes. The OpenAPI documents declare info.version 0.1.0 and have done so
+    unchanged across releases, so info.version carries no signal. The deployed software is versioned
+    by service release tag in GitHub (github.com/uc-cdis), and the data-submission surface is
+    path-versioned at /api/v0/submission/... — a v0 path prefix that has been in production for
+    years.
+  deprecation_signal: >-
+    None in-contract. No operation carries `deprecated: true`, no Sunset or Deprecation header is
+    declared, and no alternative is named for any path.
+  change_channel: GitHub releases and CHANGELOGs per uc-cdis service repository.
+  evidence:
+  - url: https://gen3.datacommons.io/api/v0/submission/_dictionary/_all
+    status: 200
+  - url: https://github.com/uc-cdis
+    status: 200
+- surface: Knowledge@UChicago institutional repository
+  operator: institution
+  versioning_scheme: >-
+    Platform version advertised in the served HTML as InvenioRDM 13.1. The REST API is unversioned in
+    its path (/api/records). Record-level versioning is native to InvenioRDM: every record carries a
+    persistent identifier plus a version chain, and DataCite DOIs are minted per version.
+  deprecation_signal: None published.
+  change_channel: Not published by the institution; upstream InvenioRDM release notes only.
+  evidence:
+  - url: https://knowledge.uchicago.edu/api/records?size=1
+    status: 200
+  - url: https://knowledge.uchicago.edu/oai2d?verb=Identify
+    status: 200
+    note: earliestDatestamp 2026-05-22 — the repository was (re)platformed in May 2026 and holds no earlier harvest history
+- surface: Identity provider (Shibboleth / InCommon)
+  operator: institution
+  versioning_scheme: >-
+    Versioned by the SAML 2.0 metadata document itself. Rotation is signalled through the metadata
+    (key descriptors and validUntil), which is the federation's own lifecycle mechanism rather than
+    an API version.
+  deprecation_signal: Federation metadata refresh; InCommon aggregate republication.
+  change_channel: InCommon federation metadata aggregate.
+  evidence:
+  - url: https://shibboleth2.uchicago.edu/idp/shibboleth
+    status: 200
+- surface: Library IIIF (Presentation 3.0 + Image 2.0)
+  operator: institution
+  versioning_scheme: >-
+    Versioned by specification, not by the institution. Manifests declare
+    http://iiif.io/api/presentation/3/context.json and embed
+    http://iiif.io/api/image/2/context.json; the image server self-identifies as Loris implementing
+    IIIF Image API Level 2.
+  deprecation_signal: >-
+    Observed, and material. The host iiif-manifest.lib.uchicago.edu — the base URL this repository
+    previously recorded for every API entry, and the pattern the institution's own published manifest
+    templates in github.com/uchicago-library/IIIF still use as manifest `id` — no longer serves
+    manifests. It answers HTTP 200 with "The requested resource is unavailable." for every path,
+    including a valid ARK that resolves correctly on iiif-collection.lib.uchicago.edu. This is an
+    undeclared, unredirected retirement of a persistent-identifier host.
+  change_channel: None published.
+  evidence:
+  - url: https://iiif-collection.lib.uchicago.edu/object/ark:61001/b2p35sm3m743.json
+    status: 200
+  - url: https://iiif-manifest.lib.uchicago.edu/ark:61001/b2p35sm3m743
+    status: 200
+    note: soft-404 body — retired without an HTTP status or redirect saying so
+  - url: https://iiif-server.lib.uchicago.edu/
+    status: 200
+    note: Loris, IIIF Image API Level 2
+assessment: >-
+  No institution-wide API lifecycle or deprecation policy is published. Change management is
+  delegated to the upstream open-source projects the institution authors or runs. The one observable
+  retirement — the iiif-manifest host — was performed without a status code, a redirect, or a notice,
+  which is the failure mode a lifecycle policy exists to prevent.

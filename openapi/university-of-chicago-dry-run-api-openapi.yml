@@ -1,18 +1,22 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user dry run API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
-  termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
+  description: A data submission API for CDIS Gen 3 data commons. Code is available on GitHub.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://cdis.uchicago.edu/terms/
+  title: Sheepdog OpenAPI Specification dry run API
+  version: '1.0'
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: dry run
+- name: Dry Run
 paths:
   /v0/submission/<program>/<project>/_dry_run:
     post:
@@ -44,13 +48,15 @@ paths:
           description: Resource not found.
       summary: Create entities
       tags:
-      - dry run
+      - Dry Run
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity'
         description: input body
+      operationId: postV0Submission<program><project>DryRun
+      x-operation-id-source: derived
     put:
       description: Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity.
       parameters:
@@ -80,13 +86,15 @@ paths:
           description: Resource not found.
       summary: Update entities
       tags:
-      - dry run
+      - Dry Run
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity'
         description: input body
+      operationId: putV0Submission<program><project>DryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/bulk/_dry_run:
     post:
       description: Handle bulk transaction instead of single transaction.
@@ -112,13 +120,15 @@ paths:
           description: Resource not found.
       summary: Create entities in bulk
       tags:
-      - dry run
+      - Dry Run
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity_bulk'
         description: input body
+      operationId: postV0Submission<program><project>BulkDryRun
+      x-operation-id-source: derived
     put:
       description: Handle bulk transaction instead of single transaction.
       parameters:
@@ -143,13 +153,15 @@ paths:
           description: Resource not found.
       summary: Update entities in bulk
       tags:
-      - dry run
+      - Dry Run
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity_bulk'
         description: input body
+      operationId: putV0Submission<program><project>BulkDryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/entities/_dry_run/<ids>:
     delete:
       description: Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond with at least one entity that must be deleted prior to deleting the target entity.
@@ -188,7 +200,9 @@ paths:
           description: Entity not found.
       summary: Delete entities
       tags:
-      - dry run
+      - Dry Run
+      operationId: deleteV0Submission<program><project>EntitiesDryRun<ids>
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/files/<file_uuid>/_dry_run:
     delete:
       description: Delete molecular data from object storage.
@@ -229,7 +243,9 @@ paths:
           description: Method Not Allowed.
       summary: Delete a data file
       tags:
-      - dry run
+      - Dry Run
+      operationId: deleteV0Submission<program><project>Files<fileUuid>DryRun
+      x-operation-id-source: derived
     get:
       description: Get a data file from object storage
       parameters:
@@ -269,9 +285,10 @@ paths:
           description: Method Not Allowed.
       summary: Get a data file
       tags:
-      - dry run
+      - Dry Run
+      operationId: getV0Submission<program><project>Files<fileUuid>DryRun
+      x-operation-id-source: derived
     post:
-      description: Upload data by multipart upload
       parameters:
       - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
         in: path
@@ -314,7 +331,9 @@ paths:
           description: Method Not Allowed.
       summary: Upload data by multipart upload
       tags:
-      - dry run
+      - Dry Run
+      operationId: postV0Submission<program><project>Files<fileUuid>DryRun
+      x-operation-id-source: derived
     put:
       description: Upload data using single PUT. The request body should contain binary data of the file.
       parameters:
@@ -359,7 +378,9 @@ paths:
           description: Method Not Allowed.
       summary: Upload a data file
       tags:
-      - dry run
+      - Dry Run
+      operationId: putV0Submission<program><project>Files<fileUuid>DryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/open/_dry_run:
     post:
       description: Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed.
@@ -385,7 +406,9 @@ paths:
           description: Resource not found.
       summary: Open a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: postV0Submission<program><project>OpenDryRun
+      x-operation-id-source: derived
     put:
       description: Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed.
       parameters:
@@ -410,7 +433,9 @@ paths:
           description: Resource not found.
       summary: Open a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: putV0Submission<program><project>OpenDryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/release/_dry_run:
     post:
       description: Release a project.
@@ -436,7 +461,9 @@ paths:
           description: Resource not found.
       summary: Release a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: postV0Submission<program><project>ReleaseDryRun
+      x-operation-id-source: derived
     put:
       description: Release a project.
       parameters:
@@ -461,7 +488,9 @@ paths:
           description: Resource not found.
       summary: Release a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: putV0Submission<program><project>ReleaseDryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/review/_dry_run:
     post:
       description: Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``.
@@ -487,7 +516,9 @@ paths:
           description: Resource not found.
       summary: Review a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: postV0Submission<program><project>ReviewDryRun
+      x-operation-id-source: derived
     put:
       description: Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``.
       parameters:
@@ -512,7 +543,9 @@ paths:
           description: Resource not found.
       summary: Review a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: putV0Submission<program><project>ReviewDryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/submit/_dry_run:
     post:
       description: Submit a project.
@@ -538,7 +571,9 @@ paths:
           description: Resource not found.
       summary: Submit a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: postV0Submission<program><project>SubmitDryRun
+      x-operation-id-source: derived
     put:
       description: Submit a project.
       parameters:
@@ -563,7 +598,9 @@ paths:
           description: Resource not found.
       summary: Submit a project
       tags:
-      - dry run
+      - Dry Run
+      operationId: putV0Submission<program><project>SubmitDryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/transactions/<int:transaction_id>/close:
     post:
       description: Close a transaction. The transaction is prevented from being committed in the future.
@@ -595,7 +632,9 @@ paths:
           description: Resource not found.
       summary: Close a transaction
       tags:
-      - dry run
+      - Dry Run
+      operationId: postV0Submission<program><project>Transactions<int:transactionId>Close
+      x-operation-id-source: derived
     put:
       description: Close a transaction. The transaction is prevented from being committed in the future.
       parameters:
@@ -626,7 +665,9 @@ paths:
           description: Resource not found.
       summary: Close a transaction
       tags:
-      - dry run
+      - Dry Run
+      operationId: putV0Submission<program><project>Transactions<int:transactionId>Close
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/transactions/<int:transaction_id>/commit:
     post:
       description: 'Commit a dry run transaction. This call should only succeed if: 1. transaction_id points to a dry_run transaction; 2. transaction_id points to a transaction that hasn''t been committed already; 3. transaction_id points to a successful transaction.'
@@ -658,7 +699,9 @@ paths:
           description: Resource not found.
       summary: Commit a dry run transaction
       tags:
-      - dry run
+      - Dry Run
+      operationId: postV0Submission<program><project>Transactions<int:transactionId>Commit
+      x-operation-id-source: derived
     put:
       description: 'Commit a dry run transaction. This call should only succeed if: 1. transaction_id points to a dry_run transaction; 2. transaction_id points to a transaction that hasn''t been committed already; 3. transaction_id points to a successful transaction.'
       parameters:
@@ -689,7 +732,9 @@ paths:
           description: Resource not found.
       summary: Commit a dry run transaction
       tags:
-      - dry run
+      - Dry Run
+      operationId: putV0Submission<program><project>Transactions<int:transactionId>Commit
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/xml/biospecimen/bcr/_dry_run:
     put:
       description: The entities stored in BRC XML are converted to JSON before being updated.
@@ -715,7 +760,7 @@ paths:
           description: Resource not found.
       summary: Update Biospecimen Supplement entities
       tags:
-      - dry run
+      - Dry Run
       requestBody:
         content:
           multipart/form-data:
@@ -727,6 +772,8 @@ paths:
                   format: binary
               required:
               - file
+      operationId: putV0Submission<program><project>XmlBiospecimenBcrDryRun
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/xml/clinical/bcr/_dry_run:
     put:
       description: The entities stored in BRC XML are converted to JSON before being updated.
@@ -752,7 +799,7 @@ paths:
           description: Resource not found.
       summary: Update Clinical Supplement entities
       tags:
-      - dry run
+      - Dry Run
       requestBody:
         content:
           multipart/form-data:
@@ -764,6 +811,8 @@ paths:
                   format: binary
               required:
               - file
+      operationId: putV0Submission<program><project>XmlClinicalBcrDryRun
+      x-operation-id-source: derived
 components:
   schemas:
     schema_entity_bulk:
@@ -786,12 +835,3 @@ components:
         type:
           type: string
       type: object
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access

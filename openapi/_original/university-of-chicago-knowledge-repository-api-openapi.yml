@@ -1,8 +1,15 @@
-openapi: 3.2.0
+openapi: 3.0.3
 info:
-  title: Knowledge@UChicago Repository Records API
+  title: Knowledge@UChicago Repository API
   version: '13.1'
-  description: Read API for Knowledge@UChicago, the University of Chicago's institutional repository, running self-hosted InvenioRDM 13.1 on the institution's own domain.
+  description: >-
+    Read API for Knowledge@UChicago, the University of Chicago's institutional repository, running
+    self-hosted InvenioRDM 13.1 on the institution's own domain. PROVENANCE: the University does not
+    publish an OpenAPI description for this surface. This document was DERIVED by API Evangelist from
+    live probe responses on 2026-08-19 — it describes observed behaviour, not a contract the
+    institution authored, and must not be read as one. Write, draft and file-upload operations exist
+    in InvenioRDM but require authentication and were not probed; they are deliberately absent here
+    rather than guessed.
   contact:
     name: Knowledge@UChicago
     email: info@knowledge.uchicago.edu
@@ -13,24 +20,33 @@ info:
   x-provenance:
     generated: '2026-08-19'
     method: derived
-    source: Live unauthenticated HTTP probes of https://knowledge.uchicago.edu/api/ on 2026-08-19; response shapes read from the returned JSON. Platform version read from the <meta name="generator" content="InvenioRDM 13.1"/> tag served by the application.
+    source: >-
+      Live unauthenticated HTTP probes of https://knowledge.uchicago.edu/api/ on 2026-08-19;
+      response shapes read from the returned JSON. Platform version read from the
+      <meta name="generator" content="InvenioRDM 13.1"/> tag served by the application.
     x-operator: institution
-    x-operator-basis: Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu, and InvenioRDM is open-source software the institution self-hosts rather than a vendor tenancy.
+    x-operator-basis: >-
+      Host knowledge.uchicago.edu is under the institution's own registrable domain uchicago.edu, and
+      InvenioRDM is open-source software the institution self-hosts rather than a vendor tenancy.
 servers:
 - url: https://knowledge.uchicago.edu/api
   description: Knowledge@UChicago production repository
   x-operator: institution
   x-verified: '2026-08-19'
 tags:
-- name: Records
+- name: records
   description: Published repository records.
+- name: communities
+  description: Repository communities (collections).
 paths:
   /records:
     get:
       tags:
-      - Records
+      - records
       summary: Search published records
-      description: Returns a paged, faceted hit list of published records. Verified live 2026-08-19 — HTTP 200, application/json, hits.total 15893.
+      description: >-
+        Returns a paged, faceted hit list of published records. Verified live 2026-08-19 — HTTP 200,
+        application/json, hits.total 15893.
       operationId: searchRecords
       parameters:
       - name: q
@@ -67,9 +83,11 @@ paths:
   /records/{id}:
     get:
       tags:
-      - Records
+      - records
       summary: Get a single published record
-      description: Returns one record by its persistent identifier. Verified live 2026-08-19; an identifier that does not exist returns a genuine HTTP 404 with a JSON body, not a soft-404.
+      description: >-
+        Returns one record by its persistent identifier. Verified live 2026-08-19; an identifier that
+        does not exist returns a genuine HTTP 404 with a JSON body, not a soft-404.
       operationId: getRecord
       parameters:
       - name: id
@@ -91,6 +109,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /communities:
+    get:
+      tags:
+      - communities
+      summary: Search communities
+      description: Returns a paged hit list of repository communities. Verified live 2026-08-19.
+      operationId: searchCommunities
+      parameters:
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A page of communities.
+          content:
+            application/json:
+              schema:
+                type: object
 components:
   schemas:
     RecordList:
@@ -159,7 +202,10 @@ components:
           type: object
         links:
           type: object
-          description: Includes self, self_html, doi, self_doi, parent, versions, files, archive, latest, communities and requests. Also self_iiif_manifest and self_iiif_sequence — InvenioRDM serves IIIF for record files.
+          description: >-
+            Includes self, self_html, doi, self_doi, parent, versions, files, archive, latest,
+            communities and requests. Also self_iiif_manifest and self_iiif_sequence — InvenioRDM
+            serves IIIF for record files.
     RecordMetadata:
       type: object
       properties:

@@ -1,18 +1,22 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user file API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
-  termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
+  description: A data submission API for CDIS Gen 3 data commons. Code is available on GitHub.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://cdis.uchicago.edu/terms/
+  title: Sheepdog OpenAPI Specification File API
+  version: '1.0'
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: file
+- name: File
 paths:
   /v0/submission/<program>/<project>/files/<file_uuid>:
     delete:
@@ -54,7 +58,9 @@ paths:
           description: Method Not Allowed.
       summary: Delete a data file
       tags:
-      - file
+      - File
+      operationId: deleteV0Submission<program><project>Files<fileUuid>
+      x-operation-id-source: derived
     get:
       description: Get a data file from object storage
       parameters:
@@ -94,9 +100,10 @@ paths:
           description: Method Not Allowed.
       summary: Get a data file
       tags:
-      - file
+      - File
+      operationId: getV0Submission<program><project>Files<fileUuid>
+      x-operation-id-source: derived
     post:
-      description: Upload data by multipart upload
       parameters:
       - description: The program to which the submitter belongs and in which the entities will be created. The `program` is the human-readable name, e.g. TCGA.
         in: path
@@ -139,7 +146,9 @@ paths:
           description: Method Not Allowed.
       summary: Upload data by multipart upload
       tags:
-      - file
+      - File
+      operationId: postV0Submission<program><project>Files<fileUuid>
+      x-operation-id-source: derived
     put:
       description: Upload data using single PUT. The request body should contain binary data of the file.
       parameters:
@@ -184,7 +193,9 @@ paths:
           description: Method Not Allowed.
       summary: Upload a data file
       tags:
-      - file
+      - File
+      operationId: putV0Submission<program><project>Files<fileUuid>
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/manifest:
     get:
       description: Create a json manifest of the files.
@@ -212,7 +223,9 @@ paths:
           description: Resource not found.
       summary: Get a manifest of data files
       tags:
-      - file
+      - File
+      operationId: getV0Submission<program><project>Manifest
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/upload_manifest:
     get:
       description: Create a json manifest of the files.
@@ -240,7 +253,9 @@ paths:
           description: Resource not found.
       summary: Get a manifest of data files
       tags:
-      - file
+      - File
+      operationId: getV0Submission<program><project>UploadManifest
+      x-operation-id-source: derived
   /v0/submission/admin/<program>/<project>/files/<file_uuid>/reassign:
     put:
       description: Manually (re)assign the S3 url for a given node.
@@ -276,7 +291,9 @@ paths:
           description: Method Not Allowed.
       summary: Reassign the S3 URL of a data file
       tags:
-      - file
+      - File
+      operationId: putV0SubmissionAdmin<program><project>Files<fileUuid>Reassign
+      x-operation-id-source: derived
   /v0/submission/validation/upload_manifest:
     post:
       description: Generate a list of errors found in JSON Schema validation.
@@ -289,19 +306,12 @@ paths:
                 $ref: '#/components/schemas/schema_error_list'
       summary: Validate a manifest of data files
       tags:
-      - file
+      - File
+      operationId: postV0SubmissionValidationUploadManifest
+      x-operation-id-source: derived
 components:
   schemas:
     schema_error_list:
       items:
         type: string
       type: array
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access

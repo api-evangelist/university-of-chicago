@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user DRS API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Indexd is a data indexing and tracking service. The code is open source on github
+  version: 1.0.0
+  title: Indexd OpenAPI Specification DRS API
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,14 +10,18 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
 - name: DRS
   description: Data Repository Service Retrieval Endpoints
 paths:
   /ga4gh/drs/v1/objects:
     get:
-      summary: List all DrsObject.
+      summary: List all DrsObject
       description: Url field here contains their location and not the presigned url.
       operationId: ListDrsObject
       parameters:
@@ -43,7 +47,7 @@ paths:
       - DRS
   /ga4gh/drs/v1/objects/{object_id}:
     get:
-      summary: Get info about a DrsObject.
+      summary: Get info about a DrsObject
       description: Returns object metadata, and a list of access methods that can be used to fetch object bytes. Resolves for bundles.
       operationId: GetObject
       responses:
@@ -106,6 +110,58 @@ paths:
       - DRS
 components:
   schemas:
+    ContentsObject:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A name declared by the bundle author that must be used when materialising this object, overriding any name directly associated with the object itself. The name must be unique with the containing bundle. This string is made up of uppercase and lowercase letters, decimal digits, hypen, period, and underscore [A-Za-z0-9.-_]. See http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_282[portable filenames].
+        id:
+          type: string
+          description: A DRS identifier of a DrsObject (either a single blob or a nested bundle). If this ContentsObject is an object within a nested bundle, then the id is optional. Otherwise, the id is required.
+        drs_uri:
+          type: array
+          description: A list of full DRS identifier URI paths that may be used to obtain the object. These URIs may be external to this DRS instance.
+          example: drs://drs.example.org/314159
+          items:
+            type: string
+        contents:
+          type: array
+          description: If this ContentsObject describes a nested bundle and the caller specified "?expand=true" on the request, then this contents array must be present and describe the objects within the nested bundle.
+          items:
+            example: {}
+      required:
+      - name
+    Checksum:
+      type: object
+      required:
+      - checksum
+      properties:
+        checksum:
+          type: string
+          description: The hex-string encoded checksum for the Data.
+        type:
+          type: string
+          description: 'The digest method used to create the checksum. If left unspecified md5
+
+            will be assumed.
+
+            possible values:
+
+            md5                # most blob stores provide a checksum using this
+
+            multipart-md5      # multipart uploads provide a specialized tag in S3
+
+            sha256
+
+            sha512'
+    ListDrsObject:
+      type: object
+      properties:
+        drs_objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrsObject'
     DrsObject:
       type: object
       required:
@@ -179,36 +235,16 @@ components:
           items:
             type: string
           description: A list of strings that can be used to find other metadata about this DrsObject from external metadata sources. These aliases can be used to represent secondary accession numbers or external GUIDs.
-    ContentsObject:
+    Error:
+      description: An object that can optionally include information about the error.
       type: object
       properties:
-        name:
+        msg:
           type: string
-          description: A name declared by the bundle author that must be used when materialising this object, overriding any name directly associated with the object itself. The name must be unique with the containing bundle. This string is made up of uppercase and lowercase letters, decimal digits, hypen, period, and underscore [A-Za-z0-9.-_]. See http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_282[portable filenames].
-        id:
-          type: string
-          description: A DRS identifier of a DrsObject (either a single blob or a nested bundle). If this ContentsObject is an object within a nested bundle, then the id is optional. Otherwise, the id is required.
-        drs_uri:
-          type: array
-          description: A list of full DRS identifier URI paths that may be used to obtain the object. These URIs may be external to this DRS instance.
-          example: drs://drs.example.org/314159
-          items:
-            type: string
-        contents:
-          type: array
-          description: If this ContentsObject describes a nested bundle and the caller specified "?expand=true" on the request, then this contents array must be present and describe the objects within the nested bundle.
-          items:
-            example: {}
-      required:
-      - name
-    AccessURL:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          description: A fully resolvable URL that can be used to fetch the actual object bytes.
+          description: A detailed error message.
+        status_code:
+          type: integer
+          description: The integer representing the HTTP status code (e.g. 200, 404).
     AccessMethod:
       type: object
       required:
@@ -236,52 +272,19 @@ components:
           type: string
           description: Name of the region in the cloud service provider that the object belongs to.
           example: us-east-1
-    Checksum:
+    AccessURL:
       type: object
       required:
-      - checksum
+      - url
       properties:
-        checksum:
+        url:
           type: string
-          description: The hex-string encoded checksum for the Data.
-        type:
-          type: string
-          description: 'The digest method used to create the checksum. If left unspecified md5
-
-            will be assumed.
-
-            possible values:
-
-            md5                # most blob stores provide a checksum using this
-
-            multipart-md5      # multipart uploads provide a specialized tag in S3
-
-            sha256
-
-            sha512'
-    Error:
-      description: An object that can optionally include information about the error.
-      type: object
-      properties:
-        msg:
-          type: string
-          description: A detailed error message.
-        status_code:
-          type: integer
-          description: The integer representing the HTTP status code (e.g. 200, 404).
-    ListDrsObject:
-      type: object
-      properties:
-        drs_objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/DrsObject'
+          description: A fully resolvable URL that can be used to fetch the actual object bytes.
   securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access
+    basic_auth:
+      type: http
+      scheme: basic
+    authToken:
+      type: apiKey
+      in: header
+      name: Authorization

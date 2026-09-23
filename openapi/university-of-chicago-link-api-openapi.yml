@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user link API
+  title: Fence OpenAPI Specification Link API
   version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Access management for Gen3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,15 +10,19 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: link
+- name: Link
   description: Link access identities
 paths:
   /link/google:
     get:
       tags:
-      - link
+      - Link
       summary: Link Google identity to user
       parameters:
       - name: redirect
@@ -33,14 +37,22 @@ paths:
         description: the time (in seconds) during which the Google account has bucket access. Must be less than the configured maximum (default is 24 hours). If it's greater, the configured maximum will be used.
         schema:
           type: integer
-      description: "Link a Google identity to a User (AuthN using Google Oauth2 flow). Google identity will be associated with a user and added to a proxy group for that user. The user's proxy group will be given access to data via Google's IAM. `redirect` will be stored in the session to follow after linking.\n---\nIf AuthN is successful with Google, eventually will redirect to `/link/google/callback`, where the actual account linkage occur.\n> *See `/link/google/callback` endpoint for details about eventual\n   redirect with descriptive query params about success/failure.*\n"
+      description: 'Link a Google identity to a User (AuthN using Google Oauth2 flow). Google identity will be associated with a user and added to a proxy group for that user. The user''s proxy group will be given access to data via Google''s IAM. `redirect` will be stored in the session to follow after linking.
+
+        ---
+
+        If AuthN is successful with Google, eventually will redirect to `/link/google/callback`, where the actual account linkage occur.
+
+        > *See `/link/google/callback` endpoint for details about eventual
+
+        redirect with descriptive query params about success/failure.*'
       operationId: linkCloudIdentityStart2
       responses:
         '302':
           description: redirect to Oauth2 flow with Google to AuthN user
     patch:
       tags:
-      - link
+      - Link
       summary: Extend Google identity's access expiration
       parameters:
       - name: expires_in
@@ -62,7 +74,7 @@ paths:
           description: No linked Google account found for user
     delete:
       tags:
-      - link
+      - Link
       summary: Unlink a Google identity from a user
       description: Remove link between a user and a Google identity.
       operationId: unlinkCloudIdentity
@@ -84,9 +96,55 @@ paths:
   /link/google/callback:
     get:
       tags:
-      - link
+      - Link
       summary: Google's callback for linking Google identity
-      description: "Linking of Google identity to user after successful Oauth2 flow with Google. Use code to retrieve user info from Google.\nWill return to session stored redirect.\nResponse will contain query params about the new linkage (`exp` or `linked_email`) or error params (`error` and `error_description`) detailing what went wrong.\n--- ---\nQuery Params on Successful Linking\n\n  * `exp`\n    * Expiration time in unix time (seconds since last epoch).\n      This represents when the newly linked account's temporary access\n      rights will be removed\n  * `linked_email`\n    * Google account email that was linked to the user and provided\n      temporary access\n\n---\nPossible Error Types (for `error` param)\n\n  * `g_acnt_link_error`\n    * Issue with the linkage between User and their Google account\n  * `g_acnt_auth_failure`\n    * Issue with Oauth2 flow to AuthN user's Google account\n  * `g_acnt_access_error`\n    * Issue with providing access to Google account by putting in\n      user's proxy group\n\nFor details about the error, check the `error_description` param.\n"
+      description: 'Linking of Google identity to user after successful Oauth2 flow with Google. Use code to retrieve user info from Google.
+
+        Will return to session stored redirect.
+
+        Response will contain query params about the new linkage (`exp` or `linked_email`) or error params (`error` and `error_description`) detailing what went wrong.
+
+        --- ---
+
+        Query Params on Successful Linking
+
+
+        * `exp`
+
+        * Expiration time in unix time (seconds since last epoch).
+
+        This represents when the newly linked account''s temporary access
+
+        rights will be removed
+
+        * `linked_email`
+
+        * Google account email that was linked to the user and provided
+
+        temporary access
+
+
+        ---
+
+        Possible Error Types (for `error` param)
+
+
+        * `g_acnt_link_error`
+
+        * Issue with the linkage between User and their Google account
+
+        * `g_acnt_auth_failure`
+
+        * Issue with Oauth2 flow to AuthN user''s Google account
+
+        * `g_acnt_access_error`
+
+        * Issue with providing access to Google account by putting in
+
+        user''s proxy group
+
+
+        For details about the error, check the `error_description` param.'
       parameters:
       - name: code
         required: true
@@ -100,6 +158,14 @@ paths:
           description: redirect to session-stored redirect value
 components:
   schemas:
+    LinkedGoogleEmailExpiration:
+      type: object
+      properties:
+        exp:
+          type: integer
+          description: expiration of linked email's access (e.g. expiration until it is removed from the user's Google Proxy Group)
+      example:
+        exp: 1526653869
     GoogleLinkingError:
       type: object
       properties:
@@ -112,14 +178,6 @@ components:
       example:
         error: error_name
         error_description: A description of what caused the error
-    LinkedGoogleEmailExpiration:
-      type: object
-      properties:
-        exp:
-          type: integer
-          description: expiration of linked email's access (e.g. expiration until it is removed from the user's Google Proxy Group)
-      example:
-        exp: 1526653869
   securitySchemes:
     OAuth2:
       type: oauth2

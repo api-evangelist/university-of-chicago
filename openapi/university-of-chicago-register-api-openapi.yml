@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user register API
+  title: Fence OpenAPI Specification Register API
   version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Access management for Gen3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,14 +10,18 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: register
+- name: Register
 paths:
   /user/register:
     get:
       tags:
-      - register
+      - Register
       summary: Register in order to get access to download data
       description: This register functionality enables a registration page for users to provide basic information before being added to a preconfigured group. The GET request will redirect to a HTML page where users can provide their first name, last name, organization, and email, in order to gain some predefined permissions (i.e. to be automatically added to a preconfigured Arborist group).
       responses:
@@ -27,6 +31,8 @@ paths:
             text/markdown:
               schema:
                 $ref: '#/components/schemas/RegisterUser'
+      operationId: getUserRegister
+      x-operation-id-source: derived
 components:
   schemas:
     RegisterUser:

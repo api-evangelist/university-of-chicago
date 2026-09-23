@@ -1,24 +1,28 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user system API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
-  termsOfService: http://cdis.uchicago.edu/terms/
+  title: University Of Chicago System API
   contact:
     email: cdis@uchicago.edu
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://cdis.uchicago.edu/terms/
+  version: '1.0'
+  description: 'Operations tagged system across 4 of this provider''s published API definitions: university-of-chicago-fence.yaml, university-of-chicago-indexd.yaml, university-of-chicago-peregrine.yaml, university-of-chicago-sheepdog.yaml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: system
+- name: System
   description: System endpoints
 paths:
   /_status:
     get:
       tags:
-      - system
+      - System
       summary: Returns if Fence is healthy or not
       description: Health check endpoint
       produces:
@@ -28,10 +32,18 @@ paths:
           description: Healthy
         default:
           description: Unhealthy
+      operationId: getStatus
+      x-operation-id-source: derived
+    servers:
+    - url: https://gen3.datacommons.io/
+      description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+      x-operator: institution
+      x-verified: '2026-08-19'
+      x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
   /_version:
     get:
       tags:
-      - system
+      - System
       summary: Returns the version of Fence
       produces:
       - application/json
@@ -40,19 +52,35 @@ paths:
           description: successful operation
           schema:
             $ref: '#/definitions/SystemVersionOutputRef'
+      operationId: getVersion
+      x-operation-id-source: derived
+    servers:
+    - url: https://gen3.datacommons.io/
+      description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+      x-operator: institution
+      x-verified: '2026-08-19'
+      x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
   /metrics:
     get:
       tags:
-      - system
+      - System
       summary: Get Prometheus metrics
       description: Returns Prometheus metrics if the `ENABLE_PROMETHEUS_METRICS` setting is `True`. By default, this endpoint is public. Authorization controls can be setup externally; in cloud-automation setups, access to this endpoint is blocked at the revproxy level.
       responses:
         '200':
           description: successful operation
+      operationId: getMetrics
+      x-operation-id-source: derived
+    servers:
+    - url: https://gen3.datacommons.io/
+      description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+      x-operator: institution
+      x-verified: '2026-08-19'
+      x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
   /_dist:
     get:
       tags:
-      - system
+      - System
       summary: Returns the IndexD dist configuration
       responses:
         '200':
@@ -78,10 +106,18 @@ paths:
                     type:
                       type: string
                       description: Type of resolver (one of [indexd, doi, dos, hs])
+      operationId: getDist
+      x-operation-id-source: derived
+    servers:
+    - url: https://gen3.datacommons.io/
+      description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+      x-operator: institution
+      x-verified: '2026-08-19'
+      x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
   /_stats:
     get:
       tags:
-      - system
+      - System
       summary: Returns basic information about the records in IndexD
       parameters:
       - in: query
@@ -103,6 +139,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SystemStatsOutputRef'
+      operationId: getStats
+      x-operation-id-source: derived
+    servers:
+    - url: https://gen3.datacommons.io/
+      description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+      x-operator: institution
+      x-verified: '2026-08-19'
+      x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 components:
   schemas:
     SystemStatsOutputRef:
@@ -114,6 +158,34 @@ components:
         totalFileSize:
           type: integer
           description: the accumulated size of the object files recorded in IndexD
+    SystemVersionOutputRef:
+      type: object
+      properties:
+        commit:
+          type: string
+          description: the current git commit hash for this version
+        version:
+          type: string
+          description: the current git tag version
+    VersionOutputRef:
+      type: object
+      properties:
+        commit:
+          type: string
+          description: the current git commit hash for this version
+        version:
+          type: string
+          description: the current git tag version
+        dictionary:
+          type: object
+          description: the version information for the data dictionary
+          properties:
+            commit:
+              type: string
+              description: the current git commit hash for the dictionary
+            version:
+              type: string
+              description: the current git tag version for the dictionary
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -123,3 +195,15 @@ components:
           tokenUrl: /oauth/token
           scopes:
             user: generic user access
+    basic_auth:
+      type: http
+      scheme: basic
+    authToken:
+      type: apiKey
+      in: header
+      name: Authorization
+x-refined-from:
+- university-of-chicago-fence.yaml
+- university-of-chicago-indexd.yaml
+- university-of-chicago-peregrine.yaml
+- university-of-chicago-sheepdog.yaml

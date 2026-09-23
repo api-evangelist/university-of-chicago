@@ -1,0 +1,82 @@
+name: University of Chicago — Gen3 API Error Responses
+aid: university-of-chicago
+description: >-
+  HTTP error semantics declared across the 37 refined OpenAPI documents for the Gen3 platform
+  authored by the University of Chicago Center for Translational Data Science (CTDS) — Fence
+  (authentication and authorization), indexd (data indexing), sheepdog (submission) and peregrine
+  (query). Derived by reading the response blocks of the contracts themselves; no error taxonomy was
+  invented and none was fetched from a live commons.
+generated: '2026-08-19'
+method: derived
+source: >-
+  all/university-of-chicago/openapi/*.yml — 37 refined OpenAPI 3.0 documents split from the four
+  upstream Gen3 service specifications in openapi/_original/ (fence, indexd, sheepdog, peregrine).
+operator: institution
+observed_status_codes:
+- code: 400
+  count: 68
+  meaning: Bad request — malformed body, invalid input, or invalid request parameters.
+  representative_descriptions:
+  - Bad Request
+  - Invalid input
+  - The request is malformed.
+  - At least one entity was invalid.
+- code: 401
+  count: 11
+  meaning: Unauthenticated — no valid bearer token, API key or basic credential presented.
+  representative_descriptions:
+  - The request is unauthorized.
+  - unauthorized request
+- code: 403
+  count: 66
+  meaning: >-
+    Authenticated but not authorized. Gen3 separates authentication (Fence) from authorization
+    (Arborist policy on /programs/... and /projects/... resource paths), so a 403 is the normal
+    signal that a token is valid but lacks the project-scoped policy.
+  representative_descriptions:
+  - Unauthorized request.
+  - The requester is not authorized to perform this action.
+  - Invalid authorization token
+- code: 404
+  count: 86
+  meaning: Resource not found — GUID, entity, program, project or file does not exist.
+  representative_descriptions:
+  - Resource not found.
+  - File not found.
+  - GUID not found.
+  - Entity not found.
+  - Program not found.
+- code: 405
+  count: 10
+  meaning: Method not allowed on this path.
+  representative_descriptions:
+  - Method Not Allowed.
+- code: 500
+  count: 5
+  meaning: Unhandled server-side failure.
+  representative_descriptions:
+  - An unexpected error occurred.
+notes:
+- >-
+  The contracts document status codes and human-readable descriptions but do NOT declare a machine
+  readable error body schema (no RFC 7807 / RFC 9457 problem+json media type appears anywhere in the
+  37 documents). Live probes of the CTDS reference commons return ad-hoc JSON error shapes instead —
+  {"error":"no record found"} from indexd, and a distinct {"error":..,"detailedError":..} shape from
+  the OCHRE service on a different host. There is no single error envelope across the estate.
+- >-
+  Probed error behaviour is honest: a nonsense identifier returns a real 404 with a real error body
+  on every institution-operated host tested (indexd, InvenioRDM, Shibboleth, IIIF collection). None
+  of these hosts soft-404s. The one exception is iiif-manifest.lib.uchicago.edu, which returns
+  HTTP 200 with the body "The requested resource is unavailable." for every path including valid
+  ARKs — recorded in x-coverage as a dead surface.
+probe_evidence:
+- url: https://gen3.datacommons.io/index/zzz-nonsense-xyz
+  status: 404
+  body: '{"error":"no record found"}'
+- url: https://knowledge.uchicago.edu/api/records/zzz-nonsense-xyz
+  status: 404
+  body: '{"status": 404, "message": "The persistent identifier does not exist."}'
+- url: https://iiif-manifest.lib.uchicago.edu/ark:61001/b2p35sm3m743
+  status: 200
+  body: The requested resource is unavailable. Please consult node@lib.uchicago.edu for further information
+  finding: soft-404 — HTTP 200 carrying an error body

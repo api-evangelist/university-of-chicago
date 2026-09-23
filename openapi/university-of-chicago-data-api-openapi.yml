@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user data API
+  title: Fence OpenAPI Specification Data API
   version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Access management for Gen3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,15 +10,19 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: data
+- name: Data
   description: Generate signed URLs
 paths:
   /data/{file_id}:
     delete:
       tags:
-      - data
+      - Data
       summary: delete all locations of a stored data file and remove its record from indexd
       description: After a user uploads a data file and it is registered in indexd (before or after it is mapped into the graph via metadata submission), this endpoint will delete the file from its storage locations (saved in the record in indexd) and delete the record in indexd.
       security:
@@ -30,10 +34,12 @@ paths:
         500:
           description: internal server error; could not delete stored files, or not able to delete indexd record
           content-type: application/json
+      operationId: deleteDataByFileId
+      x-operation-id-source: derived
   /data/download/{file_id}:
     get:
       tags:
-      - data
+      - Data
       summary: Create a signed URL for data download given a file_id
       description: Allow users to get a signed URL for a data file.
       security:
@@ -94,7 +100,7 @@ paths:
           description: No location found for this file
   /ga4gh/drs/v1/objects/{object_id}/access/{access_id}:
     get:
-      summary: GA4GH DRS Access API to get a URL for fetching bytes.
+      summary: GA4GH DRS Access API to get a URL for fetching bytes
       description: Returns a URL that can be used to fetch the bytes of a DrsObject. This method only needs to be called when using an AccessMethod that contains an access_id (e.g., for servers that use signed URLs for fetching object bytes).
       operationId: GetAccessURL
       responses:
@@ -128,9 +134,9 @@ paths:
         required: true
         description: An access_id from the access_methods list of a DrsObject
       tags:
-      - data
+      - Data
     post:
-      summary: GA4GH DRS Access API to get a URL for fetching bytes.
+      summary: GA4GH DRS Access API to get a URL for fetching bytes
       description: Returns a URL that can be used to fetch the bytes of a DrsObject. This method only needs to be called when using an AccessMethod that contains an access_id (e.g., for servers that use signed URLs for fetching object bytes).
       operationId: PostAccessURL
       requestBody:
@@ -169,13 +175,13 @@ paths:
         required: true
         description: An access_id from the access_methods list of a DrsObject
       tags:
-      - data
+      - Data
   /data/upload:
     post:
       tags:
-      - data
-      summary: Create a new blank record in indexd to use for uploading a data file less than 5GB. For files larger than 5GB, please use multipart upload presigned url
-      description: 'This is the first step on the API side for the data upload flow.  This
+      - Data
+      summary: Create a new blank record in indexd to use for uploading a data file less than…
+      description: 'This is the first step on the API side for the data upload flow. This
 
         endpoint causes fence to make a request to indexd to create a new, blank
 
@@ -214,9 +220,7 @@ paths:
         endpoint will check for that permission for your user.
 
 
-        Accepts a "guid" field in the request body. If "guid" is provided, it checks indexd for an existing record. If not found, it raises a 404.
-
-        '
+        Accepts a "guid" field in the request body. If "guid" is provided, it checks indexd for an existing record. If not found, it raises a 404.'
       security:
       - OAuth2:
         - user
@@ -246,7 +250,7 @@ paths:
   /data/upload/{file_id}:
     get:
       tags:
-      - data
+      - Data
       summary: Create a signed URL for data upload specified by file_id
       description: Allow users to get a signed URL to upload data given the location of preference.
       security:
@@ -299,8 +303,8 @@ paths:
   /multipart/init:
     post:
       tags:
-      - data
-      summary: Initilize a multipart upload for AWS bucket. It returns an uploadId which can be used for uploading object parts (see /multipart/upload) and completing the upload (see /multipart/complete)
+      - Data
+      summary: Initilize a multipart upload for AWS bucket.
       description: 'For uploading the big file with the size is larger than 5GB in data upload flow, Fence needs to provide a list of endpoints for supporting multipart upload presigned url This is the first step on the API side for the multipart upload presigned url. This endpoint causes fence to make a request to indexd to create a new, blank index record, and returns the GUID for this new record and an uploadId for multipart upload presigned url.
 
 
@@ -334,7 +338,7 @@ paths:
   /multipart/upload:
     post:
       tags:
-      - data
+      - Data
       summary: Upload an object part given uploadId
       description: This is the second step on the API side for the multipart upload presigned url. The object is chopped into multiple parts with part number start from 1. Each part is submitted to the cloud resource with this endpoint by providing the part number a long with uploadId. It is worth to mention that the minimal supported part size is 5 MB as describe in https://docs.aws.amazon.com/AmazonS3/latest/dev/qfacts.html
       security:
@@ -361,7 +365,7 @@ paths:
   /multipart/complete:
     post:
       tags:
-      - data
+      - Data
       summary: Complete aws multipart upload
       description: This is the last step for the multipart upload presigned url. All the parts which were submitted need to be combined together. This enpoint takes a list of the part info (partNumber, Etag) and uploadId in order to finish the upload
       security:
@@ -380,7 +384,7 @@ paths:
   /data/buckets:
     get:
       tags:
-      - data
+      - Data
       summary: Get list of buckets and relevant bucket info
       description: Returns a list of buckets and relevant bucket information provided in the fence-config under AWS_BUCKETS and GS_BUCKETS. It filters out sensitive information about the bucket and only shows information like bucket region.
       operationId: getBuckets
@@ -393,6 +397,89 @@ paths:
                 $ref: '#/components/schemas/BucketInfo'
 components:
   schemas:
+    RequestUrlPassport:
+      type: object
+      required: true
+      properties:
+        passports:
+          type: array
+          items:
+            type: string
+          required: true
+          description: The list of GA4GH passports containing the authorizations for a given user to access the requested file. NOTE - the key "passports" is configurable in fence via the GA4GH_DRS_POSTED_PASSPORT_FIELD field. The default of "passports" has been provided.
+    SignedURL:
+      type: object
+      properties:
+        url:
+          type: string
+          description: the signed url issued to
+    InitMultipartUpload:
+      type: object
+      required: null
+      properties:
+        file_name:
+          type: string
+          required: true
+          description: the file name to use for this upload
+        guid:
+          type: string
+          required: false
+          description: GUID to be assigned to the object
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        authz:
+          type: array
+          items:
+            type: string
+          description: requested authorization resources to be set on the resulting indexed record. You must have proper authorization to set this
+        bucket:
+          type: string
+          required: false
+          description: bucket to upload to
+      example:
+        file_name: my_file.bam
+        expires_in: 1200
+        authz:
+        - /programs/A
+        bucket: bucket-1
+    CompleteMultipartUpload:
+      type: object
+      required: null
+      properties:
+        key:
+          type: string
+          description: the key of the object in the format of GUID/filename
+        uploadId:
+          type: string
+          description: the uploadId for multipart presigned URL upload usable for data upload
+        parts:
+          type: array
+          items:
+            type: object
+            properties:
+              partNumber:
+                type: integer
+                description: The part number
+              ETag:
+                type: string
+                description: the etag that cooresponds to the the object part with the partnumber
+          description: List of part numbers info needed for multipart completion
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        bucket:
+          type: string
+          required: false
+          description: bucket to upload to
+    AccessURL:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          description: A fully resolvable URL that can be used to fetch the actual object bytes.
     RequestUploadBlank:
       type: object
       required: null
@@ -455,59 +542,6 @@ components:
               properties:
                 region:
                   type: string
-    AccessURL:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          description: A fully resolvable URL that can be used to fetch the actual object bytes.
-    RequestUrlPassport:
-      type: object
-      required: true
-      properties:
-        passports:
-          type: array
-          items:
-            type: string
-          required: true
-          description: The list of GA4GH passports containing the authorizations for a given user to access the requested file. NOTE - the key "passports" is configurable in fence via the GA4GH_DRS_POSTED_PASSPORT_FIELD field. The default of "passports" has been provided.
-    SignedURL:
-      type: object
-      properties:
-        url:
-          type: string
-          description: the signed url issued to
-    CompleteMultipartUpload:
-      type: object
-      required: null
-      properties:
-        key:
-          type: string
-          description: the key of the object in the format of GUID/filename
-        uploadId:
-          type: string
-          description: the uploadId for multipart presigned URL upload usable for data upload
-        parts:
-          type: array
-          items:
-            type: object
-            properties:
-              partNumber:
-                type: integer
-                description: The part number
-              ETag:
-                type: string
-                description: the etag that cooresponds to the the object part with the partnumber
-          description: List of part numbers info needed for multipart completion
-        expires_in:
-          type: integer
-          description: optional integer specifying the presigned URL lifetime
-        bucket:
-          type: string
-          required: false
-          description: bucket to upload to
     RequestMultipartUpload:
       type: object
       required: null
@@ -528,36 +562,6 @@ components:
           type: string
           required: false
           description: bucket to upload\ to
-    InitMultipartUpload:
-      type: object
-      required: null
-      properties:
-        file_name:
-          type: string
-          required: true
-          description: the file name to use for this upload
-        guid:
-          type: string
-          required: false
-          description: GUID to be assigned to the object
-        expires_in:
-          type: integer
-          description: optional integer specifying the presigned URL lifetime
-        authz:
-          type: array
-          items:
-            type: string
-          description: requested authorization resources to be set on the resulting indexed record. You must have proper authorization to set this
-        bucket:
-          type: string
-          required: false
-          description: bucket to upload to
-      example:
-        file_name: my_file.bam
-        expires_in: 1200
-        authz:
-        - /programs/A
-        bucket: bucket-1
   securitySchemes:
     OAuth2:
       type: oauth2

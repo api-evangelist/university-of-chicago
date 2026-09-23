@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Knowledge@UChicago Repository Communities API
   version: '13.1'
-  description: 'Read API for Knowledge@UChicago, the University of Chicago''s institutional repository, running self-hosted InvenioRDM 13.1 on the institution''s own domain. PROVENANCE: the University does not publish an OpenAPI description for this surface. This document was DERIVED by API Evangelist from live probe responses on 2026-08-19 — it describes observed behaviour, not a contract the institution authored, and must not be read as one. Write, draft and file-upload operations exist in InvenioRDM but require authentication and were not probed; they are deliberately absent here rather than guessed.'
+  description: Read API for Knowledge@UChicago, the University of Chicago's institutional repository, running self-hosted InvenioRDM 13.1 on the institution's own domain.
   contact:
     name: Knowledge@UChicago
     email: info@knowledge.uchicago.edu
@@ -22,13 +22,13 @@ servers:
   x-operator: institution
   x-verified: '2026-08-19'
 tags:
-- name: communities
+- name: Communities
   description: Repository communities (collections).
 paths:
   /communities:
     get:
       tags:
-      - communities
+      - Communities
       summary: Search communities
       description: Returns a paged hit list of repository communities. Verified live 2026-08-19.
       operationId: searchCommunities

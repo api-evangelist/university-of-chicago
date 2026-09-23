@@ -1,18 +1,22 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user entity API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
-  termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
+  description: A data submission API for CDIS Gen 3 data commons. Code is available on GitHub.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://cdis.uchicago.edu/terms/
+  title: Sheepdog OpenAPI Specification Entity API
+  version: '1.0'
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: entity
+- name: Entity
 paths:
   /v0/submission/<program>/<project>:
     post:
@@ -44,13 +48,15 @@ paths:
           description: Resource not found.
       summary: Create entities
       tags:
-      - entity
+      - Entity
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity'
         description: input body
+      operationId: postV0Submission<program><project>
+      x-operation-id-source: derived
     put:
       description: Create or update any valid entities specified in the request body. To associate an entity with an existing, already indexed data file, specify the `object_id` in the body of the entity.
       parameters:
@@ -80,13 +86,15 @@ paths:
           description: Resource not found.
       summary: Update entities
       tags:
-      - entity
+      - Entity
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity'
         description: input body
+      operationId: putV0Submission<program><project>
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/bulk:
     post:
       description: Handle bulk transaction instead of single transaction.
@@ -112,13 +120,15 @@ paths:
           description: Resource not found.
       summary: Create entities in bulk
       tags:
-      - entity
+      - Entity
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity_bulk'
         description: input body
+      operationId: postV0Submission<program><project>Bulk
+      x-operation-id-source: derived
     put:
       description: Handle bulk transaction instead of single transaction.
       parameters:
@@ -143,13 +153,15 @@ paths:
           description: Resource not found.
       summary: Update entities in bulk
       tags:
-      - entity
+      - Entity
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_entity_bulk'
         description: input body
+      operationId: putV0Submission<program><project>Bulk
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/entities/<entity_id_string>:
     get:
       description: Retrieve existing entities by ID. The return type of a HTTP `get` on this endpoint is a JSON array containing JSON object elements, each corresponding to a provided ID. Return results are unordered. If any ID is not found in the database, a status code of 404 is returned with the missing IDs.
@@ -187,7 +199,9 @@ paths:
           description: Entity not found.
       summary: Get entities by ID
       tags:
-      - entity
+      - Entity
+      operationId: getV0Submission<program><project>Entities<entityIdString>
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/entities/<ids>:
     delete:
       description: Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond with at least one entity that must be deleted prior to deleting the target entity.
@@ -226,7 +240,9 @@ paths:
           description: Entity not found.
       summary: Delete entities
       tags:
-      - entity
+      - Entity
+      operationId: deleteV0Submission<program><project>Entities<ids>
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/xml/biospecimen/bcr:
     put:
       description: The entities stored in BRC XML are converted to JSON before being updated.
@@ -252,7 +268,7 @@ paths:
           description: Resource not found.
       summary: Update Biospecimen Supplement entities
       tags:
-      - entity
+      - Entity
       requestBody:
         content:
           multipart/form-data:
@@ -264,6 +280,8 @@ paths:
                   format: binary
               required:
               - file
+      operationId: putV0Submission<program><project>XmlBiospecimenBcr
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/xml/clinical/bcr:
     put:
       description: The entities stored in BRC XML are converted to JSON before being updated.
@@ -289,7 +307,7 @@ paths:
           description: Resource not found.
       summary: Update Clinical Supplement entities
       tags:
-      - entity
+      - Entity
       requestBody:
         content:
           multipart/form-data:
@@ -301,6 +319,8 @@ paths:
                   format: binary
               required:
               - file
+      operationId: putV0Submission<program><project>XmlClinicalBcr
+      x-operation-id-source: derived
   /v0/submission/admin/<program>/<project>/entities/<ids>/to_delete/<to_delete>:
     delete:
       description: Delete existing entities. Using the :http:method:`delete` on a project's endpoint will *completely delete* an entity. The Gen3 commons does not allow deletions or creations that would leave nodes without parents, i.e. nodes that do not have an entity from which they were derived. To prevent catastrophic mistakes, the current philosophy is to disallow automatic cascading of deletes. However, to inform a user which entities must be deleted for the target entity to be deleted, the API will respond with at least one entity that must be deleted prior to deleting the target entity.
@@ -339,7 +359,9 @@ paths:
           description: Entity not found.
       summary: Delete entities
       tags:
-      - entity
+      - Entity
+      operationId: deleteV0SubmissionAdmin<program><project>Entities<ids>ToDelete<toDelete>
+      x-operation-id-source: derived
 components:
   schemas:
     schema_entity_bulk:
@@ -355,10 +377,6 @@ components:
       - doc_format
       - doc
       type: object
-    schema_entity_list:
-      items:
-        $ref: '#/components/schemas/schema_entity'
-      type: array
     schema_entity:
       properties:
         '...fields specific to this entity':
@@ -366,12 +384,7 @@ components:
         type:
           type: string
       type: object
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access
+    schema_entity_list:
+      items:
+        $ref: '#/components/schemas/schema_entity'
+      type: array

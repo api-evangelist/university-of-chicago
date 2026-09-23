@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user API
+  title: Fence OpenAPI Specification Admin/user API
   version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Access management for Gen3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,14 +10,18 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: admin/user
+- name: Admin User
 paths:
   /admin/user/{username}:
     get:
       tags:
-      - admin/user
+      - Admin User
       summary: Return info about a given user
       description: Admin method to retrieve info about any given user
       parameters:
@@ -43,7 +47,7 @@ paths:
   /admin/user/{username}/soft:
     delete:
       tags:
-      - admin/user
+      - Admin User
       summary: Soft-delete user
       description: Admin method to soft-delete a user, setting the user to inactive
       security:
@@ -65,7 +69,7 @@ paths:
   /admin/user/{username}/reactivate:
     post:
       tags:
-      - admin/user
+      - Admin User
       summary: Reactivate a soft-deleted user
       description: Admin method to reactivate a soft-deleted user, setting the user back to active
       security:
@@ -87,7 +91,7 @@ paths:
   /admin/user:
     post:
       tags:
-      - admin/user
+      - Admin User
       summary: Add a new user
       description: Admin method to add a new user
       security:

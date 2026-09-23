@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user DOS API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Indexd is a data indexing and tracking service. The code is open source on github
+  version: 1.0.0
+  title: Indexd OpenAPI Specification DOS API
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,7 +10,11 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
 - name: DOS
   description: Data Object Service Retrieval Endpoints
@@ -161,6 +165,39 @@ paths:
       - DOS
 components:
   schemas:
+    ErrorResponse:
+      description: An object that can optionally include information about the error.
+      type: object
+      properties:
+        msg:
+          type: string
+          description: A detailed error message.
+        status_code:
+          type: integer
+          description: The integer representing the HTTP status code (e.g. 200, 404).
+    Checksum:
+      type: object
+      required:
+      - checksum
+      properties:
+        checksum:
+          type: string
+          description: The hex-string encoded checksum for the Data.
+        type:
+          type: string
+          description: 'The digest method used to create the checksum. If left unspecified md5
+
+            will be assumed.
+
+            possible values:
+
+            md5                # most blob stores provide a checksum using this
+
+            multipart-md5      # multipart uploads provide a specialized tag in S3
+
+            sha256
+
+            sha512'
     SystemMetadata:
       type: object
       additionalProperties: true
@@ -187,6 +224,12 @@ components:
       description: 'A list of Data Objects matching the requested parameters, and a paging
 
         token, that can be used to retrieve more results.'
+    UserMetadata:
+      type: object
+      additionalProperties: true
+      description: 'OPTIONAL
+
+        A set of key-value pairs that represent metadata provided by the uploader.'
     URL:
       type: object
       required:
@@ -199,45 +242,13 @@ components:
           $ref: '#/components/schemas/SystemMetadata'
         user_metadata:
           $ref: '#/components/schemas/UserMetadata'
-    UserMetadata:
-      type: object
-      additionalProperties: true
-      description: 'OPTIONAL
-
-        A set of key-value pairs that represent metadata provided by the uploader.'
-    Checksum:
+    GetDataObjectResponse:
       type: object
       required:
-      - checksum
+      - data_object
       properties:
-        checksum:
-          type: string
-          description: The hex-string encoded checksum for the Data.
-        type:
-          type: string
-          description: 'The digest method used to create the checksum. If left unspecified md5
-
-            will be assumed.
-
-            possible values:
-
-            md5                # most blob stores provide a checksum using this
-
-            multipart-md5      # multipart uploads provide a specialized tag in S3
-
-            sha256
-
-            sha512'
-    ErrorResponse:
-      description: An object that can optionally include information about the error.
-      type: object
-      properties:
-        msg:
-          type: string
-          description: A detailed error message.
-        status_code:
-          type: integer
-          description: The integer representing the HTTP status code (e.g. 200, 404).
+        data_object:
+          $ref: '#/components/schemas/DataObject'
     DataObject:
       type: object
       required:
@@ -298,19 +309,11 @@ components:
             a directory (e.g. "bucket/folder/file.name") to make Data Objects
 
             more discoverable. They might also be used to represent'
-    GetDataObjectResponse:
-      type: object
-      required:
-      - data_object
-      properties:
-        data_object:
-          $ref: '#/components/schemas/DataObject'
   securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access
+    basic_auth:
+      type: http
+      scheme: basic
+    authToken:
+      type: apiKey
+      in: header
+      name: Authorization

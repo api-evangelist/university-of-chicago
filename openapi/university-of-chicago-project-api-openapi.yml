@@ -1,18 +1,22 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user project API
-  version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
-  termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
+  description: A data submission API for CDIS Gen 3 data commons. Code is available on GitHub.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://cdis.uchicago.edu/terms/
+  title: Sheepdog OpenAPI Specification Project API
+  version: '1.0'
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: project
+- name: Project
 paths:
   /v0/submission/<program>:
     get:
@@ -37,7 +41,9 @@ paths:
           description: Program not found.
       summary: Get the projects
       tags:
-      - project
+      - Project
+      operationId: getV0Submission<program>
+      x-operation-id-source: derived
     patch:
       description: Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users.
       parameters:
@@ -58,13 +64,15 @@ paths:
           description: Program not found.
       summary: Create a project
       tags:
-      - project
+      - Project
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_project'
         description: input body
+      operationId: patchV0Submission<program>
+      x-operation-id-source: derived
     post:
       description: Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users.
       parameters:
@@ -85,13 +93,15 @@ paths:
           description: Program not found.
       summary: Create a project
       tags:
-      - project
+      - Project
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_project'
         description: input body
+      operationId: postV0Submission<program>
+      x-operation-id-source: derived
     put:
       description: Register a project. The content of the request is a JSON containing the information describing a project. Authorization for registering projects is limited to administrative users.
       parameters:
@@ -112,13 +122,15 @@ paths:
           description: Program not found.
       summary: Create a project
       tags:
-      - project
+      - Project
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/schema_project'
         description: input body
+      operationId: putV0Submission<program>
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>:
     delete:
       description: Delete project under a specific program
@@ -146,7 +158,9 @@ paths:
           description: Resource not found.
       summary: Delete a project
       tags:
-      - project
+      - Project
+      operationId: deleteV0Submission<program><project>
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/open:
     post:
       description: Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed.
@@ -172,7 +186,9 @@ paths:
           description: Resource not found.
       summary: Open a project
       tags:
-      - project
+      - Project
+      operationId: postV0Submission<program><project>Open
+      x-operation-id-source: derived
     put:
       description: Mark a project ``open``. Opening a project means uploads, deletions, etc. are allowed.
       parameters:
@@ -197,7 +213,9 @@ paths:
           description: Resource not found.
       summary: Open a project
       tags:
-      - project
+      - Project
+      operationId: putV0Submission<program><project>Open
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/release:
     post:
       description: Release a project.
@@ -223,7 +241,9 @@ paths:
           description: Resource not found.
       summary: Release a project
       tags:
-      - project
+      - Project
+      operationId: postV0Submission<program><project>Release
+      x-operation-id-source: derived
     put:
       description: Release a project.
       parameters:
@@ -248,7 +268,9 @@ paths:
           description: Resource not found.
       summary: Release a project
       tags:
-      - project
+      - Project
+      operationId: putV0Submission<program><project>Release
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/review:
     post:
       description: Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``.
@@ -274,7 +296,9 @@ paths:
           description: Resource not found.
       summary: Review a project
       tags:
-      - project
+      - Project
+      operationId: postV0Submission<program><project>Review
+      x-operation-id-source: derived
     put:
       description: Mark a project project for review. Reviewing a project means uploads are locked. An ``open`` or ``submit`` action must be taken after ``review``.
       parameters:
@@ -299,7 +323,9 @@ paths:
           description: Resource not found.
       summary: Review a project
       tags:
-      - project
+      - Project
+      operationId: putV0Submission<program><project>Review
+      x-operation-id-source: derived
   /v0/submission/<program>/<project>/submit:
     post:
       description: Submit a project.
@@ -325,7 +351,9 @@ paths:
           description: Resource not found.
       summary: Submit a project
       tags:
-      - project
+      - Project
+      operationId: postV0Submission<program><project>Submit
+      x-operation-id-source: derived
     put:
       description: Submit a project.
       parameters:
@@ -350,9 +378,20 @@ paths:
           description: Resource not found.
       summary: Submit a project
       tags:
-      - project
+      - Project
+      operationId: putV0Submission<program><project>Submit
+      x-operation-id-source: derived
 components:
   schemas:
+    schema_links:
+      properties:
+        links:
+          items:
+            type: string
+          type: array
+      required:
+      - links
+      type: object
     schema_project:
       properties:
         code:
@@ -369,21 +408,3 @@ components:
       - name
       - code
       type: object
-    schema_links:
-      properties:
-        links:
-          items:
-            type: string
-          type: array
-      required:
-      - links
-      type: object
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            user: generic user access

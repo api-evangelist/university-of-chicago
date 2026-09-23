@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user oauth2 API
+  title: Fence OpenAPI Specification Oauth2 API
   version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Access management for Gen3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,22 +10,26 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: oauth2
+- name: OAuth2
   description: Authorization and token management
 paths:
   /oauth2/authorize:
     get:
       tags:
-      - oauth2
+      - OAuth2
       summary: Perform OAuth2 authorization
       description: '**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
 
         simply because of its length and complexity.
 
 
-        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+        Please refer to the standard for complete details.
 
 
         Obtain an authorization grant through the OAuth2 protocol. To handle
@@ -34,9 +38,7 @@ paths:
 
         (through e.g. Google). Redirect user to `redirect_uri` with an added
 
-        `code` parameter obtained from the authorization provider.
-
-        '
+        `code` parameter obtained from the authorization provider.'
       operationId: authorize
       parameters:
       - name: client_id
@@ -105,14 +107,14 @@ paths:
           description: successful operation
     post:
       tags:
-      - oauth2
+      - OAuth2
       summary: Perform OAuth2 authorization
       description: '**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
 
         simply because of its length and complexity.
 
 
-        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+        Please refer to the standard for complete details.
 
 
         Obtain an authorization grant through the OAuth2 protocol. To handle
@@ -125,9 +127,7 @@ paths:
 
         not render a page for the user; this implementation checks the `confirm`
 
-        value in the request.
-
-        '
+        value in the request.'
       operationId: authorize_post
       responses:
         '200':
@@ -166,21 +166,19 @@ paths:
   /oauth2/token:
     post:
       tags:
-      - oauth2
-      summary: Exchange code for or refresh the access token.
+      - OAuth2
+      summary: Exchange code for or refresh the access token
       description: '**IMPORTANT NOTE**: These docs are provided as a courtesy but do _NOT_ include the entirety of the OIDC Standard
 
         simply because of its length and complexity.
 
 
-        Please [refer to the standard](https://openid.net/specs/openid-connect-core-1_0.html) for complete details.
+        Please refer to the standard for complete details.
 
 
         Exchange the `code` obtained from OAuth2 for an access token, or refresh
 
-        the access token using a refresh token.
-
-        '
+        the access token using a refresh token.'
       operationId: token
       responses:
         '200':
@@ -210,7 +208,7 @@ paths:
   /oauth2/revoke:
     post:
       tags:
-      - oauth2
+      - OAuth2
       summary: Revoke a refresh token per RFC 7009
       description: Revoke a refresh (not access) token granted to a user.
       operationId: revoke

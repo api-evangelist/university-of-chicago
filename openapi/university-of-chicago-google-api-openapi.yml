@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Fence OpenAPI Specification admin/user google API
+  title: Fence OpenAPI Specification Google API
   version: 0.1.0
-  description: Access management for Gen3 data commons. Code is available on [GitHub](https://github.com/uc-cdis/fence).
+  description: Access management for Gen3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
   contact:
     email: cdis@uchicago.edu
@@ -10,15 +10,19 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-- url: https://example.domain/
+- url: https://gen3.datacommons.io/
+  description: University of Chicago Center for Translational Data Science (CTDS) reference Gen3 data commons. Gen3 is deployable software authored by CTDS (github.com/uc-cdis), so the upstream specification ships a placeholder host; this is the base URL of the deployment CTDS itself operates. The datacommons.io domain is registered to CDIS, University of Chicago.
+  x-operator: institution
+  x-verified: '2026-08-19'
+  x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 tags:
-- name: google
+- name: Google
   description: Google functionality
 paths:
   /google/billing_projects/:
     get:
       tags:
-      - google
+      - Google
       summary: Get the configured default Google project for billing
       description: Get the configured default Google project identifiers that will be used for billing access to requester pays Google buckets. This effectively bills all access to the specified Project and *not* the end-user (may be a different project for different data access methods). If there is no configured default billing project, requests to Data Access Method endpoints will rely on a query parameter `userProject` for the end-user to specify a valid Google project that Fence has the necessary roles in to provide relevant service accounts the necessary access. Please see the README for more details.
       operationId: getGoogleBillingProjects
@@ -32,7 +36,7 @@ paths:
   /google/service_accounts/:
     post:
       tags:
-      - google
+      - Google
       summary: Register a Google Service Account
       description: Register a Google Cloud Project's service account to allow access to controlled data. If there are issues, will provide details for what went wrong.
       parameters:
@@ -65,7 +69,7 @@ paths:
         required: true
     get:
       tags:
-      - google
+      - Google
       summary: Get a list of Google Service Accounts
       description: 'Get a list of service accounts for the given Google Cloud Project IDs.
 
@@ -82,9 +86,7 @@ paths:
 
         will be `0` when the SA isn''t currently given access
 
-        (but can be provided access again with a `PATCH`).
-
-        '
+        (but can be provided access again with a `PATCH`).'
       parameters:
       - name: google_project_ids
         required: true
@@ -109,7 +111,7 @@ paths:
   /google/service_accounts/_dry_run:
     post:
       tags:
-      - google
+      - Google
       summary: Dry run to attempt to register a Google Service Account
       description: Attempt to register a service account WITHOUT actually doing so. Will provide detailed errors for what went wrong.
       parameters:
@@ -142,7 +144,7 @@ paths:
   /google/service_accounts/monitor:
     get:
       tags:
-      - google
+      - Google
       summary: Return the service account used for monitoring user's Google Cloud Projects
       description: 'This account is used to monitor and validate access to data
 
@@ -153,9 +155,7 @@ paths:
 
         Project for service account registration to succeed. If it is ever
 
-        removed, all access to data will be removed.
-
-        '
+        removed, all access to data will be removed.'
       operationId: adminGoogleServiceAccount
       responses:
         '404':
@@ -169,7 +169,7 @@ paths:
   /google/service_accounts/_dry_run/{id}:
     patch:
       tags:
-      - google
+      - Google
       summary: Dry run to attempt to update a Google Service Account
       description: 'Try to update a Google Cloud Project''s service account to change access to
 
@@ -197,9 +197,7 @@ paths:
 
         It will NOT extend previous data by provided values, it will FULLY
 
-        REPLACE the data with what''s provided.
-
-        '
+        REPLACE the data with what''s provided.'
       operationId: updateGoogleServiceAccountDryRun
       parameters:
       - in: path
@@ -240,7 +238,7 @@ paths:
   /google/service_accounts/{id}:
     delete:
       tags:
-      - google
+      - Google
       summary: Delete a specific Google Service Account
       description: Delete a service account and remove from access
       operationId: deleteSpecficGoogleServiceAccount
@@ -260,7 +258,7 @@ paths:
           description: unauthorized, user cannot delete this service account
     patch:
       tags:
-      - google
+      - Google
       summary: Update a Google Service Account
       description: 'Update a Google Cloud Project''s service account to change access to
 
@@ -288,9 +286,7 @@ paths:
 
         It will NOT extend previous data by provided values, it will FULLY
 
-        REPLACE the data with what''s provided.
-
-        '
+        REPLACE the data with what''s provided.'
       operationId: updateGoogleServiceAccount
       parameters:
       - in: path
@@ -327,12 +323,10 @@ paths:
   /google/primary_google_service_account:
     post:
       tags:
-      - google
+      - Google
       description: 'Force the creation of the User''s Primary Google Service Account instead of
 
-        relying on lazy creation at first time of Google Data Access.
-
-        '
+        relying on lazy creation at first time of Google Data Access.'
       responses:
         '200':
           description: 'success, created User''s Primary Google Service Account or already exists
@@ -340,6 +334,10 @@ paths:
             '
         '401':
           description: invalid token provided (or none provided)
+      summary: Create google primary google service account
+      x-summary-source: derived
+      operationId: postGooglePrimaryGoogleServiceAccount
+      x-operation-id-source: derived
 components:
   schemas:
     GoogleServiceAccountErrors:
@@ -480,50 +478,6 @@ components:
           description: List of GoogleServiceAccounts
           items:
             $ref: '#/components/schemas/GoogleServiceAccountInfo'
-    GoogleServiceAccountInfo:
-      type: object
-      required:
-      - service_account_email
-      - google_project_id
-      - project_access
-      - project_access_exp
-      properties:
-        service_account_email:
-          type: string
-          description: Service account's email
-        google_project_id:
-          type: string
-          description: Google Cloud Project ID of service account
-        project_access:
-          type: array
-          items:
-            type: string
-          description: List of projects/datasets for which service account should be registered for
-        project_access_exp:
-          type: integer
-          description: Project/dataset access expiration in unix time
-    GoogleBillingProjects:
-      type: object
-      required:
-      - signed_urls
-      - temporary_service_account_credentials
-      properties:
-        signed_urls:
-          type: object
-          required:
-          - project_id
-          properties:
-            project_id:
-              type: string
-              description: Google Project identifier that serves as the default billing project for all requester pays access
-        temporary_service_account_credentials:
-          type: object
-          required:
-          - project_id
-          properties:
-            project_id:
-              type: string
-              description: Google Project identifier that serves as the default billing project for all requester pays access
     GoogleServiceAccount:
       type: object
       required:
@@ -560,6 +514,50 @@ components:
           items:
             type: string
           description: List of projects/datasets for which service account should be registered for
+    GoogleBillingProjects:
+      type: object
+      required:
+      - signed_urls
+      - temporary_service_account_credentials
+      properties:
+        signed_urls:
+          type: object
+          required:
+          - project_id
+          properties:
+            project_id:
+              type: string
+              description: Google Project identifier that serves as the default billing project for all requester pays access
+        temporary_service_account_credentials:
+          type: object
+          required:
+          - project_id
+          properties:
+            project_id:
+              type: string
+              description: Google Project identifier that serves as the default billing project for all requester pays access
+    GoogleServiceAccountInfo:
+      type: object
+      required:
+      - service_account_email
+      - google_project_id
+      - project_access
+      - project_access_exp
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
+        google_project_id:
+          type: string
+          description: Google Cloud Project ID of service account
+        project_access:
+          type: array
+          items:
+            type: string
+          description: List of projects/datasets for which service account should be registered for
+        project_access_exp:
+          type: integer
+          description: Project/dataset access expiration in unix time
   securitySchemes:
     OAuth2:
       type: oauth2
