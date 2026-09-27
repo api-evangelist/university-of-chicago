@@ -340,6 +340,38 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    GoogleBillingProjects:
+      type: object
+      required:
+      - signed_urls
+      - temporary_service_account_credentials
+      properties:
+        signed_urls:
+          type: object
+          required:
+          - project_id
+          properties:
+            project_id:
+              type: string
+              description: Google Project identifier that serves as the default billing project for all requester pays access
+        temporary_service_account_credentials:
+          type: object
+          required:
+          - project_id
+          properties:
+            project_id:
+              type: string
+              description: Google Project identifier that serves as the default billing project for all requester pays access
+    GoogleServiceAccountProjectAccess:
+      type: object
+      required:
+      - project_access
+      properties:
+        project_access:
+          type: array
+          items:
+            type: string
+          description: List of projects/datasets for which service account should be registered for
     GoogleServiceAccountErrors:
       type: object
       required:
@@ -470,14 +502,6 @@ components:
               ProjectB:
                 all_users_have_access: true
                 exists: true
-    GoogleServiceAccounts:
-      type: object
-      properties:
-        service_accounts:
-          type: array
-          description: List of GoogleServiceAccounts
-          items:
-            $ref: '#/components/schemas/GoogleServiceAccountInfo'
     GoogleServiceAccount:
       type: object
       required:
@@ -496,46 +520,14 @@ components:
           items:
             type: string
           description: List of projects/datasets for which service account should be registered for
-    AdminGoogleServiceAccount:
+    GoogleServiceAccounts:
       type: object
-      required:
-      - service_account_email
       properties:
-        service_account_email:
-          type: string
-          description: Service account's email
-    GoogleServiceAccountProjectAccess:
-      type: object
-      required:
-      - project_access
-      properties:
-        project_access:
+        service_accounts:
           type: array
+          description: List of GoogleServiceAccounts
           items:
-            type: string
-          description: List of projects/datasets for which service account should be registered for
-    GoogleBillingProjects:
-      type: object
-      required:
-      - signed_urls
-      - temporary_service_account_credentials
-      properties:
-        signed_urls:
-          type: object
-          required:
-          - project_id
-          properties:
-            project_id:
-              type: string
-              description: Google Project identifier that serves as the default billing project for all requester pays access
-        temporary_service_account_credentials:
-          type: object
-          required:
-          - project_id
-          properties:
-            project_id:
-              type: string
-              description: Google Project identifier that serves as the default billing project for all requester pays access
+            $ref: '#/components/schemas/GoogleServiceAccountInfo'
     GoogleServiceAccountInfo:
       type: object
       required:
@@ -558,6 +550,14 @@ components:
         project_access_exp:
           type: integer
           description: Project/dataset access expiration in unix time
+    AdminGoogleServiceAccount:
+      type: object
+      required:
+      - service_account_email
+      properties:
+        service_account_email:
+          type: string
+          description: Service account's email
   securitySchemes:
     OAuth2:
       type: oauth2

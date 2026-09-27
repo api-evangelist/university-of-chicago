@@ -54,12 +54,6 @@ paths:
                 $ref: '#/components/schemas/GetPrefixOutput'
 components:
   schemas:
-    GetPrefixOutput:
-      type: object
-      properties:
-        prefix:
-          type: string
-          description: Prefix
     GetGUIDsOutput:
       type: object
       properties:
@@ -68,6 +62,12 @@ components:
           items:
             type: string
             description: GUIDs
+    GetPrefixOutput:
+      type: object
+      properties:
+        prefix:
+          type: string
+          description: Prefix
   securitySchemes:
     basic_auth:
       type: http

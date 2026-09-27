@@ -639,18 +639,17 @@ paths:
         required: true
 components:
   schemas:
-    InputBlankVersionInfo:
+    UpdateBlankInputInfo:
       type: object
       properties:
-        did:
-          type: string
-          description: optional; specify the GUID of the new blank version that is created.
-        uploader:
-          type: string
-          description: optional; user who uploaded this file
-        file_name:
-          type: string
-          description: optional; name of the uploaded file
+        size:
+          type: integer
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        urls:
+          type: array
+          items:
+            type: string
         authz:
           description: optional
           type: array
@@ -667,6 +666,17 @@ components:
           type: array
           items:
             type: string
+    AliasInfo:
+      type: object
+      properties:
+        aliases:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The identifier that acts as an alias for this GUID.
     UpdateInputInfo:
       type: object
       properties:
@@ -690,16 +700,91 @@ components:
           type: array
           items:
             type: string
-    ErrorResponse:
-      description: An object that can optionally include information about the error.
+    InputBlankInfo:
       type: object
       properties:
-        msg:
+        uploader:
           type: string
-          description: A detailed error message.
-        status_code:
+          description: optional; user who uploaded this file
+        file_name:
+          type: string
+          description: name of the uploaded file
+        authz:
+          description: optional
+          type: array
+          items:
+            type: string
+    VersionInputInfo:
+      type: object
+      required:
+      - size
+      - hashes
+      - urls
+      - form
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+        size:
           type: integer
-          description: The integer representing the HTTP status code (e.g. 200, 404).
+          format: int64
+          description: size in bytes
+        file_name:
+          type: string
+        metadata:
+          type: object
+        urls_metadata:
+          type: object
+        version:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        description:
+          type: string
+          description: optional description of the object
+        content_created_date:
+          type: string
+          format: date-time
+          description: optional creation date and time of the content being indexed
+        content_updated_date:
+          type: string
+          format: date-time
+          description: optional creation date and time of the content being indexed
+    BulkOutputInfo:
+      type: array
+      items:
+        $ref: '#/components/schemas/OutputInfo'
+    OutputRef:
+      type: object
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        baseid:
+          $ref: '#/components/schemas/UUID'
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+    UUID:
+      type: string
+      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
     OutputInfo:
       type: object
       properties:
@@ -755,9 +840,6 @@ components:
         urls_metadata:
           type: object
           description: url level optional metadata
-    UUID:
-      type: string
-      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
     InputInfo:
       type: object
       required:
@@ -803,77 +885,6 @@ components:
             type: string
         hashes:
           $ref: '#/components/schemas/HashInfo'
-    BulkOutputInfo:
-      type: array
-      items:
-        $ref: '#/components/schemas/OutputInfo'
-    VersionInputInfo:
-      type: object
-      required:
-      - size
-      - hashes
-      - urls
-      - form
-      properties:
-        did:
-          $ref: '#/components/schemas/DID'
-        form:
-          type: string
-          description: how the entry was submitted to storage
-          enum:
-          - object
-          - container
-          - multipart
-        size:
-          type: integer
-          format: int64
-          description: size in bytes
-        file_name:
-          type: string
-        metadata:
-          type: object
-        urls_metadata:
-          type: object
-        version:
-          type: string
-        urls:
-          type: array
-          items:
-            type: string
-        acl:
-          type: array
-          items:
-            type: string
-        authz:
-          type: array
-          items:
-            type: string
-        hashes:
-          $ref: '#/components/schemas/HashInfo'
-        description:
-          type: string
-          description: optional description of the object
-        content_created_date:
-          type: string
-          format: date-time
-          description: optional creation date and time of the content being indexed
-        content_updated_date:
-          type: string
-          format: date-time
-          description: optional creation date and time of the content being indexed
-    DID:
-      type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-    OutputRef:
-      type: object
-      properties:
-        did:
-          $ref: '#/components/schemas/DID'
-        baseid:
-          $ref: '#/components/schemas/UUID'
-        rev:
-          type: string
-          pattern: ^[0-9a-f]{8}$
     ListRecords:
       type: object
       properties:
@@ -917,47 +928,16 @@ components:
           type: object
         version:
           type: string
-    AliasInfo:
+    ErrorResponse:
+      description: An object that can optionally include information about the error.
       type: object
       properties:
-        aliases:
-          type: array
-          items:
-            type: object
-            properties:
-              value:
-                type: string
-                description: The identifier that acts as an alias for this GUID.
-    InputBlankInfo:
-      type: object
-      properties:
-        uploader:
+        msg:
           type: string
-          description: optional; user who uploaded this file
-        file_name:
-          type: string
-          description: name of the uploaded file
-        authz:
-          description: optional
-          type: array
-          items:
-            type: string
-    UpdateBlankInputInfo:
-      type: object
-      properties:
-        size:
+          description: A detailed error message.
+        status_code:
           type: integer
-        hashes:
-          $ref: '#/components/schemas/HashInfo'
-        urls:
-          type: array
-          items:
-            type: string
-        authz:
-          description: optional
-          type: array
-          items:
-            type: string
+          description: The integer representing the HTTP status code (e.g. 200, 404).
     HashInfo:
       type: object
       properties:
@@ -979,6 +959,26 @@ components:
         etag:
           type: string
           pattern: ^[0-9a-f]{32}(-\d+)?$
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    InputBlankVersionInfo:
+      type: object
+      properties:
+        did:
+          type: string
+          description: optional; specify the GUID of the new blank version that is created.
+        uploader:
+          type: string
+          description: optional; user who uploaded this file
+        file_name:
+          type: string
+          description: optional; name of the uploaded file
+        authz:
+          description: optional
+          type: array
+          items:
+            type: string
   securitySchemes:
     basic_auth:
       type: http

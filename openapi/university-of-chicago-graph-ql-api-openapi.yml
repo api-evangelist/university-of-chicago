@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Peregrine OpenAPI Specification Graphql API
+  title: Peregrine OpenAPI Specification GraphQL API
   version: 0.1.0
   description: GraphQL search microservice for CDIS Gen 3 data commons. Code is available on GitHub.
   termsOfService: http://cdis.uchicago.edu/terms/
@@ -62,18 +62,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SchemaOutputRef:
-      type: object
-      properties:
-        data:
-          type: object
-          description: the json schema for the data dictionary
-    QueryOutputRef:
-      type: object
-      properties:
-        data:
-          type: object
-          description: the results of the GraphQL query
     QueryInputInfo:
       type: object
       properties:
@@ -90,3 +78,15 @@ components:
         query: '{ project {project_id} }'
         operationName: null
         variables: null
+    QueryOutputRef:
+      type: object
+      properties:
+        data:
+          type: object
+          description: the results of the GraphQL query
+    SchemaOutputRef:
+      type: object
+      properties:
+        data:
+          type: object
+          description: the json schema for the data dictionary

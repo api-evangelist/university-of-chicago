@@ -110,28 +110,6 @@ paths:
       - DRS
 components:
   schemas:
-    ContentsObject:
-      type: object
-      properties:
-        name:
-          type: string
-          description: A name declared by the bundle author that must be used when materialising this object, overriding any name directly associated with the object itself. The name must be unique with the containing bundle. This string is made up of uppercase and lowercase letters, decimal digits, hypen, period, and underscore [A-Za-z0-9.-_]. See http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_282[portable filenames].
-        id:
-          type: string
-          description: A DRS identifier of a DrsObject (either a single blob or a nested bundle). If this ContentsObject is an object within a nested bundle, then the id is optional. Otherwise, the id is required.
-        drs_uri:
-          type: array
-          description: A list of full DRS identifier URI paths that may be used to obtain the object. These URIs may be external to this DRS instance.
-          example: drs://drs.example.org/314159
-          items:
-            type: string
-        contents:
-          type: array
-          description: If this ContentsObject describes a nested bundle and the caller specified "?expand=true" on the request, then this contents array must be present and describe the objects within the nested bundle.
-          items:
-            example: {}
-      required:
-      - name
     Checksum:
       type: object
       required:
@@ -155,13 +133,6 @@ components:
             sha256
 
             sha512'
-    ListDrsObject:
-      type: object
-      properties:
-        drs_objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/DrsObject'
     DrsObject:
       type: object
       required:
@@ -235,16 +206,28 @@ components:
           items:
             type: string
           description: A list of strings that can be used to find other metadata about this DrsObject from external metadata sources. These aliases can be used to represent secondary accession numbers or external GUIDs.
-    Error:
-      description: An object that can optionally include information about the error.
+    ContentsObject:
       type: object
       properties:
-        msg:
+        name:
           type: string
-          description: A detailed error message.
-        status_code:
-          type: integer
-          description: The integer representing the HTTP status code (e.g. 200, 404).
+          description: A name declared by the bundle author that must be used when materialising this object, overriding any name directly associated with the object itself. The name must be unique with the containing bundle. This string is made up of uppercase and lowercase letters, decimal digits, hypen, period, and underscore [A-Za-z0-9.-_]. See http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_282[portable filenames].
+        id:
+          type: string
+          description: A DRS identifier of a DrsObject (either a single blob or a nested bundle). If this ContentsObject is an object within a nested bundle, then the id is optional. Otherwise, the id is required.
+        drs_uri:
+          type: array
+          description: A list of full DRS identifier URI paths that may be used to obtain the object. These URIs may be external to this DRS instance.
+          example: drs://drs.example.org/314159
+          items:
+            type: string
+        contents:
+          type: array
+          description: If this ContentsObject describes a nested bundle and the caller specified "?expand=true" on the request, then this contents array must be present and describe the objects within the nested bundle.
+          items:
+            example: {}
+      required:
+      - name
     AccessMethod:
       type: object
       required:
@@ -272,6 +255,13 @@ components:
           type: string
           description: Name of the region in the cloud service provider that the object belongs to.
           example: us-east-1
+    ListDrsObject:
+      type: object
+      properties:
+        drs_objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrsObject'
     AccessURL:
       type: object
       required:
@@ -280,6 +270,16 @@ components:
         url:
           type: string
           description: A fully resolvable URL that can be used to fetch the actual object bytes.
+    Error:
+      description: An object that can optionally include information about the error.
+      type: object
+      properties:
+        msg:
+          type: string
+          description: A detailed error message.
+        status_code:
+          type: integer
+          description: The integer representing the HTTP status code (e.g. 200, 404).
   securitySchemes:
     basic_auth:
       type: http

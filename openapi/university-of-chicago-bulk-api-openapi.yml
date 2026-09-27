@@ -44,6 +44,17 @@ paths:
         required: true
 components:
   schemas:
+    BulkInputInfo:
+      type: array
+      items:
+        type: string
+    BulkOutputInfo:
+      type: array
+      items:
+        $ref: '#/components/schemas/OutputInfo'
+    UUID:
+      type: string
+      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
     OutputInfo:
       type: object
       properties:
@@ -99,20 +110,6 @@ components:
         urls_metadata:
           type: object
           description: url level optional metadata
-    BulkOutputInfo:
-      type: array
-      items:
-        $ref: '#/components/schemas/OutputInfo'
-    UUID:
-      type: string
-      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-    DID:
-      type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-    BulkInputInfo:
-      type: array
-      items:
-        type: string
     HashInfo:
       type: object
       properties:
@@ -134,6 +131,9 @@ components:
         etag:
           type: string
           pattern: ^[0-9a-f]{32}(-\d+)?$
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
   securitySchemes:
     basic_auth:
       type: http

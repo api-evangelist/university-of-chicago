@@ -22,15 +22,19 @@ x-type: university
 x-category: Private Research University
 deliveryModel:
   model: saas
-  open_source: false
+  license_evidence:
+    not_product:
+    - uchicago-library/vufind
+  open_source: unknown
   commercial: true
   callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: high
+  confidence: low
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: free
@@ -61,7 +65,7 @@ tags:
 - Identity Federation
 - OAI-PMH
 - IIIF
-- Open-Source
+- Open Source
 - Data Commons
 - Digital Collections
 - Research Computing
@@ -81,6 +85,7 @@ tags_raw:
 - Data Commons
 - Digital Collections
 - Research Computing
+- Open-Source
 created: '2026-06-03'
 modified: '2026-09-16'
 specificationVersion: '0.23'
@@ -1262,9 +1267,10 @@ apis:
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
-  - Communities
+  - Community
   tags_raw:
   - communities
+  - Communities
   properties:
   - type: OpenAPI
     url: openapi/university-of-chicago-communities-api-openapi.yml
@@ -1320,8 +1326,6 @@ apis:
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
-  - GraphQL
-  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI

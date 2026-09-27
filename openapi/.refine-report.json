@@ -49,7 +49,7 @@
     "university-of-chicago-project-api-openapi.yml"
   ],
   "archived": [
-    "deleted 2 superseded output(s) from the previous generation"
+    "deleted 1 superseded output(s) from the previous generation"
   ],
   "errors": [
     "university-of-chicago-fence.yaml: dangling $ref: #/definitions/SystemVersionOutputRef"
@@ -76,8 +76,8 @@
     "university-of-chicago-sheepdog.yaml: declared missing tag: project",
     "university-of-chicago-sheepdog.yaml: declared missing tag: system",
     "tag 'system' spans 4 source specs (university-of-chicago-fence.yaml, university-of-chicago-indexd.yaml, university-of-chicago-peregrine.yaml, university-of-chicago-sheepdog.yaml): per-path servers applied",
-    "superseded outputs removed: university-of-chicago-graph-ql-api-openapi.yml, university-of-chicago-o-auth2-api-openapi.yml",
-    "apis.yml register: written (+2 apis, 45 total)"
+    "superseded outputs removed: university-of-chicago-graph-ql-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 45 total)"
   ],
   "skipped": [
     "university-of-chicago-admin-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -109,7 +109,7 @@
     "university-of-chicago-link-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-chicago-login-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-chicago-logout-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "university-of-chicago-o-auth2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "university-of-chicago-oauth2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-chicago-oidc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-chicago-privacy-policy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-chicago-program-api-openapi.yml: previously refined output, superseded by openapi/_original/",

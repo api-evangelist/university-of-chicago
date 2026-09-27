@@ -164,6 +164,63 @@ components:
             sha256
 
             sha512'
+    InputBundle:
+      type: object
+      required:
+      - bundles
+      properties:
+        bundle_id:
+          $ref: '#/components/schemas/DID'
+        name:
+          type: string
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        checksums:
+          type: array
+          items:
+            $ref: '#/components/schemas/Checksum'
+        description:
+          type: string
+          description: optional description of the object
+        version:
+          type: string
+          description: optional version string of the object
+        bundles:
+          type: array
+          items:
+            type: string
+          description: list of guid to be in the bundle
+    OutputBundle:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/DID'
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+          - bundle
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        name:
+          type: string
+        checksums:
+          $ref: '#/components/schemas/Checksum'
+        updated_time:
+          type: string
+          format: date-time
+          description: last updated time
+        created_time:
+          type: string
+          format: date-time
+          description: time created
     ListBundles:
       type: object
       properties:
@@ -207,79 +264,17 @@ components:
           type: object
         version:
           type: string
-    BundleContent:
+    BundleResponse:
       type: object
-      properties:
-        id:
-          type: string
-        drs_uri:
-          type: string
-        name:
-          type: string
-        contents:
-          type: array
-          items:
-            type: object
-    InputBundle:
-      type: object
-      required:
-      - bundles
       properties:
         bundle_id:
           $ref: '#/components/schemas/DID'
         name:
           type: string
-        size:
-          type: integer
-          format: int64
-          description: size in bytes
-        checksums:
+        contents:
           type: array
           items:
-            $ref: '#/components/schemas/Checksum'
-        description:
-          type: string
-          description: optional description of the object
-        version:
-          type: string
-          description: optional version string of the object
-        bundles:
-          type: array
-          items:
-            type: string
-          description: list of guid to be in the bundle
-    DID:
-      type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-    OutputBundle:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/DID'
-        form:
-          type: string
-          description: how the entry was submitted to storage
-          enum:
-          - object
-          - container
-          - multipart
-          - bundle
-        size:
-          type: integer
-          format: int64
-          description: size in bytes
-        name:
-          type: string
-        checksums:
-          $ref: '#/components/schemas/Checksum'
-        updated_time:
-          type: string
-          format: date-time
-          description: last updated time
-        created_time:
-          type: string
-          format: date-time
-          description: time created
+            $ref: '#/components/schemas/OutputBundle'
     BundleGet:
       type: object
       properties:
@@ -305,17 +300,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BundleContent'
-    BundleResponse:
+    BundleContent:
       type: object
       properties:
-        bundle_id:
-          $ref: '#/components/schemas/DID'
+        id:
+          type: string
+        drs_uri:
+          type: string
         name:
           type: string
         contents:
           type: array
           items:
-            $ref: '#/components/schemas/OutputBundle'
+            type: object
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
   securitySchemes:
     basic_auth:
       type: http

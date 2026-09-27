@@ -93,6 +93,54 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Creator:
+      type: object
+      properties:
+        person_or_org:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+            identifiers:
+              type: array
+              description: Typed identifiers; scheme values observed include orcid, isni and gnd.
+              items:
+                type: object
+                properties:
+                  scheme:
+                    type: string
+                  identifier:
+                    type: string
+        affiliations:
+          type: array
+          description: Typed affiliation identifiers; scheme values observed include ror and grid.
+          items:
+            type: object
+    RecordMetadata:
+      type: object
+      properties:
+        title:
+          type: string
+        publisher:
+          type: string
+        publication_date:
+          type: string
+        resource_type:
+          type: object
+        creators:
+          type: array
+          items:
+            $ref: '#/components/schemas/Creator'
+        rights:
+          type: array
+          items:
+            type: object
+        copyright:
+          type: string
+        description:
+          type: string
     RecordList:
       type: object
       properties:
@@ -119,6 +167,13 @@ components:
             next:
               type: string
               format: uri
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
     Record:
       type: object
       properties:
@@ -160,58 +215,3 @@ components:
         links:
           type: object
           description: Includes self, self_html, doi, self_doi, parent, versions, files, archive, latest, communities and requests. Also self_iiif_manifest and self_iiif_sequence — InvenioRDM serves IIIF for record files.
-    RecordMetadata:
-      type: object
-      properties:
-        title:
-          type: string
-        publisher:
-          type: string
-        publication_date:
-          type: string
-        resource_type:
-          type: object
-        creators:
-          type: array
-          items:
-            $ref: '#/components/schemas/Creator'
-        rights:
-          type: array
-          items:
-            type: object
-        copyright:
-          type: string
-        description:
-          type: string
-    Creator:
-      type: object
-      properties:
-        person_or_org:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              type: string
-            identifiers:
-              type: array
-              description: Typed identifiers; scheme values observed include orcid, isni and gnd.
-              items:
-                type: object
-                properties:
-                  scheme:
-                    type: string
-                  identifier:
-                    type: string
-        affiliations:
-          type: array
-          description: Typed affiliation identifiers; scheme values observed include ror and grid.
-          items:
-            type: object
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        message:
-          type: string

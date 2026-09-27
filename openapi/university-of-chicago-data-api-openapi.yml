@@ -397,120 +397,6 @@ paths:
                 $ref: '#/components/schemas/BucketInfo'
 components:
   schemas:
-    RequestUrlPassport:
-      type: object
-      required: true
-      properties:
-        passports:
-          type: array
-          items:
-            type: string
-          required: true
-          description: The list of GA4GH passports containing the authorizations for a given user to access the requested file. NOTE - the key "passports" is configurable in fence via the GA4GH_DRS_POSTED_PASSPORT_FIELD field. The default of "passports" has been provided.
-    SignedURL:
-      type: object
-      properties:
-        url:
-          type: string
-          description: the signed url issued to
-    InitMultipartUpload:
-      type: object
-      required: null
-      properties:
-        file_name:
-          type: string
-          required: true
-          description: the file name to use for this upload
-        guid:
-          type: string
-          required: false
-          description: GUID to be assigned to the object
-        expires_in:
-          type: integer
-          description: optional integer specifying the presigned URL lifetime
-        authz:
-          type: array
-          items:
-            type: string
-          description: requested authorization resources to be set on the resulting indexed record. You must have proper authorization to set this
-        bucket:
-          type: string
-          required: false
-          description: bucket to upload to
-      example:
-        file_name: my_file.bam
-        expires_in: 1200
-        authz:
-        - /programs/A
-        bucket: bucket-1
-    CompleteMultipartUpload:
-      type: object
-      required: null
-      properties:
-        key:
-          type: string
-          description: the key of the object in the format of GUID/filename
-        uploadId:
-          type: string
-          description: the uploadId for multipart presigned URL upload usable for data upload
-        parts:
-          type: array
-          items:
-            type: object
-            properties:
-              partNumber:
-                type: integer
-                description: The part number
-              ETag:
-                type: string
-                description: the etag that cooresponds to the the object part with the partnumber
-          description: List of part numbers info needed for multipart completion
-        expires_in:
-          type: integer
-          description: optional integer specifying the presigned URL lifetime
-        bucket:
-          type: string
-          required: false
-          description: bucket to upload to
-    AccessURL:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          description: A fully resolvable URL that can be used to fetch the actual object bytes.
-    RequestUploadBlank:
-      type: object
-      required: null
-      properties:
-        file_name:
-          type: string
-          required: true
-          description: the file name to use for this upload
-        bucket:
-          type: string
-          required: true
-          description: the requested bucket to upload to. If not provided, defaults to the configured DATA_UPLOAD_BUCKET.
-        guid:
-          type: string
-          required: false
-          description: GUID to be assigned to the object
-        expires_in:
-          type: integer
-          description: optional integer specifying the presigned URL lifetime
-        authz:
-          type: array
-          items:
-            type: string
-          description: requested authorization resources to be set on the resulting indexed record. You must have proper authorization to set this
-      example:
-        guid: 123456abcd
-        file_name: my_file.bam
-        bucket: bucket1
-        expires_in: 1200
-        authz:
-        - /programs/A
     BucketInfo:
       type: object
       properties:
@@ -562,6 +448,120 @@ components:
           type: string
           required: false
           description: bucket to upload\ to
+    SignedURL:
+      type: object
+      properties:
+        url:
+          type: string
+          description: the signed url issued to
+    RequestUrlPassport:
+      type: object
+      required: true
+      properties:
+        passports:
+          type: array
+          items:
+            type: string
+          required: true
+          description: The list of GA4GH passports containing the authorizations for a given user to access the requested file. NOTE - the key "passports" is configurable in fence via the GA4GH_DRS_POSTED_PASSPORT_FIELD field. The default of "passports" has been provided.
+    RequestUploadBlank:
+      type: object
+      required: null
+      properties:
+        file_name:
+          type: string
+          required: true
+          description: the file name to use for this upload
+        bucket:
+          type: string
+          required: true
+          description: the requested bucket to upload to. If not provided, defaults to the configured DATA_UPLOAD_BUCKET.
+        guid:
+          type: string
+          required: false
+          description: GUID to be assigned to the object
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        authz:
+          type: array
+          items:
+            type: string
+          description: requested authorization resources to be set on the resulting indexed record. You must have proper authorization to set this
+      example:
+        guid: 123456abcd
+        file_name: my_file.bam
+        bucket: bucket1
+        expires_in: 1200
+        authz:
+        - /programs/A
+    AccessURL:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          description: A fully resolvable URL that can be used to fetch the actual object bytes.
+    CompleteMultipartUpload:
+      type: object
+      required: null
+      properties:
+        key:
+          type: string
+          description: the key of the object in the format of GUID/filename
+        uploadId:
+          type: string
+          description: the uploadId for multipart presigned URL upload usable for data upload
+        parts:
+          type: array
+          items:
+            type: object
+            properties:
+              partNumber:
+                type: integer
+                description: The part number
+              ETag:
+                type: string
+                description: the etag that cooresponds to the the object part with the partnumber
+          description: List of part numbers info needed for multipart completion
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        bucket:
+          type: string
+          required: false
+          description: bucket to upload to
+    InitMultipartUpload:
+      type: object
+      required: null
+      properties:
+        file_name:
+          type: string
+          required: true
+          description: the file name to use for this upload
+        guid:
+          type: string
+          required: false
+          description: GUID to be assigned to the object
+        expires_in:
+          type: integer
+          description: optional integer specifying the presigned URL lifetime
+        authz:
+          type: array
+          items:
+            type: string
+          description: requested authorization resources to be set on the resulting indexed record. You must have proper authorization to set this
+        bucket:
+          type: string
+          required: false
+          description: bucket to upload to
+      example:
+        file_name: my_file.bam
+        expires_in: 1200
+        authz:
+        - /programs/A
+        bucket: bucket-1
   securitySchemes:
     OAuth2:
       type: oauth2
