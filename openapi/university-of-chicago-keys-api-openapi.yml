@@ -49,21 +49,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PublicKeys:
-      type: object
-      properties:
-        keys:
-          type: array
-          description: array of single-entry dictionaries mapping from key id to public key
-          items:
-            type: array
-            description: tuple of `(key_id, public_key)`
-            items:
-              type: string
-      example:
-        keys:
-        - - public_key_01
-          - '-----BEGIN PUBLIC KEY----- ... -----END PUBLIC KEY-----'
     JWKS:
       type: object
       properties:
@@ -95,6 +80,21 @@ components:
           e: AQAB
           alg: RS256
           kid: '2011-04-29'
+    PublicKeys:
+      type: object
+      properties:
+        keys:
+          type: array
+          description: array of single-entry dictionaries mapping from key id to public key
+          items:
+            type: array
+            description: tuple of `(key_id, public_key)`
+            items:
+              type: string
+      example:
+        keys:
+        - - public_key_01
+          - '-----BEGIN PUBLIC KEY----- ... -----END PUBLIC KEY-----'
   securitySchemes:
     OAuth2:
       type: oauth2

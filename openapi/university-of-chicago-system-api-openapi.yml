@@ -149,15 +149,6 @@ paths:
       x-verified-evidence: https://gen3.datacommons.io/.well-known/openid-configuration
 components:
   schemas:
-    SystemStatsOutputRef:
-      type: object
-      properties:
-        fileCount:
-          type: integer
-          description: the number of records stored in IndexD
-        totalFileSize:
-          type: integer
-          description: the accumulated size of the object files recorded in IndexD
     SystemVersionOutputRef:
       type: object
       properties:
@@ -167,6 +158,15 @@ components:
         version:
           type: string
           description: the current git tag version
+    SystemStatsOutputRef:
+      type: object
+      properties:
+        fileCount:
+          type: integer
+          description: the number of records stored in IndexD
+        totalFileSize:
+          type: integer
+          description: the accumulated size of the object files recorded in IndexD
     VersionOutputRef:
       type: object
       properties:

@@ -44,17 +44,38 @@ paths:
         required: true
 components:
   schemas:
-    BulkInputInfo:
-      type: array
-      items:
-        type: string
     BulkOutputInfo:
       type: array
       items:
         $ref: '#/components/schemas/OutputInfo'
-    UUID:
+    BulkInputInfo:
+      type: array
+      items:
+        type: string
+    HashInfo:
+      type: object
+      properties:
+        md5:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
+    DID:
       type: string
-      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
     OutputInfo:
       type: object
       properties:
@@ -110,30 +131,9 @@ components:
         urls_metadata:
           type: object
           description: url level optional metadata
-    HashInfo:
-      type: object
-      properties:
-        md5:
-          type: string
-          pattern: ^[0-9a-f]{32}$
-        sha:
-          type: string
-          pattern: ^[0-9a-f]{40}$
-        sha256:
-          type: string
-          pattern: ^[0-9a-f]{64}$
-        sha512:
-          type: string
-          pattern: ^[0-9a-f]{128}$
-        crc:
-          type: string
-          pattern: ^[0-9a-f]{8}$
-        etag:
-          type: string
-          pattern: ^[0-9a-f]{32}(-\d+)?$
-    DID:
+    UUID:
       type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
   securitySchemes:
     basic_auth:
       type: http

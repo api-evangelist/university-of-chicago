@@ -639,6 +639,76 @@ paths:
         required: true
 components:
   schemas:
+    UpdateAllVersionsInputInfo:
+      type: object
+      properties:
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+    BulkOutputInfo:
+      type: array
+      items:
+        $ref: '#/components/schemas/OutputInfo'
+    InputBlankVersionInfo:
+      type: object
+      properties:
+        did:
+          type: string
+          description: optional; specify the GUID of the new blank version that is created.
+        uploader:
+          type: string
+          description: optional; user who uploaded this file
+        file_name:
+          type: string
+          description: optional; name of the uploaded file
+        authz:
+          description: optional
+          type: array
+          items:
+            type: string
+    HashInfo:
+      type: object
+      properties:
+        md5:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    InputBlankInfo:
+      type: object
+      properties:
+        uploader:
+          type: string
+          description: optional; user who uploaded this file
+        file_name:
+          type: string
+          description: name of the uploaded file
+        authz:
+          description: optional
+          type: array
+          items:
+            type: string
     UpdateBlankInputInfo:
       type: object
       properties:
@@ -655,17 +725,6 @@ components:
           type: array
           items:
             type: string
-    UpdateAllVersionsInputInfo:
-      type: object
-      properties:
-        acl:
-          type: array
-          items:
-            type: string
-        authz:
-          type: array
-          items:
-            type: string
     AliasInfo:
       type: object
       properties:
@@ -677,114 +736,6 @@ components:
               value:
                 type: string
                 description: The identifier that acts as an alias for this GUID.
-    UpdateInputInfo:
-      type: object
-      properties:
-        file_name:
-          type: string
-        metadata:
-          type: object
-        urls_metadata:
-          type: object
-        version:
-          type: string
-        urls:
-          type: array
-          items:
-            type: string
-        acl:
-          type: array
-          items:
-            type: string
-        authz:
-          type: array
-          items:
-            type: string
-    InputBlankInfo:
-      type: object
-      properties:
-        uploader:
-          type: string
-          description: optional; user who uploaded this file
-        file_name:
-          type: string
-          description: name of the uploaded file
-        authz:
-          description: optional
-          type: array
-          items:
-            type: string
-    VersionInputInfo:
-      type: object
-      required:
-      - size
-      - hashes
-      - urls
-      - form
-      properties:
-        did:
-          $ref: '#/components/schemas/DID'
-        form:
-          type: string
-          description: how the entry was submitted to storage
-          enum:
-          - object
-          - container
-          - multipart
-        size:
-          type: integer
-          format: int64
-          description: size in bytes
-        file_name:
-          type: string
-        metadata:
-          type: object
-        urls_metadata:
-          type: object
-        version:
-          type: string
-        urls:
-          type: array
-          items:
-            type: string
-        acl:
-          type: array
-          items:
-            type: string
-        authz:
-          type: array
-          items:
-            type: string
-        hashes:
-          $ref: '#/components/schemas/HashInfo'
-        description:
-          type: string
-          description: optional description of the object
-        content_created_date:
-          type: string
-          format: date-time
-          description: optional creation date and time of the content being indexed
-        content_updated_date:
-          type: string
-          format: date-time
-          description: optional creation date and time of the content being indexed
-    BulkOutputInfo:
-      type: array
-      items:
-        $ref: '#/components/schemas/OutputInfo'
-    OutputRef:
-      type: object
-      properties:
-        did:
-          $ref: '#/components/schemas/DID'
-        baseid:
-          $ref: '#/components/schemas/UUID'
-        rev:
-          type: string
-          pattern: ^[0-9a-f]{8}$
-    UUID:
-      type: string
-      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
     OutputInfo:
       type: object
       properties:
@@ -840,6 +791,83 @@ components:
         urls_metadata:
           type: object
           description: url level optional metadata
+    VersionInputInfo:
+      type: object
+      required:
+      - size
+      - hashes
+      - urls
+      - form
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+        size:
+          type: integer
+          format: int64
+          description: size in bytes
+        file_name:
+          type: string
+        metadata:
+          type: object
+        urls_metadata:
+          type: object
+        version:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
+        hashes:
+          $ref: '#/components/schemas/HashInfo'
+        description:
+          type: string
+          description: optional description of the object
+        content_created_date:
+          type: string
+          format: date-time
+          description: optional creation date and time of the content being indexed
+        content_updated_date:
+          type: string
+          format: date-time
+          description: optional creation date and time of the content being indexed
+    UpdateInputInfo:
+      type: object
+      properties:
+        file_name:
+          type: string
+        metadata:
+          type: object
+        urls_metadata:
+          type: object
+        version:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
     InputInfo:
       type: object
       required:
@@ -885,6 +913,29 @@ components:
             type: string
         hashes:
           $ref: '#/components/schemas/HashInfo'
+    UUID:
+      type: string
+      pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    OutputRef:
+      type: object
+      properties:
+        did:
+          $ref: '#/components/schemas/DID'
+        baseid:
+          $ref: '#/components/schemas/UUID'
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+    ErrorResponse:
+      description: An object that can optionally include information about the error.
+      type: object
+      properties:
+        msg:
+          type: string
+          description: A detailed error message.
+        status_code:
+          type: integer
+          description: The integer representing the HTTP status code (e.g. 200, 404).
     ListRecords:
       type: object
       properties:
@@ -928,57 +979,6 @@ components:
           type: object
         version:
           type: string
-    ErrorResponse:
-      description: An object that can optionally include information about the error.
-      type: object
-      properties:
-        msg:
-          type: string
-          description: A detailed error message.
-        status_code:
-          type: integer
-          description: The integer representing the HTTP status code (e.g. 200, 404).
-    HashInfo:
-      type: object
-      properties:
-        md5:
-          type: string
-          pattern: ^[0-9a-f]{32}$
-        sha:
-          type: string
-          pattern: ^[0-9a-f]{40}$
-        sha256:
-          type: string
-          pattern: ^[0-9a-f]{64}$
-        sha512:
-          type: string
-          pattern: ^[0-9a-f]{128}$
-        crc:
-          type: string
-          pattern: ^[0-9a-f]{8}$
-        etag:
-          type: string
-          pattern: ^[0-9a-f]{32}(-\d+)?$
-    DID:
-      type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-    InputBlankVersionInfo:
-      type: object
-      properties:
-        did:
-          type: string
-          description: optional; specify the GUID of the new blank version that is created.
-        uploader:
-          type: string
-          description: optional; user who uploaded this file
-        file_name:
-          type: string
-          description: optional; name of the uploaded file
-        authz:
-          description: optional
-          type: array
-          items:
-            type: string
   securitySchemes:
     basic_auth:
       type: http

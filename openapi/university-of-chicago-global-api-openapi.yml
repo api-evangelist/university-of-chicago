@@ -85,13 +85,6 @@ paths:
       - basic_auth: []
 components:
   schemas:
-    UrlObject:
-      type: object
-      properties:
-        url:
-          type: string
-        metadata:
-          type: object
     UrlOutputRef:
       type: object
       properties:
@@ -113,6 +106,37 @@ components:
           description: number of aliases to return
         hashes:
           $ref: '#/components/schemas/HashInfo'
+    HashInfo:
+      type: object
+      properties:
+        md5:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
+          type: string
+          pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+    UrlObject:
+      type: object
+      properties:
+        url:
+          type: string
+        metadata:
+          type: object
     OutputInfo:
       type: object
       properties:
@@ -171,30 +195,6 @@ components:
     UUID:
       type: string
       pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-    HashInfo:
-      type: object
-      properties:
-        md5:
-          type: string
-          pattern: ^[0-9a-f]{32}$
-        sha:
-          type: string
-          pattern: ^[0-9a-f]{40}$
-        sha256:
-          type: string
-          pattern: ^[0-9a-f]{64}$
-        sha512:
-          type: string
-          pattern: ^[0-9a-f]{128}$
-        crc:
-          type: string
-          pattern: ^[0-9a-f]{8}$
-        etag:
-          type: string
-          pattern: ^[0-9a-f]{32}(-\d+)?$
-    DID:
-      type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
   securitySchemes:
     basic_auth:
       type: http

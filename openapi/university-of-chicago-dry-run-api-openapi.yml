@@ -815,6 +815,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    schema_entity:
+      properties:
+        '...fields specific to this entity':
+          type: string
+        type:
+          type: string
+      type: object
     schema_entity_bulk:
       properties:
         doc:
@@ -827,11 +834,4 @@ components:
       - name
       - doc_format
       - doc
-      type: object
-    schema_entity:
-      properties:
-        '...fields specific to this entity':
-          type: string
-        type:
-          type: string
       type: object

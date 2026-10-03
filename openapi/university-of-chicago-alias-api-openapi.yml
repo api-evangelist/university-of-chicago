@@ -175,6 +175,14 @@ paths:
       - basic_auth: []
 components:
   schemas:
+    AliasRef:
+      type: object
+      properties:
+        name:
+          type: string
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
     AliasOutputInfo:
       type: object
       properties:
@@ -218,27 +226,6 @@ components:
           type: array
           items:
             type: string
-    HashInfo:
-      type: object
-      properties:
-        md5:
-          type: string
-          pattern: ^[0-9a-f]{32}$
-        sha:
-          type: string
-          pattern: ^[0-9a-f]{40}$
-        sha256:
-          type: string
-          pattern: ^[0-9a-f]{64}$
-        sha512:
-          type: string
-          pattern: ^[0-9a-f]{128}$
-        crc:
-          type: string
-          pattern: ^[0-9a-f]{8}$
-        etag:
-          type: string
-          pattern: ^[0-9a-f]{32}(-\d+)?$
     AliasInputInfo:
       type: object
       required:
@@ -269,14 +256,27 @@ components:
           $ref: '#/components/schemas/HashInfo'
         metadata:
           type: string
-    AliasRef:
+    HashInfo:
       type: object
       properties:
-        name:
+        md5:
           type: string
-        rev:
+          pattern: ^[0-9a-f]{32}$
+        sha:
+          type: string
+          pattern: ^[0-9a-f]{40}$
+        sha256:
+          type: string
+          pattern: ^[0-9a-f]{64}$
+        sha512:
+          type: string
+          pattern: ^[0-9a-f]{128}$
+        crc:
           type: string
           pattern: ^[0-9a-f]{8}$
+        etag:
+          type: string
+          pattern: ^[0-9a-f]{32}(-\d+)?$
   securitySchemes:
     basic_auth:
       type: http

@@ -141,6 +141,13 @@ components:
           type: string
         description:
           type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
     RecordList:
       type: object
       properties:
@@ -167,13 +174,6 @@ components:
             next:
               type: string
               format: uri
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        message:
-          type: string
     Record:
       type: object
       properties:
