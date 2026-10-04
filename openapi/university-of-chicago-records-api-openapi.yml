@@ -93,6 +93,73 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Record:
+      type: object
+      properties:
+        id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        revision_id:
+          type: integer
+        is_published:
+          type: boolean
+        is_draft:
+          type: boolean
+        status:
+          type: string
+        pids:
+          type: object
+          description: Persistent identifiers. DataCite DOIs are minted under the 10.6082 prefix.
+        parent:
+          type: object
+        versions:
+          type: object
+        metadata:
+          $ref: '#/components/schemas/RecordMetadata'
+        access:
+          type: object
+        files:
+          type: object
+        media_files:
+          type: object
+        custom_fields:
+          type: object
+        stats:
+          type: object
+        links:
+          type: object
+          description: Includes self, self_html, doi, self_doi, parent, versions, files, archive, latest, communities and requests. Also self_iiif_manifest and self_iiif_sequence — InvenioRDM serves IIIF for record files.
+    RecordList:
+      type: object
+      properties:
+        hits:
+          type: object
+          properties:
+            total:
+              type: integer
+            hits:
+              type: array
+              items:
+                $ref: '#/components/schemas/Record'
+        aggregations:
+          type: object
+          description: Facets — access_status, file_type, resource_type.
+        sortBy:
+          type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              format: uri
+            next:
+              type: string
+              format: uri
     Creator:
       type: object
       properties:
@@ -148,70 +215,3 @@ components:
           type: integer
         message:
           type: string
-    RecordList:
-      type: object
-      properties:
-        hits:
-          type: object
-          properties:
-            total:
-              type: integer
-            hits:
-              type: array
-              items:
-                $ref: '#/components/schemas/Record'
-        aggregations:
-          type: object
-          description: Facets — access_status, file_type, resource_type.
-        sortBy:
-          type: string
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-              format: uri
-            next:
-              type: string
-              format: uri
-    Record:
-      type: object
-      properties:
-        id:
-          type: string
-        created:
-          type: string
-          format: date-time
-        updated:
-          type: string
-          format: date-time
-        revision_id:
-          type: integer
-        is_published:
-          type: boolean
-        is_draft:
-          type: boolean
-        status:
-          type: string
-        pids:
-          type: object
-          description: Persistent identifiers. DataCite DOIs are minted under the 10.6082 prefix.
-        parent:
-          type: object
-        versions:
-          type: object
-        metadata:
-          $ref: '#/components/schemas/RecordMetadata'
-        access:
-          type: object
-        files:
-          type: object
-        media_files:
-          type: object
-        custom_fields:
-          type: object
-        stats:
-          type: object
-        links:
-          type: object
-          description: Includes self, self_html, doi, self_doi, parent, versions, files, archive, latest, communities and requests. Also self_iiif_manifest and self_iiif_sequence — InvenioRDM serves IIIF for record files.

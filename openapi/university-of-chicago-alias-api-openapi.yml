@@ -175,14 +175,6 @@ paths:
       - basic_auth: []
 components:
   schemas:
-    AliasRef:
-      type: object
-      properties:
-        name:
-          type: string
-        rev:
-          type: string
-          pattern: ^[0-9a-f]{8}$
     AliasOutputInfo:
       type: object
       properties:
@@ -277,6 +269,14 @@ components:
         etag:
           type: string
           pattern: ^[0-9a-f]{32}(-\d+)?$
+    AliasRef:
+      type: object
+      properties:
+        name:
+          type: string
+        rev:
+          type: string
+          pattern: ^[0-9a-f]{8}$
   securitySchemes:
     basic_auth:
       type: http

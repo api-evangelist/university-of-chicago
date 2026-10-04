@@ -165,47 +165,20 @@ paths:
       - DOS
 components:
   schemas:
-    Checksum:
-      type: object
-      required:
-      - checksum
-      properties:
-        checksum:
-          type: string
-          description: The hex-string encoded checksum for the Data.
-        type:
-          type: string
-          description: 'The digest method used to create the checksum. If left unspecified md5
-
-            will be assumed.
-
-            possible values:
-
-            md5                # most blob stores provide a checksum using this
-
-            multipart-md5      # multipart uploads provide a specialized tag in S3
-
-            sha256
-
-            sha512'
-    URL:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          description: A URL that can be used to access the file.
-        system_metadata:
-          $ref: '#/components/schemas/SystemMetadata'
-        user_metadata:
-          $ref: '#/components/schemas/UserMetadata'
     UserMetadata:
       type: object
       additionalProperties: true
       description: 'OPTIONAL
 
         A set of key-value pairs that represent metadata provided by the uploader.'
+    SystemMetadata:
+      type: object
+      additionalProperties: true
+      description: 'OPTIONAL
+
+        These values are reported by the underlying object store.
+
+        A set of key-value pairs that represent system metadata about the object.'
     ErrorResponse:
       description: An object that can optionally include information about the error.
       type: object
@@ -216,13 +189,6 @@ components:
         status_code:
           type: integer
           description: The integer representing the HTTP status code (e.g. 200, 404).
-    GetDataObjectResponse:
-      type: object
-      required:
-      - data_object
-      properties:
-        data_object:
-          $ref: '#/components/schemas/DataObject'
     ListDataObjectsResponse:
       type: object
       properties:
@@ -241,14 +207,6 @@ components:
       description: 'A list of Data Objects matching the requested parameters, and a paging
 
         token, that can be used to retrieve more results.'
-    SystemMetadata:
-      type: object
-      additionalProperties: true
-      description: 'OPTIONAL
-
-        These values are reported by the underlying object store.
-
-        A set of key-value pairs that represent system metadata about the object.'
     DataObject:
       type: object
       required:
@@ -309,6 +267,48 @@ components:
             a directory (e.g. "bucket/folder/file.name") to make Data Objects
 
             more discoverable. They might also be used to represent'
+    Checksum:
+      type: object
+      required:
+      - checksum
+      properties:
+        checksum:
+          type: string
+          description: The hex-string encoded checksum for the Data.
+        type:
+          type: string
+          description: 'The digest method used to create the checksum. If left unspecified md5
+
+            will be assumed.
+
+            possible values:
+
+            md5                # most blob stores provide a checksum using this
+
+            multipart-md5      # multipart uploads provide a specialized tag in S3
+
+            sha256
+
+            sha512'
+    GetDataObjectResponse:
+      type: object
+      required:
+      - data_object
+      properties:
+        data_object:
+          $ref: '#/components/schemas/DataObject'
+    URL:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          description: A URL that can be used to access the file.
+        system_metadata:
+          $ref: '#/components/schemas/SystemMetadata'
+        user_metadata:
+          $ref: '#/components/schemas/UserMetadata'
   securitySchemes:
     basic_auth:
       type: http

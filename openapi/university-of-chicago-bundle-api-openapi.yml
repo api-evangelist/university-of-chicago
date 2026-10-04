@@ -141,58 +141,49 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Checksum:
-      type: object
-      required:
-      - checksum
-      properties:
-        checksum:
-          type: string
-          description: The hex-string encoded checksum for the Data.
-        type:
-          type: string
-          description: 'The digest method used to create the checksum. If left unspecified md5
-
-            will be assumed.
-
-            possible values:
-
-            md5                # most blob stores provide a checksum using this
-
-            multipart-md5      # multipart uploads provide a specialized tag in S3
-
-            sha256
-
-            sha512'
-    OutputBundle:
+    ListBundles:
       type: object
       properties:
-        id:
-          $ref: '#/components/schemas/DID'
-        form:
-          type: string
-          description: how the entry was submitted to storage
-          enum:
-          - object
-          - container
-          - multipart
-          - bundle
+        ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/DID'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputBundle'
         size:
           type: integer
           format: int64
           description: size in bytes
-        name:
+        start:
+          type: integer
+          format: int64
+          description: start index for the pagination
+        limit:
+          type: integer
+          format: int64
+          description: number of dids to return
+        file_name:
           type: string
+        urls:
+          type: array
+          items:
+            type: string
+        acl:
+          type: array
+          items:
+            type: string
+        authz:
+          type: array
+          items:
+            type: string
         checksums:
           $ref: '#/components/schemas/Checksum'
-        updated_time:
+        metadata:
+          type: object
+        version:
           type: string
-          format: date-time
-          description: last updated time
-        created_time:
-          type: string
-          format: date-time
-          description: time created
     InputBundle:
       type: object
       required:
@@ -246,9 +237,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BundleContent'
-    DID:
-      type: string
-      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
     BundleContent:
       type: object
       properties:
@@ -262,6 +250,29 @@ components:
           type: array
           items:
             type: object
+    Checksum:
+      type: object
+      required:
+      - checksum
+      properties:
+        checksum:
+          type: string
+          description: The hex-string encoded checksum for the Data.
+        type:
+          type: string
+          description: 'The digest method used to create the checksum. If left unspecified md5
+
+            will be assumed.
+
+            possible values:
+
+            md5                # most blob stores provide a checksum using this
+
+            multipart-md5      # multipart uploads provide a specialized tag in S3
+
+            sha256
+
+            sha512'
     BundleResponse:
       type: object
       properties:
@@ -273,49 +284,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OutputBundle'
-    ListBundles:
+    OutputBundle:
       type: object
       properties:
-        ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/DID'
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/OutputBundle'
+        id:
+          $ref: '#/components/schemas/DID'
+        form:
+          type: string
+          description: how the entry was submitted to storage
+          enum:
+          - object
+          - container
+          - multipart
+          - bundle
         size:
           type: integer
           format: int64
           description: size in bytes
-        start:
-          type: integer
-          format: int64
-          description: start index for the pagination
-        limit:
-          type: integer
-          format: int64
-          description: number of dids to return
-        file_name:
+        name:
           type: string
-        urls:
-          type: array
-          items:
-            type: string
-        acl:
-          type: array
-          items:
-            type: string
-        authz:
-          type: array
-          items:
-            type: string
         checksums:
           $ref: '#/components/schemas/Checksum'
-        metadata:
-          type: object
-        version:
+        updated_time:
           type: string
+          format: date-time
+          description: last updated time
+        created_time:
+          type: string
+          format: date-time
+          description: time created
+    DID:
+      type: string
+      pattern: ^.*[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
   securitySchemes:
     basic_auth:
       type: http

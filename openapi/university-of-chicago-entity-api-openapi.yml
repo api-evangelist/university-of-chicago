@@ -364,6 +364,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    schema_entity_list:
+      items:
+        $ref: '#/components/schemas/schema_entity'
+      type: array
     schema_entity:
       properties:
         '...fields specific to this entity':
@@ -371,10 +375,6 @@ components:
         type:
           type: string
       type: object
-    schema_entity_list:
-      items:
-        $ref: '#/components/schemas/schema_entity'
-      type: array
     schema_entity_bulk:
       properties:
         doc:

@@ -1326,8 +1326,6 @@ apis:
   humanURL: https://its.uchicago.edu/
   baseURL: https://shibboleth2.uchicago.edu/idp/shibboleth
   tags:
-  - GraphQL
-  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
